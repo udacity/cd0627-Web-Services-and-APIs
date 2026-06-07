@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.0.0-RC2</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.ecommerce</groupId>
+    <artifactId>rma-engine</artifactId>
+    <version>1.0.0</version>
+    <name>AI-Powered RMA Engine</name>
+    <description>Capstone: Event-driven Return Merchandise Authorization using Spring AI, Kafka, and GraphQL</description>
+
+    <properties>
+        <java.version>25</java.version>
+        <!-- Spring AI BOM version. Uses the milestone build that ships with Boot 4. -->
+        <spring-ai.version>1.0.0-M5</spring-ai.version>
+        <!-- Resilience4j – spring-boot3 artifact is compatible with Boot 3 & 4. -->
+        <resilience4j.version>2.2.0</resilience4j.version>
+        <!-- SpringDoc OpenAPI – version 2.x supports Spring Boot 3/4 WebMVC. -->
+        <springdoc.version>2.5.0</springdoc.version>
+    </properties>
+
+    <dependencies>
+
+        <!-- =========================================================
+             CORE WEB (REST + JSON)
+             Provides @RestController, @RequestBody, Jackson serialization.
+             ========================================================= -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- =========================================================
+             GRAPHQL
+             Provides @QueryMapping, Spring for GraphQL auto-config,
+             and the embedded GraphiQL playground at /graphiql.
+             ========================================================= -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-graphql</artifactId>
+        </dependency>
+
+        <!-- =========================================================
+             KAFKA (Producer + Consumer)
+             Provides KafkaTemplate, @KafkaListener, and auto-config.
+             spring-kafka-test is NOT scoped to 'test' here because
+             EmbeddedKafkaBroker (used in KafkaLocalConfig) runs inside
+             the JVM – no external Kafka or Docker required.
+             ========================================================= -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <!-- EmbeddedKafkaBroker lives here. Scope intentionally omitted
+                 so it is available at runtime (needed by KafkaLocalConfig). -->
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+        </dependency>
+
+        <!-- =========================================================
+             SPRING AI – OpenAI Chat + Embeddings
+             Provides ChatClient.Builder, EmbeddingModel, and
+             auto-configuration for the OpenAI backend.
+             Requires OPENAI_API_KEY environment variable at runtime.
+             ========================================================= -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- =========================================================
+             RESILIENCE4J – Circuit Breaker
+             Provides @CircuitBreaker, @Retry, etc.
+             AOP starter is required for the annotations to work.
+             ========================================================= -->
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-spring-boot3</artifactId>
+            <version>${resilience4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+            <version>4.0.0-M2</version>
+        </dependency>
+
+        <!-- =========================================================
+             OPENAPI / SWAGGER UI
+             Generates /swagger-ui.html and /api-docs automatically
+             from your @RestController and @Operation annotations.
+             ========================================================= -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc.version}</version>
+        </dependency>
+
+        <!-- =========================================================
+             JACKSON – JSON Serialization
+             Required for Kafka JsonSerializer/JsonDeserializer and
+             for Spring MVC's @RequestBody / @ResponseBody.
+             ========================================================= -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <!-- =========================================================
+             TESTING
+             spring-boot-starter-test: JUnit 5, Mockito, MockMvc.
+             spring-kafka-test: also brings EmbeddedKafka for tests.
+             ========================================================= -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Awaitility: poll-based assertions for async systems (Kafka consumer tests). -->
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <!-- =========================================================
+         DEPENDENCY MANAGEMENT (BOMs)
+         Spring AI BOM pins all spring-ai-* artifact versions.
+         ========================================================= -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>${spring-ai.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- =========================================================
+         REPOSITORIES
+         Spring AI milestones are not on Maven Central.
+         These repos are required to resolve spring-ai-* artifacts.
+         ========================================================= -->
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

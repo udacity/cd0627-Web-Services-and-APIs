@@ -1,0 +1,39 @@
+# ============================================================
+# TODO (Step 6 – GraphQL Schema):
+#
+# The GraphQL schema defines the types and queries your API
+# exposes. Spring for GraphQL reads this file automatically
+# at startup from src/main/resources/graphql/schema.graphqls.
+#
+# A minimal schema that matches the Java ReturnApprovedEvent
+# record is already defined below. Your tasks:
+#
+#  Task A: Verify that the field names in `ReturnApprovedEvent`
+#          below exactly match the field names in the Java record
+#          com.ecommerce.rma.event.ReturnApprovedEvent.
+#          Spring for GraphQL maps fields by name — a mismatch
+#          causes null values in query responses.
+#
+#  Task B: Add the @QueryMapping annotation in DashboardController
+#          so Spring for GraphQL can resolve the `returnsDashboard`
+#          query field.
+#
+#  Task C (Optional Extension): Add a `status` field to the schema
+#          and the Java record so the dashboard shows "APPROVED" or
+#          "PENDING" for each entry.
+# ============================================================
+
+# Represents a single approved return entry in the dashboard.
+# Fields must match com.ecommerce.rma.event.ReturnApprovedEvent exactly.
+type ReturnApprovedEvent {
+    customerId: String
+    itemType:   String
+    reason:     String
+}
+
+# Root query type — Spring for GraphQL maps this to a @QueryMapping method.
+type Query {
+    # Returns all approved return events stored in the DashboardService read-model.
+    # Maps to DashboardController.returnsDashboard() (add @QueryMapping there).
+    returnsDashboard: [ReturnApprovedEvent]
+}
