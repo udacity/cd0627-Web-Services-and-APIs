@@ -1,11 +1,9 @@
 package com.ecommerce.rma.config;
 
-import jakarta.annotation.PostConstruct;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,81 +33,26 @@ import java.util.List;
 public class AiConfig {
 
     /**
-     * Classpath resource containing the company's return-policy rules.
-     * Loaded from {@code src/main/resources/policy-seed.txt}.
-     */
-    @Value("classpath:policy-seed.txt")
-    private Resource policyFile;
-
-    /**
-     * The VectorStore bean defined in this class is injected back here by Spring
-     * so the {@code @PostConstruct} method can seed it on startup.
+     * Creates the in-memory {@link VectorStore} backed by OpenAI's text-embedding model
+     * and seeds it with the return-policy document on startup.
      *
-     * <p>Spring handles this correctly via CGLIB proxy on {@code @Configuration}
-     * classes — it will inject the same singleton bean instance.
-     */
-    @Autowired
-    private VectorStore vectorStore;
-
-    // =========================================================================
-    // TODO (Step 4 – Part A): Confirm the VectorStore bean below.
-    //
-    // The SimpleVectorStore is already instantiated for you. Review the code and
-    // understand what EmbeddingModel does:
-    //   - EmbeddingModel is auto-configured by the Spring AI OpenAI starter.
-    //   - It calls the OpenAI /embeddings endpoint to convert text → float[].
-    //   - SimpleVectorStore stores those float arrays in a Java List in memory.
-    //
-    // You do NOT need to change this bean.
-    // =========================================================================
-
-    /**
-     * Creates the in-memory {@link VectorStore} backed by OpenAI's text-embedding model.
-     *
-     * @param embeddingModel auto-configured by {@code spring-ai-openai-spring-boot-starter}
+     * @param embeddingModel auto-configured by {@code spring-ai-starter-model-openai}
+     * @param policyFile     classpath resource containing the company return-policy rules
      * @return a {@link SimpleVectorStore} that holds policy documents as embeddings
      */
     @Bean
-    public VectorStore vectorStore(EmbeddingModel embeddingModel) {
-        return SimpleVectorStore.builder(embeddingModel).build();
+    public VectorStore vectorStore(EmbeddingModel embeddingModel,
+                                   @Value("classpath:policy-seed.txt") Resource policyFile) throws IOException {
+        VectorStore store = SimpleVectorStore.builder(embeddingModel).build();
+        seedVectorStore(store, policyFile);
+        return store;
     }
 
-    // =========================================================================
-    // TODO (Step 4 – Part B): Complete the seedVectorStore() method below.
-    //
-    // Goal: Read the text from `policyFile` and store it in the VectorStore so
-    // the QuestionAnswerAdvisor can retrieve it during the policy check.
-    //
-    // Steps to implement:
-    //  1. Read the file content into a String:
-    //       String policyText = policyFile.getContentAsString(StandardCharsets.UTF_8);
-    //
-    //  2. Wrap the text in a Spring AI Document object:
-    //       Document doc = new Document(policyText);
-    //
-    //  3. Add the document to the VectorStore — this will call OpenAI's embedding
-    //     API and store the resulting vector in memory:
-    //       vectorStore.add(List.of(doc));
-    //
-    // Hint: The method signature already declares `throws IOException` to handle
-    // the file-reading operation. Make sure to import:
-    //   - org.springframework.ai.document.Document
-    //   - java.util.List
-    //   - java.nio.charset.StandardCharsets
-    // =========================================================================
-
     /**
-     * Seeds the {@link VectorStore} with the company return-policy document on
-     * application startup, before any requests are processed.
-     *
-     * <p>{@code @PostConstruct} is called by Spring after all fields are injected
-     * and the bean is fully initialized, making it safe to use {@code vectorStore}
-     * and {@code policyFile} here.
-     *
-     * @throws IOException if the policy file cannot be read from the classpath
+     * Seeds the {@link VectorStore} with the company return-policy document.
+     * Skipped when no real OpenAI API key is configured (offline / mock mode).
      */
-    @PostConstruct
-    public void seedVectorStore() throws IOException {
+    private void seedVectorStore(VectorStore vectorStore, Resource policyFile) throws IOException {
         String apiKey = System.getenv("OPENAI_API_KEY");
         if (apiKey == null || apiKey.trim().isEmpty() || "mock-key".equalsIgnoreCase(apiKey.trim())) {
             System.out.println("[AiConfig] OPENAI_API_KEY is not set or is 'mock-key'. Skipping vector store seeding to allow offline/mock runs.");

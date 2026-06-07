@@ -1,9 +1,18 @@
 package com.ecommerce.rma.config;
 
 import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.support.serializer.JsonSerializer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Configures an <b>in-memory Kafka broker</b> so the application can produce and
@@ -56,5 +65,29 @@ public class KafkaLocalConfig {
                 .partitions(1)
                 .replicas(1)
                 .build();
+    }
+
+    /**
+     * Producer factory for JSON-serialised return events ({@code ReturnApprovedEvent}).
+     * Uses the embedded broker address so tests and runtime share the same configuration.
+     */
+    @Bean
+    public ProducerFactory<String, Object> producerFactory(
+            org.springframework.kafka.test.EmbeddedKafkaBroker embeddedKafka) {
+        Map<String, Object> config = new HashMap<>();
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, embeddedKafka.getBrokersAsString());
+        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        config.put(JsonSerializer.ADD_TYPE_INFO_HEADERS, true);
+        return new DefaultKafkaProducerFactory<>(config);
+    }
+
+    /**
+     * Typed Kafka template used by {@link com.ecommerce.rma.service.RmaService} to publish
+     * {@link com.ecommerce.rma.event.ReturnApprovedEvent} payloads as JSON.
+     */
+    @Bean
+    public KafkaTemplate<String, Object> kafkaTemplate(ProducerFactory<String, Object> producerFactory) {
+        return new KafkaTemplate<>(producerFactory);
     }
 }

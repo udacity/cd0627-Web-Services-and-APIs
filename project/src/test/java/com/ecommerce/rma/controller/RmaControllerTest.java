@@ -109,4 +109,23 @@ class RmaControllerTest {
     // Bonus: After completing Step 1 (circuit breaker fallback), add a test that
     // makes the service throw a RuntimeException and verifies the fallback returns 503.
     // =========================================================================
+
+    @Test
+    void testSubmitReturn_denied_returns200WithApprovedFalse() throws Exception {
+        when(rmaService.processReturn(any(ReturnRequest.class)))
+                .thenReturn(new ReturnResponse(false, "Change of mind returns are not accepted."));
+
+        String jsonPayload = """
+                {
+                    "customerId": "CUST-456",
+                    "complaintText": "I changed my mind about this jacket."
+                }
+                """;
+
+        mockMvc.perform(post("/api/returns")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonPayload))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.approved").value(false));
+    }
 }

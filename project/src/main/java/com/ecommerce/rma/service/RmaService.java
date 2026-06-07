@@ -5,7 +5,7 @@ import com.ecommerce.rma.dto.ReturnRequest;
 import com.ecommerce.rma.dto.ReturnResponse;
 import com.ecommerce.rma.event.ReturnApprovedEvent;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
+import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.converter.BeanOutputConverter;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -63,6 +63,10 @@ public class RmaService {
      */
     public ReturnResponse processReturn(ReturnRequest request) {
 
+        if (isMockMode()) {
+            return processReturnMock(request);
+        }
+
         // =======================================================================
         // Step 3 – Structured AI Output: Complaint Analysis
         // =======================================================================
@@ -84,7 +88,7 @@ public class RmaService {
         // =======================================================================
         // Step 4 – Retrieval-Augmented Generation: Policy Check
         // =======================================================================
-        QuestionAnswerAdvisor policyAdvisor = new QuestionAnswerAdvisor(vectorStore);
+        QuestionAnswerAdvisor policyAdvisor = QuestionAnswerAdvisor.builder(vectorStore).build();
 
         String policyQuestion = """
             Based on the company return policy, should this return be approved?
@@ -110,6 +114,68 @@ public class RmaService {
                 request.customerId(),
                 analysis.itemType(),
                 policyDecision
+            );
+            kafkaTemplate.send(RETURNS_TOPIC, request.customerId(), event);
+        }
+
+        return new ReturnResponse(approved, policyDecision);
+    }
+
+    /**
+     * Returns true when no real OpenAI key is configured (offline / local dev mode).
+     */
+    private static boolean isMockMode() {
+        String apiKey = System.getenv("OPENAI_API_KEY");
+        return apiKey == null || apiKey.trim().isEmpty() || "mock-key".equalsIgnoreCase(apiKey.trim());
+    }
+
+    /**
+     * Heuristic mock pipeline for end-to-end wiring without a live OpenAI API key.
+     * Uses simple keyword rules aligned with policy-seed.txt.
+     *
+     * <p>Good-to-have: replace with a {@code @Profile("mock")} bean or Spring AI
+     * test double for richer, configurable mock responses.
+     */
+    private ReturnResponse processReturnMock(ReturnRequest request) {
+        String complaint = request.complaintText().toLowerCase();
+
+        boolean changeOfMind = complaint.contains("changed my mind") || complaint.contains("change of mind");
+        boolean defective = complaint.contains("broken") || complaint.contains("cracked")
+                || complaint.contains("defect") || complaint.contains("torn")
+                || complaint.contains("zipper") || complaint.contains("screen");
+
+        String itemType = complaint.contains("laptop") || complaint.contains("phone")
+                || complaint.contains("screen") || complaint.contains("electronic")
+                ? "electronics"
+                : complaint.contains("jacket") || complaint.contains("shirt") || complaint.contains("clothing")
+                ? "clothing"
+                : "general";
+
+        ReturnAnalysis analysis = new ReturnAnalysis(
+                defective ? "NEGATIVE" : "NEUTRAL",
+                defective,
+                itemType
+        );
+
+        String policyDecision;
+        boolean approved;
+        if (changeOfMind) {
+            approved = false;
+            policyDecision = "DENIED: Change-of-mind returns are not accepted per company policy.";
+        } else if (defective) {
+            approved = true;
+            policyDecision = "APPROVED: Defective " + analysis.itemType()
+                    + " item eligible for refund per policy guidelines.";
+        } else {
+            approved = false;
+            policyDecision = "DENIED: No qualifying defect described in the complaint.";
+        }
+
+        if (approved) {
+            var event = new ReturnApprovedEvent(
+                    request.customerId(),
+                    analysis.itemType(),
+                    policyDecision
             );
             kafkaTemplate.send(RETURNS_TOPIC, request.customerId(), event);
         }

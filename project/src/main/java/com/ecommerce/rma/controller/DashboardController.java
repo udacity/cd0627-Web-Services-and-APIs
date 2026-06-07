@@ -55,7 +55,7 @@ public class DashboardController {
     // submitted (POST /api/returns) and consumed by DashboardService.
     // =========================================================================
 
-    // TODO (Step 6): Add @QueryMapping annotation to the method below.
+    @QueryMapping
     public Collection<ReturnApprovedEvent> returnsDashboard() {
         return dashboardService.getDashboard();
     }
