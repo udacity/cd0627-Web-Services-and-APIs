@@ -1,0 +1,7 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  # TODO: Configure routes to lb://order-service for /api/orders/**
