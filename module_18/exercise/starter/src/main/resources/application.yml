@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: order-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+resilience4j:
+  retry:
+    instances:
+      payment:
+        # TODO: Configure 3 max attempts with exponential backoff
+  circuitbreaker:
+    instances:
+      payment:
+        # TODO: Configure sliding window size
+        # TODO: Configure ignoreExceptions for InvalidCreditCardException
