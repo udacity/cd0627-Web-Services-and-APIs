@@ -1,6 +1,3 @@
-# Project Details
-(Add project instructions content directly into the Studio classroom, not here.)
-
 ## Project Overview
 
 You are a Backend Engineer at a leading e-commerce platform. Recently, the customer support team has been overwhelmed by a high volume of Return Merchandise Authorization (RMA) requests. Currently, human agents must manually read every complaint, check the company's return policy, and decide whether to approve or deny the return. This process is slow, error-prone, and frustrating for customers.

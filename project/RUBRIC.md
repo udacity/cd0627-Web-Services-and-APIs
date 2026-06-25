@@ -1,5 +1,4 @@
 # Project Rubric
-(Instructors should add the rubric into the Mocha classroom directly. You may draft the rubric in the tables below first if you'd like.)
 
 The project rubric helps students understand what they need to do to meet specifications and helps reviewers evaluate submissions fairly. Each rubric consists of sections, which are groups of rubric items.
 
