@@ -1,0 +1,4 @@
+Product Manual: SuperWidget 3000
+1. Setup: Plug the widget into a 120V outlet. Do not use 240V.
+2. Calibration: Press the green button for 3 seconds to auto-calibrate.
+3. Troubleshooting: If the red light blinks, the battery is low.
