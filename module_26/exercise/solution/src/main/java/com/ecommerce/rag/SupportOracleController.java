@@ -1,7 +1,7 @@
 package com.ecommerce.rag;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
+import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
@@ -21,10 +21,9 @@ public class SupportOracleController {
     public SupportOracleController(ChatClient.Builder builder, VectorStore vectorStore) {
         this.chatClient = builder
             .defaultSystem("If the provided context does not contain the answer, reply EXACTLY with 'I do not have enough information'.")
-            .defaultAdvisors(new QuestionAnswerAdvisor(
-                vectorStore, 
-                SearchRequest.query("").withTopK(2).withSimilarityThreshold(0.80)
-            ))
+            .defaultAdvisors(QuestionAnswerAdvisor.builder(vectorStore)
+                .searchRequest(SearchRequest.builder().topK(2).similarityThreshold(0.80).build())
+                .build())
             .build();
     }
 
@@ -35,7 +34,7 @@ public class SupportOracleController {
             .call()
             .chatResponse();
 
-        String answer = response.getResult().getOutput().getContent();
+        String answer = response.getResult().getOutput().getText();
 
         @SuppressWarnings("unchecked")
         List<Document> documents = (List<Document>) response.getMetadata().get(QuestionAnswerAdvisor.RETRIEVED_DOCUMENTS);

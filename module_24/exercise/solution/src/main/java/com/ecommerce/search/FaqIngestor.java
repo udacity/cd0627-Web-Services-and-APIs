@@ -34,7 +34,7 @@ public class FaqIngestor {
         List<Document> chunks = splitter.apply(documents);
 
         for (Document chunk : chunks) {
-            String text = chunk.getContent().toLowerCase();
+            String text = chunk.getText().toLowerCase();
             if (text.contains("it") || text.contains("password") || text.contains("laptop")) {
                 chunk.getMetadata().put("category", "IT");
             } else if (text.contains("hr") || text.contains("vacation") || text.contains("payroll")) {

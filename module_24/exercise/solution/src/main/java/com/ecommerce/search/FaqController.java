@@ -24,14 +24,14 @@ public class FaqController {
             @RequestParam String query,
             @RequestParam(required = false) String category) {
         
-        SearchRequest request = SearchRequest.query(query).withTopK(3);
+        SearchRequest.Builder request = SearchRequest.builder().query(query).topK(3);
         
         if (category != null && !category.isBlank()) {
-            request = request.withFilterExpression("category == '" + category + "'");
+            request = request.filterExpression("category == '" + category + "'");
         }
         
-        return vectorStore.similaritySearch(request).stream()
-                .map(Document::getContent)
+        return vectorStore.similaritySearch(request.build()).stream()
+                .map(Document::getText)
                 .collect(Collectors.toList());
     }
 }

@@ -1,20 +1,23 @@
 package com.ecommerce.agent;
 
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AgentController {
+    private final ChatClient chatClient;
 
-    private final TravelAssistant travelAssistant;
-
-    public AgentController(TravelAssistant travelAssistant) {
-        this.travelAssistant = travelAssistant;
+    public AgentController(ChatClient.Builder builder) {
+        this.chatClient = builder
+                .defaultSystem("You are an expert travel assistant. You have access to tools to check flights and weather.")
+                .defaultTools("checkFlight", "getWeather")
+                .build();
     }
 
-    @GetMapping("/api/agent/chat")
-    public String chat(@RequestParam String message) {
-        return travelAssistant.chat(message);
+    @GetMapping("/ask")
+    public String ask(@RequestParam String message) {
+        return chatClient.prompt().user(message).call().content();
     }
 }

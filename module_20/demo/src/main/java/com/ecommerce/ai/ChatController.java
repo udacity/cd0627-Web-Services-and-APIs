@@ -36,7 +36,7 @@ public class ChatController {
     public String toolChat() {
         return chatClient.prompt()
                 .user("What is today's date?")
-                .functions("getCurrentDate")
+                .tools("getCurrentDate")
                 .call()
                 .content();
     }

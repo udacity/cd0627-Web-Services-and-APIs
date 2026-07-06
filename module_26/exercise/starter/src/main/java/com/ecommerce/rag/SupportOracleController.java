@@ -1,7 +1,7 @@
 package com.ecommerce.rag;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
+import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +16,9 @@ public class SupportOracleController {
     private final ChatClient chatClient;
 
     public SupportOracleController(ChatClient.Builder builder, VectorStore vectorStore) {
-        // TODO: Configure QuestionAnswerAdvisor with a custom SearchRequest (.withTopK(2).withSimilarityThreshold(0.80))
+        // TODO: Configure QuestionAnswerAdvisor with a custom SearchRequest (.topK(2).similarityThreshold(0.80))
         this.chatClient = builder
-            // .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.query("").withTopK(2).withSimilarityThreshold(0.80)))
+            // .defaultAdvisors(QuestionAnswerAdvisor.builder(vectorStore).searchRequest(SearchRequest.builder().topK(2).similarityThreshold(0.80).build()).build())
             // TODO: Inject a strict system prompt regarding out-of-scope questions
             // .defaultSystem("If the provided context does not contain the answer, reply EXACTLY with 'I do not have enough information'.")
             .build();

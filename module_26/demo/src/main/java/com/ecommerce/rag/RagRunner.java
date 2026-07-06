@@ -1,7 +1,7 @@
 package com.ecommerce.rag;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
+import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ public class RagRunner implements CommandLineRunner {
 
     public RagRunner(ChatClient.Builder builder, VectorStore vectorStore) {
         this.chatClient = builder
-            .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore, org.springframework.ai.vectorstore.SearchRequest.defaults()))
+            .defaultAdvisors(QuestionAnswerAdvisor.builder(vectorStore).build())
             .build();
     }
 

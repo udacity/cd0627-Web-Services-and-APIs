@@ -6,7 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AgentController {
+    
+    // TODO: Inject ChatClient and configure it with System message, functions and memory
 
-    // TODO: Inject the TravelAssistant
-    // Create a GET /api/agent/chat endpoint that takes a 'message' query param and returns the assistant's response.
+    @GetMapping("/ask")
+    public String ask(@RequestParam String message) {
+        // TODO: Call ChatClient
+        return "";
+    }
 }

@@ -11,7 +11,7 @@ public class InventoryConsumer {
 
     @RetryableTopic(
         attempts = "3", 
-        backoff = @Backoff(delay = 1000, multiplier = 2.0),
+        
         exclude = MalformedOrderException.class
     )
     @KafkaListener(topics = "order-events", groupId = "inventory-group")
