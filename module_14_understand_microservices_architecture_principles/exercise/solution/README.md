@@ -1,13 +1,22 @@
-# Module 14 - Spring Caching - Solution
+# Module 14 - Microservices Architecture Principles - Solution
 
 ## Solution Walkthrough
 
-The solution drastically improves read performance. The framework intercepts calls, checks the in-memory cache manager, and returns the cached value if present.
+The solution successfully decouples the domains into separate Spring Boot applications that communicate via well-defined REST contracts.
 
 ### `OrderController.java` — The Implementation
 
 ```java
-@PostMapping("/orders")
+@RestController
+public class OrderController {
+
+    private final InventoryClient inventoryClient;
+
+    public OrderController(InventoryClient inventoryClient) {
+        this.inventoryClient = inventoryClient;
+    }
+
+    @PostMapping("/orders")
     public ResponseEntity<String> placeOrder(@RequestParam String productId) {
         // Network Bridge: Synchronous REST call to check inventory
         InventoryClient.InventoryResponse response = inventoryClient.checkInventory(productId);
@@ -22,24 +31,15 @@ The solution drastically improves read performance. The framework intercepts cal
 
 ### Step-by-step Design Decisions:
 
-| Step | Operation | Purpose |
-|------|-----------|----------------|
-| 1 | `@EnableCaching` | Add `@EnableCaching` to the main application class. |
-| 2 | `@Cacheable("products")` | Annotate the read method with `@Cacheable("products")`. |
-| 3 | `@CacheEvict` | Annotate the update/delete methods with `@CacheEvict` to prevent stale data. |
+| Step | Task |
+|------|-----------|
+| 1 | In the `order-service` project, implement an HTTP client to verify inventory via the `inventory-service`. |
+| 2 | Ensure the services can run on separate ports simultaneously. |
 
-
-### Expected Output
-
-```
-══════════════════════════════════════════
- Integration Successful 
-══════════════════════════════════════════
-```
 
 ### Key Concepts Demonstrated
-- **`@Cacheable` for read-through caching**
-- **`@CacheEvict` for cache invalidation**
+- **Microservices Decomposition**
+- **Inter-service communication**
 
 ## How to Run
 ```bash

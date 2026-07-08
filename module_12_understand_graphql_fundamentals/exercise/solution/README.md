@@ -1,8 +1,8 @@
-# Module 12 - Jakarta Validation - Solution
+# Module 12 - GraphQL Fundamentals - Solution
 
 ## Solution Walkthrough
 
-The solution guarantees valid incoming data by annotating DTOs with rules like `@NotNull`. The `@Valid` annotation ensures Spring intercepts and rejects invalid requests before method execution.
+The solution implements a robust GraphQL schema and maps it to Java controllers using Spring for GraphQL annotations.
 
 ### `CustomerRepository.java` — The Implementation
 
@@ -30,24 +30,15 @@ public class CustomerRepository {
 
 ### Step-by-step Design Decisions:
 
-| Step | Operation | Purpose |
+| Step | Task | Target File |
 |------|-----------|----------------|
-| 1 | `@NotBlank` | Add `@NotBlank` and `@Positive` to the fields in your Request DTO. |
-| 2 | `@Valid` | Add `@Valid` to the `@RequestBody` parameter in your controller. |
-| 3 | Step 3 | Verify that invalid payloads are rejected automatically. |
+| 1 | 1: Implement a naïve `@SchemaMapping` for "customer" on "Order". | `src/main/java/com/ecommerce/graphql/OrderController.java` |
+| 2 | 2: Once you see the N+1 problem, comment out the `@SchemaMapping` and replace it with `@BatchMapping`. | `src/main/java/com/ecommerce/graphql/OrderController.java` |
 
-
-### Expected Output
-
-```
-══════════════════════════════════════════
- Integration Successful 
-══════════════════════════════════════════
-```
 
 ### Key Concepts Demonstrated
-- **Jakarta Validation constraints**
-- **`@Valid` for edge validation**
+- **GraphQL Schemas**
+- **`@QueryMapping` and `@SchemaMapping`**
 
 ## How to Run
 ```bash

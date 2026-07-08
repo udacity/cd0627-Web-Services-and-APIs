@@ -1,30 +1,29 @@
-# Module 18 - Pagination and Sorting - Exercise Instructions
+# Module 18 - Circuit Breaker and Resilience Patterns - Exercise Instructions
 
 ## Exercise Overview
 
-The `/orders` endpoint is crashing the server because it tries to return 1,000,000 records at once. You must implement pagination to return data in manageable chunks.
+The payment downstream service is flaky and causing your entire order API to crash. You need to implement the Circuit Breaker pattern using Resilience4j to fail fast and provide a fallback response.
 
 ---
 
 ## Prerequisites
-- **Java 25**
+- **Java 21+**
 - **Maven 3.9+**
 
 ---
 
 ## Step-by-Step Implementation Guide
 
-### Step 1
-Update the repository method to accept a `Pageable` argument.
+| Step | Task | Target File |
+|------|-----------|----------------|
+| 1 | Add `@CircuitBreaker` with fallbackMethod | `src/main/java/com/ecommerce/resilience/OrderController.java` |
+| 2 | Add `@Retry` | `src/main/java/com/ecommerce/resilience/OrderController.java` |
+| 3 | Implement fallback method returning a "PENDING - Will process asynchronously" payload | `src/main/java/com/ecommerce/resilience/OrderController.java` |
 
-### Step 2
-Modify the controller to accept a `Pageable` parameter.
-
-### Step 3
-Return a `Page<Order>` instead of a `List<Order>`.
 
 > [!IMPORTANT]
 > Ensure you compile frequently and check for syntax errors as you build out the implementation.
+> Follow the `// TODO (Step X)` comments in the starter code!
 
 ---
 
@@ -38,5 +37,5 @@ mvn spring-boot:run
 
 ## Success Criteria
 
-- [ ] Hitting `/orders?page=0&size=10` returns exactly 10 records.
-- [ ] The response includes metadata like `totalElements`.
+- [ ] When the payment service fails, the fallback is triggered.
+- [ ] The circuit trips open after repeated failures, preventing further downstream calls.

@@ -1,12 +1,13 @@
-# Module 8 - Global Error Handling - Solution
+# Module 8 - Error Handling and Problem Details - Solution
 
 ## Solution Walkthrough
 
-The solution centralizes exception management. Whenever a specific exception is thrown, the advice intercepts it and builds a structured `ProblemDetail` object.
+The solution centralizes exception management. When an exception occurs, the advice builds a structured `ProblemDetail` object.
 
 ### `OrderController.java` — The Implementation
 
 ```java
+@RestController
 @RequestMapping("/orders")
 public class OrderController {
 
@@ -21,23 +22,16 @@ public class OrderController {
 
 ### Step-by-step Design Decisions:
 
-| Step | Operation | Purpose |
+| Step | Task | Target File |
 |------|-----------|----------------|
-| 1 | `GlobalExceptionHandler` | Create a `GlobalExceptionHandler` class annotated with `@RestControllerAdvice`. |
-| 2 | `@ExceptionHandler(OrderNotFoundException.class)` | Write a method annotated with `@ExceptionHandler(OrderNotFoundException.class)`. |
-| 3 | `ProblemDetail` | Return a `ProblemDetail` object with a 404 status. |
+| 1 | 1: Add Exception.class handler returning static support message (500) | `src/main/java/com/ecommerce/order/GlobalRestExceptionHandler.java` |
+| 2 | 2: Add OrderNotFoundException handler returning 404 | `src/main/java/com/ecommerce/order/GlobalRestExceptionHandler.java` |
+| 3 | 3: Add InvalidOrderStateException handler returning 422 (UNPROCESSABLE_ENTITY) | `src/main/java/com/ecommerce/order/GlobalRestExceptionHandler.java` |
+| 4 | 4: Add MethodArgumentNotValidException handler returning 400. Iterate through BindingResult to format custom error string. | `src/main/java/com/ecommerce/order/GlobalRestExceptionHandler.java` |
 
-
-### Expected Output
-
-```
-══════════════════════════════════════════
- Integration Successful 
-══════════════════════════════════════════
-```
 
 ### Key Concepts Demonstrated
-- **`@RestControllerAdvice` for cross-cutting error handling**
+- **`@RestControllerAdvice`**
 - **RFC 7807 `ProblemDetail` specification**
 
 ## How to Run

@@ -1,35 +1,41 @@
-# Module 28 - Spring Kafka and DLQs - Solution
+# Module 28 - Asynchronous Messaging Systems - Solution
 
 ## Solution Walkthrough
 
-The solution ensures resilient event processing. By combining `@KafkaListener` with `@RetryableTopic`, transient exceptions are retried, while exhausted or fatal messages are routed safely to a Dead Letter Topic.
+The solution ensures resilient event processing by combining `@KafkaListener` with `@RetryableTopic`.
 
 ### `KafkaLocalConfig.java` — The Implementation
 
 ```java
-@Bean
+public class KafkaLocalConfig {
+
+    public static final String TOPIC = "orders-topic";
+
+    @Bean
     public EmbeddedKafkaBroker embeddedKafka() {
         return new EmbeddedKafkaKraftBroker(1, 1, TOPIC)
                 .kafkaPorts(9092);
     }
+
+    @Bean
+    public NewTopic ordersTopic() {
+        return TopicBuilder.name(TOPIC)
+                .partitions(1)
+                .replicas(1)
+                .build();
+    }
+}
 ```
 
 ### Step-by-step Design Decisions:
 
-| Step | Operation | Purpose |
+| Step | Task | Target File |
 |------|-----------|----------------|
-| 1 | `@KafkaListener` | Annotate your consumer method with `@KafkaListener`. |
-| 2 | `@RetryableTopic` | Add `@RetryableTopic` to automatically route failures to a backoff topic. |
-| 3 | Step 3 | Exclude specific fatal exceptions from being retried. |
+| 1 | Add `@RetryableTopic` here with 3 attempts. | `src/main/java/com/ecommerce/kafka/InventoryConsumer.java` |
+| 2 | Configure exponential `@Backoff` (e.g. wait 1s, then 2s, then 4s). | `src/main/java/com/ecommerce/kafka/InventoryConsumer.java` |
+| 3 | Exclude MalformedOrderException.class from retries entirely. | `src/main/java/com/ecommerce/kafka/InventoryConsumer.java` |
+| 4 | Create beans for EmbeddedKafkaBroker and NewTopic | `src/main/java/com/ecommerce/kafka/KafkaLocalConfig.java` |
 
-
-### Expected Output
-
-```
-══════════════════════════════════════════
- Integration Successful 
-══════════════════════════════════════════
-```
 
 ### Key Concepts Demonstrated
 - **`@KafkaListener` for message consumption**

@@ -14,6 +14,6 @@ public class OrderSaga {
 
     @EventListener
     public void onPaymentFailed(PaymentFailedEvent event) {
-        // TODO: Issue a CancelOrderCommand to the write service
+        // TODO (Step 5): Issue a CancelOrderCommand to the write service
     }
 }

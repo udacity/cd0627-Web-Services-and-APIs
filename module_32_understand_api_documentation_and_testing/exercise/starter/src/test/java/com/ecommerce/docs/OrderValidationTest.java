@@ -10,8 +10,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-// TODO: Write a WebMvcTest for invalid payload
-// TODO: Assert HTTP 400 and RFC 7807 problem detail fields
+// TODO (Step 5): Write a WebMvcTest for invalid payload
+// TODO (Step 6): Assert HTTP 400 and RFC 7807 problem detail fields
 @WebMvcTest(OrderController.class)
 class OrderValidationTest {
 
@@ -23,10 +23,10 @@ class OrderValidationTest {
 
     @Test
     void emptyItemIds_returnsBadRequest() throws Exception {
-        // TODO: Submit POST /orders with {"itemIds":[]}
-        // TODO: Assert status is 400 Bad Request
-        // TODO: Assert jsonPath("$.type") exists
-        // TODO: Assert jsonPath("$.title").value("Bad Request")
-        // TODO: Assert jsonPath("$.detail") contains "empty"
+        // TODO (Step 7): Submit POST /orders with {"itemIds":[]}
+        // TODO (Step 8): Assert status is 400 Bad Request
+        // TODO (Step 9): Assert jsonPath("$.type") exists
+        // TODO (Step 10): Assert jsonPath("$.title").value("Bad Request")
+        // TODO (Step 11): Assert jsonPath("$.detail") contains "empty"
     }
 }

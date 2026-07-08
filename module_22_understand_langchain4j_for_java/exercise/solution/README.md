@@ -1,38 +1,35 @@
-# Module 22 - Spring AI - Output Converters - Solution
+# Module 22 - LangChain4j for Java - Solution
 
 ## Solution Walkthrough
 
-The solution extracts structured data from the LLM. The converter automatically generates format instructions detailing the required JSON schema, and then parses the response back into a strongly-typed Java Record.
+The solution implements a LangChain4j AI Service. The framework seamlessly intercepts the LLM's request to run a tool, executes the local Java method, and returns the context to the LLM.
 
-### `AgentController.java` — The Implementation
+### `TravelAssistant.java` — The Implementation
 
 ```java
-@GetMapping("/ask")
-    public String ask(@RequestParam String message) {
-        return chatClient.prompt().user(message).call().content();
-    }
+@AiService
+public interface TravelAssistant {
+    @SystemMessage("You are an expert travel assistant. You have access to tools to check flights and weather.")
+    String chat(String userMessage);
+}
 ```
 
 ### Step-by-step Design Decisions:
 
-| Step | Operation | Purpose |
+| Step | Task | Target File |
 |------|-----------|----------------|
-| 1 | `BeanOutputConverter` | Create a `BeanOutputConverter` for your target Record class. |
-| 2 | Step 2 | Append the converter's format instructions to your prompt. |
-| 3 | Step 3 | Use the converter to parse the AI's string response into a Java object. |
+| 1 | Import AiService and SystemMessage from langchain4j | `src/main/java/com/ecommerce/agent/TravelAssistant.java` |
+| 2 | Annotate this interface with `@AiService` | `src/main/java/com/ecommerce/agent/TravelAssistant.java` |
+| 3 | Add `@SystemMessage` defining the persona | `src/main/java/com/ecommerce/agent/TravelAssistant.java` |
+| 4 | Inject TravelAssistant | `src/main/java/com/ecommerce/agent/AgentController.java` |
+| 5 | Call travelAssistant.chat(message) | `src/main/java/com/ecommerce/agent/AgentController.java` |
+| 6 | Annotate with `@Tool` and provide a description | `src/main/java/com/ecommerce/agent/Tools.java` |
+| 7 | Annotate with `@Tool` and provide a description | `src/main/java/com/ecommerce/agent/Tools.java` |
 
-
-### Expected Output
-
-```
-══════════════════════════════════════════
- Integration Successful 
-══════════════════════════════════════════
-```
 
 ### Key Concepts Demonstrated
-- **`BeanOutputConverter`**
-- **Prompt Templates for format instructions**
+- **LangChain4j `@AiService`**
+- **Tool calling / Function calling**
 
 ## How to Run
 ```bash

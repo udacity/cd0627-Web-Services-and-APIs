@@ -1,33 +1,30 @@
-# Module 28 - Spring Kafka and DLQs
+# Module 28 - Asynchronous Messaging Systems
 
 ## Demo Walkthrough
 
-This demo introduces asynchronous messaging with Spring Kafka. We tackle failure scenarios by showcasing Dead Letter Queues (DLQs) to prevent toxic messages from blocking the partition.
+This demo introduces asynchronous messaging with Spring Kafka and tackles failure scenarios using DLQs.
 
 ### `KafkaLocalConfig.java` — Core Implementation
 
 ```java
-@Bean
+public class KafkaLocalConfig {
+
+    public static final String TOPIC = "orders-topic";
+
+    @Bean
     public EmbeddedKafkaBroker embeddedKafka() {
         return new EmbeddedKafkaKraftBroker(1, 1, TOPIC)
                 .kafkaPorts(9092);
     }
-```
 
-### Execution Workflow
-
-| Step | Operation | Purpose |
-|------|-----------|----------------|
-| 1 | `@KafkaListener` | Annotate your consumer method with `@KafkaListener`. |
-| 2 | `@RetryableTopic` | Add `@RetryableTopic` to automatically route failures to a backoff topic. |
-| 3 | Step 3 | Exclude specific fatal exceptions from being retried. |
-
-
-### Expected Output
-
-```
-Application started successfully.
-Expected API behaviors active.
+    @Bean
+    public NewTopic ordersTopic() {
+        return TopicBuilder.name(TOPIC)
+                .partitions(1)
+                .replicas(1)
+                .build();
+    }
+}
 ```
 
 ### Key Concepts Demonstrated

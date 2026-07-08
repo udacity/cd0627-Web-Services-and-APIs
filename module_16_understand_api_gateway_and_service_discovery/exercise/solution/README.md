@@ -1,8 +1,8 @@
-# Module 16 - Testing Slices - Solution
+# Module 16 - API Gateway and Service Discovery - Solution
 
 ## Solution Walkthrough
 
-The solution provides robust test coverage. The `@WebMvcTest` isolates the web layer, while the `@DataJpaTest` verifies the repository logic without loading the full application context.
+The solution implements dynamic routing. The Gateway acts as the single entrypoint, querying Eureka to find healthy service instances and routing the request appropriately.
 
 ### `CorrelationIdFilter.java` — The Implementation
 
@@ -27,31 +27,22 @@ public class CorrelationIdFilter implements GlobalFilter {
 
         return chain.filter(modifiedExchange);
     }
-    // ...
 }
 ```
 
 ### Step-by-step Design Decisions:
 
-| Step | Operation | Purpose |
-|------|-----------|----------------|
-| 1 | `@WebMvcTest` | Write a `@WebMvcTest` for the controller, mocking the service layer. |
-| 2 | `MockMvc` | Use `MockMvc` to perform a GET request and assert the JSON path. |
-| 3 | `@DataJpaTest` | Write a `@DataJpaTest` to verify custom repository queries against an embedded database. |
+| Step | Task |
+|------|-----------|
+| 1 | Configure the `eureka-server` to act as the service registry. |
+| 2 | Configure `api-gateway` routes using Spring Cloud Gateway. |
+| 3 | Implement a `CorrelationIdFilter` in the gateway to attach tracking headers to all requests. |
 
-
-### Expected Output
-
-```
-══════════════════════════════════════════
- Integration Successful 
-══════════════════════════════════════════
-```
 
 ### Key Concepts Demonstrated
-- **`@WebMvcTest` for web layer isolation**
-- **`MockMvc` for HTTP assertions**
-- **`@DataJpaTest` for database testing**
+- **Eureka Service Registry**
+- **Spring Cloud Gateway**
+- **Global Filters**
 
 ## How to Run
 ```bash

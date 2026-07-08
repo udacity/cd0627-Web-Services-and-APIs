@@ -16,11 +16,11 @@ public class OrderController {
         this.customerClient = customerClient;
     }
 
-    // TODO 1: Implement GET /orders/{id}. Use ResponseEntity.ok(). Include customer name via customerClient.
+    // TODO (Step 1) 1: Implement GET /orders/{id}. Use ResponseEntity.ok(). Include customer name via customerClient.
     
-    // TODO 2: Implement POST /orders. Use ResponseEntity.created() to return 201 Created.
+    // TODO (Step 2) 2: Implement POST /orders. Use ResponseEntity.created() to return 201 Created.
 
-    // TODO 3: Implement POST /orders/{id}/cancel. Return 404 if order not found (mock it by checking id > 100), otherwise return 204 No Content.
+    // TODO (Step 3) 3: Implement POST /orders/{id}/cancel. Return 404 if order not found (mock it by checking id > 100), otherwise return 204 No Content.
 
-    // TODO 4: Implement GET /orders/{id} for version 2 (e.g. headers="version=2"). Add an "orderSummary" field to the response.
+    // TODO (Step 4) 4: Implement GET /orders/{id} for version 2 (e.g. headers="version=2"). Add an "orderSummary" field to the response.
 }

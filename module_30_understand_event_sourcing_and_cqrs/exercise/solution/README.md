@@ -1,8 +1,8 @@
-# Module 30 - CQRS with Spring Events - Solution
+# Module 30 - Event Sourcing and CQRS - Solution
 
 ## Solution Walkthrough
 
-The solution implements a lightweight CQRS architecture without heavy frameworks. The Write Service processes commands and acts as the event source, while the Read Service asynchronously consumes events to build an optimized projection.
+The solution implements a lightweight CQRS architecture where the Write Service acts as the event source and the Read Service builds an optimized projection.
 
 ### `OrderWriteService.java` — The Implementation
 
@@ -27,30 +27,30 @@ public class OrderWriteService {
         OrderCancelledEvent event = new OrderCancelledEvent(cmd.orderId(), cmd.reason());
         EVENT_STORE.add(event);
         publisher.publishEvent(event);
-    // ...
+    }
 }
 ```
 
 ### Step-by-step Design Decisions:
 
-| Step | Operation | Purpose |
+| Step | Task | Target File |
 |------|-----------|----------------|
-| 1 | `ApplicationEventPublisher` | Publish an event using `ApplicationEventPublisher` when a write occurs. |
-| 2 | `@EventListener` | Create a separate read service with an `@EventListener` method. |
-| 3 | Step 3 | Update a read-optimized data structure when the event is received. |
+| 1 | Put a new OrderView into READ_MODEL with status "PLACED" | `src/main/java/com/ecommerce/cqrs/OrderReadService.java` |
+| 2 | Update the OrderView status to "CANCELLED" | `src/main/java/com/ecommerce/cqrs/OrderReadService.java` |
+| 3 | Iterate over OrderWriteService.EVENT_STORE | `src/main/java/com/ecommerce/cqrs/OrderReadService.java` |
+| 4 | For each event, if OrderPlacedEvent put new view, if OrderCancelledEvent update status. | `src/main/java/com/ecommerce/cqrs/OrderReadService.java` |
+| 5 | Issue a CancelOrderCommand to the write service | `src/main/java/com/ecommerce/cqrs/OrderSaga.java` |
+| 6 | Instantiate an OrderPlacedEvent | `src/main/java/com/ecommerce/cqrs/OrderWriteService.java` |
+| 7 | Append to EVENT_STORE | `src/main/java/com/ecommerce/cqrs/OrderWriteService.java` |
+| 8 | Publish event | `src/main/java/com/ecommerce/cqrs/OrderWriteService.java` |
+| 9 | Instantiate an OrderCancelledEvent | `src/main/java/com/ecommerce/cqrs/OrderWriteService.java` |
+| 10 | Append to EVENT_STORE | `src/main/java/com/ecommerce/cqrs/OrderWriteService.java` |
+| 11 | Publish event | `src/main/java/com/ecommerce/cqrs/OrderWriteService.java` |
 
-
-### Expected Output
-
-```
-══════════════════════════════════════════
- Integration Successful 
-══════════════════════════════════════════
-```
 
 ### Key Concepts Demonstrated
 - **Command Query Responsibility Segregation (CQRS)**
-- **Spring `@EventListener` and `ApplicationEventPublisher`**
+- **Event Sourcing**
 
 ## How to Run
 ```bash

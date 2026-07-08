@@ -26,11 +26,11 @@ public class OrderController {
         return orderRepository.findAll();
     }
 
-    // TODO 1: Implement a naïve @SchemaMapping for "customer" on "Order".
+    // TODO (Step 1) 1: Implement a naïve @SchemaMapping for "customer" on "Order".
     // It should use customerRepository.findById(order.customerId()).
     // Add a log statement to observe the N+1 problem in the console when querying.
     // 
-    // TODO 2: Once you see the N+1 problem, comment out the @SchemaMapping and replace it with @BatchMapping.
+    // TODO (Step 2) 2: Once you see the N+1 problem, comment out the @SchemaMapping and replace it with @BatchMapping.
     // The @BatchMapping should take a List<Order> and return a Map<Order, Customer>.
     // It should use customerRepository.findAllByIds() to fetch all customers in ONE call.
 }

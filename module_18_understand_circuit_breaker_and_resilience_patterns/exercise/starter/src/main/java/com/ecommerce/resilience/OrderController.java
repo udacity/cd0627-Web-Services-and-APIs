@@ -15,12 +15,12 @@ public class OrderController {
         this.paymentClient = paymentClient;
     }
 
-    // TODO: Add @CircuitBreaker with fallbackMethod
-    // TODO: Add @Retry
+    // TODO (Step 1): Add @CircuitBreaker with fallbackMethod
+    // TODO (Step 2): Add @Retry
     @GetMapping("/api/checkout")
     public Map<String, Object> checkout(@RequestParam(defaultValue = "VALID") String type) {
         return paymentClient.processPayment(type);
     }
 
-    // TODO: Implement fallback method returning a "PENDING - Will process asynchronously" payload
+    // TODO (Step 3): Implement fallback method returning a "PENDING - Will process asynchronously" payload
 }

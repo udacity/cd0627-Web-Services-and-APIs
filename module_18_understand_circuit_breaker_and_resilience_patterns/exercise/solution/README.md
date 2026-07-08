@@ -1,13 +1,15 @@
-# Module 18 - Pagination and Sorting - Solution
+# Module 18 - Circuit Breaker and Resilience Patterns - Solution
 
 ## Solution Walkthrough
 
-The solution implements efficient data retrieval. Spring automatically maps query parameters to the `Pageable` object, which the repository uses to execute optimized paginated queries.
+The solution guarantees system resilience. The `@CircuitBreaker` annotation wraps the fragile call, tripping open to protect downstream systems and returning a graceful fallback.
 
 ### `OrderController.java` — The Implementation
 
 ```java
-@GetMapping("/api/checkout")
+@CircuitBreaker(name = "payment", fallbackMethod = "paymentFallback")
+    @Retry(name = "payment")
+    @GetMapping("/api/checkout")
     public Map<String, Object> checkout(@RequestParam(defaultValue = "VALID") String type) {
         return paymentClient.processPayment(type);
     }
@@ -15,24 +17,16 @@ The solution implements efficient data retrieval. Spring automatically maps quer
 
 ### Step-by-step Design Decisions:
 
-| Step | Operation | Purpose |
+| Step | Task | Target File |
 |------|-----------|----------------|
-| 1 | `Pageable` | Update the repository method to accept a `Pageable` argument. |
-| 2 | `Pageable` | Modify the controller to accept a `Pageable` parameter. |
-| 3 | `Page<Order>` | Return a `Page<Order>` instead of a `List<Order>`. |
+| 1 | Add `@CircuitBreaker` with fallbackMethod | `src/main/java/com/ecommerce/resilience/OrderController.java` |
+| 2 | Add `@Retry` | `src/main/java/com/ecommerce/resilience/OrderController.java` |
+| 3 | Implement fallback method returning a "PENDING - Will process asynchronously" payload | `src/main/java/com/ecommerce/resilience/OrderController.java` |
 
-
-### Expected Output
-
-```
-══════════════════════════════════════════
- Integration Successful 
-══════════════════════════════════════════
-```
 
 ### Key Concepts Demonstrated
-- **Spring Data `Pageable`**
-- **Automatic query translation for `LIMIT` and `OFFSET`**
+- **Resilience4j Circuit Breaker**
+- **Fallback Methods**
 
 ## How to Run
 ```bash

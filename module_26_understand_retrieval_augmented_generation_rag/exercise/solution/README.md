@@ -1,13 +1,24 @@
-# Module 26 - RAG (Retrieval-Augmented Generation) - Solution
+# Module 26 - Retrieval-Augmented Generation (RAG) - Solution
 
 ## Solution Walkthrough
 
-The solution implements a robust RAG pipeline. The `QuestionAnswerAdvisor` intercepts the prompt, performs a semantic search, injects the retrieved documents into the context, and routes it to the LLM.
+The solution implements a robust RAG pipeline. The `QuestionAnswerAdvisor` intercepts the prompt, performs a semantic search, injects documents, and routes to the LLM.
 
 ### `CorpusIngestor.java` — The Implementation
 
 ```java
-@EventListener(ApplicationReadyEvent.class)
+public class CorpusIngestor {
+
+    private final VectorStore vectorStore;
+
+    @Value("classpath:product-manual.txt")
+    private Resource manualResource;
+
+    public CorpusIngestor(VectorStore vectorStore) {
+        this.vectorStore = vectorStore;
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
     public void ingestOnStartup() {
         TextReader textReader = new TextReader(manualResource);
         textReader.getCustomMetadata().put("source", "product-manual.txt");
@@ -19,24 +30,18 @@ The solution implements a robust RAG pipeline. The `QuestionAnswerAdvisor` inter
         vectorStore.add(chunks);
         System.out.println("Product Manual ingested into PGVector.");
     }
+}
 ```
 
 ### Step-by-step Design Decisions:
 
-| Step | Operation | Purpose |
+| Step | Task | Target File |
 |------|-----------|----------------|
-| 1 | `ChatClient` | Configure the `ChatClient` with a `QuestionAnswerAdvisor`. |
-| 2 | `VectorStore` | Pass the `VectorStore` and a `SearchRequest` to the advisor. |
-| 3 | Step 3 | Define a strict system prompt instructing the AI to only use the provided context. |
+| 1 | Create a bean for SimpleVectorStore | `src/main/java/com/ecommerce/rag/RagConfig.java` |
+| 2 | Configure QuestionAnswerAdvisor with a custom SearchRequest (.topK(2).similarityThreshold(0.80)) | `src/main/java/com/ecommerce/rag/SupportOracleController.java` |
+| 3 | Inject a strict system prompt regarding out-of-scope questions | `src/main/java/com/ecommerce/rag/SupportOracleController.java` |
+| 4 | Execute prompt, return answer and extract sources from context metadata | `src/main/java/com/ecommerce/rag/SupportOracleController.java` |
 
-
-### Expected Output
-
-```
-══════════════════════════════════════════
- Integration Successful 
-══════════════════════════════════════════
-```
 
 ### Key Concepts Demonstrated
 - **Retrieval-Augmented Generation (RAG)**

@@ -1,30 +1,33 @@
-# Module 26 - RAG (Retrieval-Augmented Generation) - Exercise Instructions
+# Module 26 - Retrieval-Augmented Generation (RAG) - Exercise Instructions
 
 ## Exercise Overview
 
-You want the AI to answer customer support questions, but it hallucinates answers about policies it doesn't know. You must implement the RAG pattern using `QuestionAnswerAdvisor` to ground the AI in your specific documents.
+You want the AI to answer customer support questions, but it hallucinates answers. You must implement the RAG pattern to ground the AI in your specific documents.
 
 ---
 
 ## Prerequisites
-- **Java 25**
+- **Java 21+**
 - **Maven 3.9+**
 
 ---
 
 ## Step-by-Step Implementation Guide
 
-### Step 1
-Configure the `ChatClient` with a `QuestionAnswerAdvisor`.
+> [!NOTE]
+> **Deep Dive:** The `QuestionAnswerAdvisor` automatically intercepts the LLM call. Before the request goes to the LLM, the Advisor takes the user's prompt, embeds it into a vector, performs a cosine similarity search against the provided `VectorStore`, extracts the matching documents, and injects them into the prompt's context window. This ensures the LLM grounds its answers in your data.
 
-### Step 2
-Pass the `VectorStore` and a `SearchRequest` to the advisor.
+| Step | Task | Target File |
+|------|-----------|----------------|
+| 1 | Create a bean for SimpleVectorStore | `src/main/java/com/ecommerce/rag/RagConfig.java` |
+| 2 | Configure QuestionAnswerAdvisor with a custom SearchRequest (.topK(2).similarityThreshold(0.80)) | `src/main/java/com/ecommerce/rag/SupportOracleController.java` |
+| 3 | Inject a strict system prompt regarding out-of-scope questions | `src/main/java/com/ecommerce/rag/SupportOracleController.java` |
+| 4 | Execute prompt, return answer and extract sources from context metadata | `src/main/java/com/ecommerce/rag/SupportOracleController.java` |
 
-### Step 3
-Define a strict system prompt instructing the AI to only use the provided context.
 
 > [!IMPORTANT]
 > Ensure you compile frequently and check for syntax errors as you build out the implementation.
+> Follow the `// TODO (Step X)` comments in the starter code!
 
 ---
 
@@ -38,5 +41,5 @@ mvn spring-boot:run
 
 ## Success Criteria
 
-- [ ] The AI accurately answers questions based on your FAQ documents.
-- [ ] The AI responds 'I don't know' for out-of-scope questions.
+- [ ] The AI accurately answers questions based on your documents.
+- [ ] The AI does not hallucinate facts outside the provided context.

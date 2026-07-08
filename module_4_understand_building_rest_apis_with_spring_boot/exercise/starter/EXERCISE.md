@@ -1,30 +1,31 @@
-# Module 4 - Spring Data JPA - Exercise Instructions
+# Module 4 - Building REST APIs with Spring Boot - Exercise Instructions
 
 ## Exercise Overview
 
-Your startup is migrating away from hardcoded in-memory lists. You need to connect the application to a relational database using Spring Data JPA so that orders are persisted properly.
+Your startup needs a REST API to manage Customers. You need to build a Spring Boot REST API that handles CRUD operations for a Customer entity, utilizes API versioning, and communicates with a downstream service using an HTTP client.
 
 ---
 
 ## Prerequisites
-- **Java 25**
+- **Java 21+**
 - **Maven 3.9+**
 
 ---
 
 ## Step-by-Step Implementation Guide
 
-### Step 1
-Open `Order.java` and add `@Entity` and `@Id`.
+| Step | Task | Target File |
+|------|-----------|----------------|
+| 1 | 1: Implement GET /orders/{id}. Use ResponseEntity.ok(). Include customer name via customerClient. | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
+| 2 | 2: Implement POST /orders. Use ResponseEntity.created() to return 201 Created. | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
+| 3 | 3: Implement POST /orders/{id}/cancel. Return 404 if order not found (mock it by checking id > 100), otherwise return 204 No Content. | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
+| 4 | 4: Implement GET /orders/{id} for version 2 (e.g. headers="version=2"). Add an "orderSummary" field to the response. | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
+| 5 | Configure GetExchange for /internal/customers/{id} | `src/main/java/com/ecommerce/order/client/CustomerClient.java` |
 
-### Step 2
-Create `OrderRepository.java` extending `CrudRepository`.
-
-### Step 3
-Inject the repository into your service layer to perform CRUD operations.
 
 > [!IMPORTANT]
 > Ensure you compile frequently and check for syntax errors as you build out the implementation.
+> Follow the `// TODO (Step X)` comments in the starter code!
 
 ---
 
@@ -38,5 +39,6 @@ mvn spring-boot:run
 
 ## Success Criteria
 
-- [ ] Application creates the H2 schema on startup.
-- [ ] Saving an order persists it to the database.
+- [ ] HTTP GET returns customer data.
+- [ ] HTTP POST successfully creates a resource.
+- [ ] HTTP interface is configured correctly.

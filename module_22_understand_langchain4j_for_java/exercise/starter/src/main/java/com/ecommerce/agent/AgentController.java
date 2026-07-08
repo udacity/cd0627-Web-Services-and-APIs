@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AgentController {
     
-    // TODO: Inject ChatClient and configure it with System message, functions and memory
+    // TODO (Step 4): Inject TravelAssistant
 
     @GetMapping("/ask")
     public String ask(@RequestParam String message) {
-        // TODO: Call ChatClient
+        // TODO (Step 5): Call travelAssistant.chat(message)
         return "";
     }
 }

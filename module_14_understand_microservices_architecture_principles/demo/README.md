@@ -1,13 +1,16 @@
-# Module 14 - Spring Caching
+# Module 14 - Microservices Architecture Principles
 
 ## Demo Walkthrough
 
-In this demo, we implement application-level caching. The approach uses Spring's caching abstraction to store the results of expensive operations in memory.
+This demo demonstrates the principles of microservices architecture by splitting a monolithic application into discrete services.
 
 ### `UserController.java` — Core Implementation
 
 ```java
-@GetMapping("/users/{id}")
+@RestController
+public class UserController {
+
+    @GetMapping("/users/{id}")
     public Map<String, Object> getUser(@PathVariable Long id) {
         // Stub implementation
         return Map.of(
@@ -18,25 +21,9 @@ In this demo, we implement application-level caching. The approach uses Spring's
     }
 ```
 
-### Execution Workflow
-
-| Step | Operation | Purpose |
-|------|-----------|----------------|
-| 1 | `@EnableCaching` | Add `@EnableCaching` to the main application class. |
-| 2 | `@Cacheable("products")` | Annotate the read method with `@Cacheable("products")`. |
-| 3 | `@CacheEvict` | Annotate the update/delete methods with `@CacheEvict` to prevent stale data. |
-
-
-### Expected Output
-
-```
-Application started successfully.
-Expected API behaviors active.
-```
-
 ### Key Concepts Demonstrated
-- **`@Cacheable` for read-through caching**
-- **`@CacheEvict` for cache invalidation**
+- **Microservices Decomposition**
+- **Inter-service communication**
 
 ## How to Run
 ```bash

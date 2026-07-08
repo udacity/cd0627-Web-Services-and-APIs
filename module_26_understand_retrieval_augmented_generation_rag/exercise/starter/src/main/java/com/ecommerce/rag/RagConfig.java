@@ -4,5 +4,5 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RagConfig {
-    // TODO: Create a bean for SimpleVectorStore
+    // TODO (Step 1): Create a bean for SimpleVectorStore
 }

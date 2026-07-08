@@ -14,18 +14,18 @@ public class OrderReadService {
 
     @EventListener
     public void onOrderPlaced(OrderPlacedEvent event) {
-        // TODO: Put a new OrderView into READ_MODEL with status "PLACED"
+        // TODO (Step 1): Put a new OrderView into READ_MODEL with status "PLACED"
     }
 
     @EventListener
     public void onOrderCancelled(OrderCancelledEvent event) {
-        // TODO: Update the OrderView status to "CANCELLED"
+        // TODO (Step 2): Update the OrderView status to "CANCELLED"
     }
 
     public void rebuildReadModel() {
         READ_MODEL.clear();
-        // TODO: Iterate over OrderWriteService.EVENT_STORE
-        // TODO: For each event, if OrderPlacedEvent put new view, if OrderCancelledEvent update status.
+        // TODO (Step 3): Iterate over OrderWriteService.EVENT_STORE
+        // TODO (Step 4): For each event, if OrderPlacedEvent put new view, if OrderCancelledEvent update status.
     }
 
     @GetMapping("/orders")

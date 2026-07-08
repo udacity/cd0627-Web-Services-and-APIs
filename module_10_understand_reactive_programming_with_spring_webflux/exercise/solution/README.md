@@ -1,12 +1,13 @@
-# Module 10 - Reactive Spring (WebFlux) - Solution
+# Module 10 - Reactive Programming with Spring WebFlux - Solution
 
 ## Solution Walkthrough
 
-The solution implements non-blocking streams using Spring WebFlux. The endpoint returns a `Flux` which pushes data to the client asynchronously over a single connection.
+The solution implements non-blocking streams using WebFlux. The endpoint returns a `Flux` which pushes data to the client asynchronously.
 
 ### `DashboardController.java` — The Implementation
 
 ```java
+@RestController
 @RequestMapping("/dashboard")
 public class DashboardController {
 
@@ -36,24 +37,15 @@ public class DashboardController {
 
 ### Step-by-step Design Decisions:
 
-| Step | Operation | Purpose |
+| Step | Task | Target File |
 |------|-----------|----------------|
-| 1 | `Flux<Ticker>` | Change the controller return type to `Flux<Ticker>`. |
-| 2 | `text/event-stream` | Ensure the endpoint produces `text/event-stream`. |
-| 3 | `Flux.interval` | Use `Flux.interval` to simulate a reactive stream of data. |
+| 1 | 1: Implement GET /dashboard/summary-reactive | `src/main/java/com/ecommerce/dashboard/DashboardController.java` |
+| 2 | 2: Implement GET /dashboard/ticker | `src/main/java/com/ecommerce/dashboard/DashboardController.java` |
 
-
-### Expected Output
-
-```
-══════════════════════════════════════════
- Integration Successful 
-══════════════════════════════════════════
-```
 
 ### Key Concepts Demonstrated
 - **Non-blocking event loop architecture**
-- **`Flux` and `Mono` from Project Reactor**
+- **`Flux` and `Mono`**
 - **Server-Sent Events (SSE)**
 
 ## How to Run

@@ -1,30 +1,28 @@
-# Module 14 - Spring Caching - Exercise Instructions
+# Module 14 - Microservices Architecture Principles - Exercise Instructions
 
 ## Exercise Overview
 
-Your product catalog API is slow because it queries the database on every request. You need to implement application-level caching to store frequently accessed data in memory.
+You are decomposing a monolith. You need to extract the Order and Inventory logic into separate, independently deployable microservices that communicate over HTTP.
 
 ---
 
 ## Prerequisites
-- **Java 25**
+- **Java 21+**
 - **Maven 3.9+**
 
 ---
 
 ## Step-by-Step Implementation Guide
 
-### Step 1
-Add `@EnableCaching` to the main application class.
+| Step | Task |
+|------|-----------|
+| 1 | In the `order-service` project, implement an HTTP client to verify inventory via the `inventory-service`. |
+| 2 | Ensure the services can run on separate ports simultaneously. |
 
-### Step 2
-Annotate the read method with `@Cacheable("products")`.
-
-### Step 3
-Annotate the update/delete methods with `@CacheEvict` to prevent stale data.
 
 > [!IMPORTANT]
 > Ensure you compile frequently and check for syntax errors as you build out the implementation.
+> Follow the `// TODO (Step X)` comments in the starter code!
 
 ---
 
@@ -38,5 +36,5 @@ mvn spring-boot:run
 
 ## Success Criteria
 
-- [ ] Subsequent requests to the same endpoint are significantly faster.
-- [ ] Logs show the database is only queried on the first request.
+- [ ] The Order service successfully calls the Inventory service.
+- [ ] Both services run independently.

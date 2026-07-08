@@ -1,32 +1,27 @@
-# Module 20 - Spring AI - ChatClient
+# Module 20 - Spring AI Framework
 
 ## Demo Walkthrough
 
-In this demo, we introduce Spring AI and the `ChatClient`. We demonstrate how to execute simple prompts against a Large Language Model (LLM) to generate dynamic textual responses.
+In this demo, we introduce Spring AI and the `ChatClient` to execute simple prompts against an LLM.
 
 ### `AiConfig.java` — Core Implementation
 
 ```java
-@Bean
+public class AiConfig {
+
+    @Bean
     public ChatClient chatClient(ChatClient.Builder builder) {
         return builder.build();
     }
-```
 
-### Execution Workflow
+    @Bean
+    public Function<Request, Response> getCurrentDate() {
+        return request -> new Response(LocalDate.now().toString());
+    }
 
-| Step | Operation | Purpose |
-|------|-----------|----------------|
-| 1 | `ChatClient.Builder` | Inject `ChatClient.Builder` into your controller. |
-| 2 | `ChatClient` | Build the `ChatClient` with a default system prompt. |
-| 3 | `chatClient.prompt().user(message).call().content()` | Call `chatClient.prompt().user(message).call().content()` to get the AI's response. |
-
-
-### Expected Output
-
-```
-Application started successfully.
-Expected API behaviors active.
+    public record Request() {}
+    public record Response(String date) {}
+}
 ```
 
 ### Key Concepts Demonstrated

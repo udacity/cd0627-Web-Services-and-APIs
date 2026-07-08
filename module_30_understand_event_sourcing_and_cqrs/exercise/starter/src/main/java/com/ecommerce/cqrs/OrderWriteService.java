@@ -18,14 +18,14 @@ public class OrderWriteService {
     }
 
     public void handle(PlaceOrderCommand cmd) {
-        // TODO: Instantiate an OrderPlacedEvent
-        // TODO: Append to EVENT_STORE
-        // TODO: Publish event
+        // TODO (Step 6): Instantiate an OrderPlacedEvent
+        // TODO (Step 7): Append to EVENT_STORE
+        // TODO (Step 8): Publish event
     }
 
     public void handle(CancelOrderCommand cmd) {
-        // TODO: Instantiate an OrderCancelledEvent
-        // TODO: Append to EVENT_STORE
-        // TODO: Publish event
+        // TODO (Step 9): Instantiate an OrderCancelledEvent
+        // TODO (Step 10): Append to EVENT_STORE
+        // TODO (Step 11): Publish event
     }
 }

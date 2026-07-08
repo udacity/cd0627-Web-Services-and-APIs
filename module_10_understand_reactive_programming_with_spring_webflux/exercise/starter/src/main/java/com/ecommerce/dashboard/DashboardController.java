@@ -27,13 +27,13 @@ public class DashboardController {
         return new DashboardSummary(product, reviews);
     }
 
-    // TODO 1: Implement GET /dashboard/summary-reactive
+    // TODO (Step 1) 1: Implement GET /dashboard/summary-reactive
     // Rewrite using WebClient and return Mono<DashboardSummary>.
     // DO NOT use block(). DO NOT chain them sequentially.
     // Must use Mono.zip(productMono, reviewsMono) to fetch concurrently.
     // Inside the zip map function, log the Thread.currentThread().toString() to verify execution context.
 
-    // TODO 2: Implement GET /dashboard/ticker
+    // TODO (Step 2) 2: Implement GET /dashboard/ticker
     // Return Flux<Double> producing simulated prices.
     // Produce MediaType.TEXT_EVENT_STREAM_VALUE.
     // Use Flux.interval(Duration.ofMillis(500)) and map to a random Double.

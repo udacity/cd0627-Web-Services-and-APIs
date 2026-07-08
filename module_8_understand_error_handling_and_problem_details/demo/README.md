@@ -1,12 +1,13 @@
-# Module 8 - Global Error Handling
+# Module 8 - Error Handling and Problem Details
 
 ## Demo Walkthrough
 
-In this demo, we tackle global error handling. Instead of repeating `try/catch` blocks in every controller, we use Spring's `@ControllerAdvice` to globally intercept exceptions.
+In this demo, we tackle global error handling using `@ControllerAdvice` to intercept exceptions and return standardized problem details.
 
 ### `ProductController.java` — Core Implementation
 
 ```java
+@RestController
 @RequestMapping("/products")
 public class ProductController {
 
@@ -22,24 +23,8 @@ public class ProductController {
     }
 ```
 
-### Execution Workflow
-
-| Step | Operation | Purpose |
-|------|-----------|----------------|
-| 1 | `GlobalExceptionHandler` | Create a `GlobalExceptionHandler` class annotated with `@RestControllerAdvice`. |
-| 2 | `@ExceptionHandler(OrderNotFoundException.class)` | Write a method annotated with `@ExceptionHandler(OrderNotFoundException.class)`. |
-| 3 | `ProblemDetail` | Return a `ProblemDetail` object with a 404 status. |
-
-
-### Expected Output
-
-```
-Application started successfully.
-Expected API behaviors active.
-```
-
 ### Key Concepts Demonstrated
-- **`@RestControllerAdvice` for cross-cutting error handling**
+- **`@RestControllerAdvice`**
 - **RFC 7807 `ProblemDetail` specification**
 
 ## How to Run

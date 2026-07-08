@@ -1,30 +1,29 @@
-# Module 16 - Testing Slices - Exercise Instructions
+# Module 16 - API Gateway and Service Discovery - Exercise Instructions
 
 ## Exercise Overview
 
-You've built the API, but you have zero test coverage! You must write unit and integration tests to ensure the controllers and repositories work exactly as expected.
+With multiple microservices running, clients don't know which IP addresses to call. You must configure an API Gateway to route requests and a Eureka Service Registry for dynamic service discovery.
 
 ---
 
 ## Prerequisites
-- **Java 25**
+- **Java 21+**
 - **Maven 3.9+**
 
 ---
 
 ## Step-by-Step Implementation Guide
 
-### Step 1
-Write a `@WebMvcTest` for the controller, mocking the service layer.
+| Step | Task |
+|------|-----------|
+| 1 | Configure the `eureka-server` to act as the service registry. |
+| 2 | Configure `api-gateway` routes using Spring Cloud Gateway. |
+| 3 | Implement a `CorrelationIdFilter` in the gateway to attach tracking headers to all requests. |
 
-### Step 2
-Use `MockMvc` to perform a GET request and assert the JSON path.
-
-### Step 3
-Write a `@DataJpaTest` to verify custom repository queries against an embedded database.
 
 > [!IMPORTANT]
 > Ensure you compile frequently and check for syntax errors as you build out the implementation.
+> Follow the `// TODO (Step X)` comments in the starter code!
 
 ---
 
@@ -38,5 +37,6 @@ mvn spring-boot:run
 
 ## Success Criteria
 
-- [ ] All tests pass using `mvn test`.
-- [ ] The WebMvcTest successfully isolates the web layer.
+- [ ] Services register themselves with Eureka.
+- [ ] The Gateway routes `/api/orders` to the correct service.
+- [ ] Correlation IDs are injected into the headers.

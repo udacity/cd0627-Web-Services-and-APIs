@@ -1,12 +1,13 @@
-# Module 4 - Spring Data JPA
+# Module 4 - Building REST APIs with Spring Boot
 
 ## Demo Walkthrough
 
-This demo illustrates how to interact with relational databases using Spring Data JPA. We transition from writing raw SQL statements to using declarative repository interfaces.
+This demo explores building RESTful services using Spring Boot, covering controllers, routing, and HTTP interfaces for external communication.
 
 ### `ProductController.java` — Core Implementation
 
 ```java
+@RestController
 @RequestMapping("/products")
 public class ProductController {
 
@@ -15,27 +16,20 @@ public class ProductController {
     public ProductController(InventoryClient inventoryClient) {
         this.inventoryClient = inventoryClient;
     }
-```
 
-### Execution Workflow
-
-| Step | Operation | Purpose |
-|------|-----------|----------------|
-| 1 | `Order.java` | Open `Order.java` and add `@Entity` and `@Id`. |
-| 2 | `OrderRepository.java` | Create `OrderRepository.java` extending `CrudRepository`. |
-| 3 | Step 3 | Inject the repository into your service layer to perform CRUD operations. |
-
-
-### Expected Output
-
-```
-Application started successfully.
-Expected API behaviors active.
+    // Step 1: Baseline CRUD & ResponseEntity
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> getProduct(@PathVariable long id) {
+        // Step 3: Use Declarative HTTP Client
+        String inventory = inventoryClient.getInventoryStatus(id);
+        return ResponseEntity.ok(Map.of("id", id, "name", "Demo Product", "inventory", inventory));
+    }
 ```
 
 ### Key Concepts Demonstrated
-- **`@Entity` for ORM mapping**
-- **Spring Data `CrudRepository` for zero-boilerplate data access**
+- **Spring Boot REST APIs**
+- **HTTP Clients**
+- **API Versioning**
 
 ## How to Run
 ```bash

@@ -11,8 +11,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-// TODO: Implement the integration test
-// TODO: POST /orders to create, then GET /orders/{id} to retrieve and assert persistence
+// TODO (Step 1): Implement the integration test
+// TODO (Step 2): POST /orders to create, then GET /orders/{id} to retrieve and assert persistence
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -23,7 +23,7 @@ class OrderIntegrationTest {
 
     @Test
     void createAndRetrieveOrder() throws Exception {
-        // TODO: POST an order and capture the returned id
-        // TODO: GET /orders/{id} and assert status 200 and body fields
+        // TODO (Step 3): POST an order and capture the returned id
+        // TODO (Step 4): GET /orders/{id} and assert status 200 and body fields
     }
 }

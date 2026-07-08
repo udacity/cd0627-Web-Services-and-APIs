@@ -1,13 +1,22 @@
-# Module 24 - Semantic Search (Vector Stores) - Solution
+# Module 24 - Vector Databases and Semantic Search - Solution
 
 ## Solution Walkthrough
 
-The solution implements semantic search utilizing Spring AI's `SimpleVectorStore`. The search endpoint embeds the user's query and returns the conceptually closest matching documents.
+The solution implements semantic search utilizing Spring AI's `SimpleVectorStore`.
 
 ### `FaqController.java` — The Implementation
 
 ```java
-@GetMapping("/search")
+@RestController
+public class FaqController {
+
+    private final VectorStore vectorStore;
+
+    public FaqController(VectorStore vectorStore) {
+        this.vectorStore = vectorStore;
+    }
+
+    @GetMapping("/search")
     public List<String> searchFaq(
             @RequestParam String query,
             @RequestParam(required = false) String category) {
@@ -26,20 +35,16 @@ The solution implements semantic search utilizing Spring AI's `SimpleVectorStore
 
 ### Step-by-step Design Decisions:
 
-| Step | Operation | Purpose |
+| Step | Task | Target File |
 |------|-----------|----------------|
-| 1 | `VectorStore` | Load your documents into the `VectorStore` during initialization. |
-| 2 | `SearchRequest` | In your search endpoint, construct a `SearchRequest`. |
-| 3 | `vectorStore.similaritySearch(request)` | Use `vectorStore.similaritySearch(request)` to find the top matching documents. |
+| 1 | Create a SearchRequest with the given query. | `src/main/java/com/ecommerce/search/FaqController.java` |
+| 2 | Set topK to 3. | `src/main/java/com/ecommerce/search/FaqController.java` |
+| 3 | If the category parameter is provided, add a filter expression: "category == '" + category + "'" | `src/main/java/com/ecommerce/search/FaqController.java` |
+| 4 | Use TextReader to read 'faqResource'. | `src/main/java/com/ecommerce/search/FaqIngestor.java` |
+| 5 | Pass the document through a TokenTextSplitter to create chunks. | `src/main/java/com/ecommerce/search/FaqIngestor.java` |
+| 6 | For each chunk, manually inject metadata based on text content: | `src/main/java/com/ecommerce/search/FaqIngestor.java` |
+| 7 | Save the chunked documents to the SimpleVectorStore. | `src/main/java/com/ecommerce/search/FaqIngestor.java` |
 
-
-### Expected Output
-
-```
-══════════════════════════════════════════
- Integration Successful 
-══════════════════════════════════════════
-```
 
 ### Key Concepts Demonstrated
 - **Embeddings and Vectorization**

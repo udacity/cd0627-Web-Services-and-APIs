@@ -1,13 +1,15 @@
-# Module 4 - Spring Data JPA - Solution
+# Module 4 - Building REST APIs with Spring Boot - Solution
 
 ## Solution Walkthrough
 
-The solution leverages `ListCrudRepository` to gain standard database operations without writing implementation classes. Spring Boot auto-configures the data source based on the H2 dependency.
+The solution implements standard Spring Web MVC controllers, utilizing annotations to map requests and an HTTP interface client to cleanly talk to downstream APIs.
 
 ### `InternalCustomerController.java` — The Implementation
 
 ```java
-@GetMapping("/internal/customers/{id}")
+@RestController
+public class InternalCustomerController {
+    @GetMapping("/internal/customers/{id}")
     public String getCustomerName(@PathVariable long id) {
         return "John Doe";
     }
@@ -15,24 +17,19 @@ The solution leverages `ListCrudRepository` to gain standard database operations
 
 ### Step-by-step Design Decisions:
 
-| Step | Operation | Purpose |
+| Step | Task | Target File |
 |------|-----------|----------------|
-| 1 | `Order.java` | Open `Order.java` and add `@Entity` and `@Id`. |
-| 2 | `OrderRepository.java` | Create `OrderRepository.java` extending `CrudRepository`. |
-| 3 | Step 3 | Inject the repository into your service layer to perform CRUD operations. |
+| 1 | 1: Implement GET /orders/{id}. Use ResponseEntity.ok(). Include customer name via customerClient. | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
+| 2 | 2: Implement POST /orders. Use ResponseEntity.created() to return 201 Created. | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
+| 3 | 3: Implement POST /orders/{id}/cancel. Return 404 if order not found (mock it by checking id > 100), otherwise return 204 No Content. | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
+| 4 | 4: Implement GET /orders/{id} for version 2 (e.g. headers="version=2"). Add an "orderSummary" field to the response. | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
+| 5 | Configure GetExchange for /internal/customers/{id} | `src/main/java/com/ecommerce/order/client/CustomerClient.java` |
 
-
-### Expected Output
-
-```
-══════════════════════════════════════════
- Integration Successful 
-══════════════════════════════════════════
-```
 
 ### Key Concepts Demonstrated
-- **`@Entity` for ORM mapping**
-- **Spring Data `CrudRepository` for zero-boilerplate data access**
+- **Spring Boot REST APIs**
+- **HTTP Clients**
+- **API Versioning**
 
 ## How to Run
 ```bash

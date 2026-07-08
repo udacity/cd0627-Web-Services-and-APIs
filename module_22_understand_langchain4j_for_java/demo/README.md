@@ -1,37 +1,22 @@
-# Module 22 - Spring AI - Output Converters
+# Module 22 - LangChain4j for Java
 
 ## Demo Walkthrough
 
-This demo dives deeper into Spring AI by exploring Structured Output Converters. We show how to instruct the LLM to format its response as a strictly defined JSON structure.
+This demo explores building autonomous agents using LangChain4j, focusing on giving the LLM the ability to invoke local Java methods.
 
-### `ChatController.java` — Core Implementation
+### `TravelAssistant.java` — Core Implementation
 
 ```java
-@GetMapping("/chat")
-    public String chat(@RequestParam String message) {
-        return chatClient.prompt().user(message).call().content();
-    }
-```
-
-### Execution Workflow
-
-| Step | Operation | Purpose |
-|------|-----------|----------------|
-| 1 | `BeanOutputConverter` | Create a `BeanOutputConverter` for your target Record class. |
-| 2 | Step 2 | Append the converter's format instructions to your prompt. |
-| 3 | Step 3 | Use the converter to parse the AI's string response into a Java object. |
-
-
-### Expected Output
-
-```
-Application started successfully.
-Expected API behaviors active.
+@AiService
+public interface TravelAssistant {
+    @SystemMessage("You are an expert travel assistant. You have access to tools to check flights and weather.")
+    String chat(String userMessage);
+}
 ```
 
 ### Key Concepts Demonstrated
-- **`BeanOutputConverter`**
-- **Prompt Templates for format instructions**
+- **LangChain4j `@AiService`**
+- **Tool calling / Function calling**
 
 ## How to Run
 ```bash

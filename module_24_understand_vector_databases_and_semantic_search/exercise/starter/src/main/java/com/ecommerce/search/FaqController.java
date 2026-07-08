@@ -24,9 +24,9 @@ public class FaqController {
             @RequestParam String query,
             @RequestParam(required = false) String category) {
         
-        // TODO: Create a SearchRequest with the given query.
-        // TODO: Set topK to 3.
-        // TODO: If the category parameter is provided, add a filter expression: "category == '" + category + "'"
+        // TODO (Step 1): Create a SearchRequest with the given query.
+        // TODO (Step 2): Set topK to 3.
+        // TODO (Step 3): If the category parameter is provided, add a filter expression: "category == '" + category + "'"
         
         // Return dummy response for now
         return List.of("Search results will appear here");

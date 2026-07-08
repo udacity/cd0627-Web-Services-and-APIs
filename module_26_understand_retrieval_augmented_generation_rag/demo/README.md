@@ -1,8 +1,8 @@
-# Module 26 - RAG (Retrieval-Augmented Generation)
+# Module 26 - Retrieval-Augmented Generation (RAG)
 
 ## Demo Walkthrough
 
-This demo combines Chat Models and Vector Stores to implement RAG. We use `QuestionAnswerAdvisor` to automatically query the `VectorStore` for relevant context before sending the prompt to the LLM.
+This demo combines Chat Models and Vector Stores to implement RAG.
 
 ### `RagRunner.java` — Core Implementation
 
@@ -27,22 +27,6 @@ public class RagRunner implements CommandLineRunner {
         System.out.println("Agent Response: " + response);
     }
 }
-```
-
-### Execution Workflow
-
-| Step | Operation | Purpose |
-|------|-----------|----------------|
-| 1 | `ChatClient` | Configure the `ChatClient` with a `QuestionAnswerAdvisor`. |
-| 2 | `VectorStore` | Pass the `VectorStore` and a `SearchRequest` to the advisor. |
-| 3 | Step 3 | Define a strict system prompt instructing the AI to only use the provided context. |
-
-
-### Expected Output
-
-```
-Application started successfully.
-Expected API behaviors active.
 ```
 
 ### Key Concepts Demonstrated

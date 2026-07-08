@@ -11,16 +11,16 @@ import java.util.List;
 @RequestMapping("/orders")
 public class OrderController {
 
-    // TODO: 1. Create OrderResponse Record (id, totalAmount, status)
-    // TODO: 2. Create CreateOrderRequest Record (totalAmount, status, deliveryDate, itemIds)
-    // TODO: 3. Add Validation to CreateOrderRequest:
+    // TODO (Step 1): 1. Create OrderResponse Record (id, totalAmount, status)
+    // TODO (Step 2): 2. Create CreateOrderRequest Record (totalAmount, status, deliveryDate, itemIds)
+    // TODO (Step 3): 3. Add Validation to CreateOrderRequest:
     //          - totalAmount: @Positive
     //          - status: @NotBlank
     //          - deliveryDate: @FutureOrPresent
     //          - itemIds: @NotEmpty
-    // TODO: 4. Create OrderMapper interface using MapStruct.
+    // TODO (Step 4): 4. Create OrderMapper interface using MapStruct.
     //          - Add unmappedTargetPolicy = ReportingPolicy.IGNORE to the @Mapper annotation.
-    // TODO: 5. Refactor the endpoints below to use the Records, @Valid, and the Mapper.
+    // TODO (Step 5): 5. Refactor the endpoints below to use the Records, @Valid, and the Mapper.
 
     @PostMapping
     public ResponseEntity<Void> createOrder(@RequestBody Order order) {

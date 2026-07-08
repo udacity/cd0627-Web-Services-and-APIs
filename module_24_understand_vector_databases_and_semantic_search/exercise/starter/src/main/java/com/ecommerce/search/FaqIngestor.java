@@ -23,12 +23,12 @@ public class FaqIngestor {
 
     @EventListener(ApplicationReadyEvent.class)
     public void ingestOnStartup() {
-        // TODO: Use TextReader to read 'faqResource'.
-        // TODO: Pass the document through a TokenTextSplitter to create chunks.
-        // TODO: For each chunk, manually inject metadata based on text content:
+        // TODO (Step 4): Use TextReader to read 'faqResource'.
+        // TODO (Step 5): Pass the document through a TokenTextSplitter to create chunks.
+        // TODO (Step 6): For each chunk, manually inject metadata based on text content:
         //       e.g., if text contains "IT" or "password", add Map.of("category", "IT")
         //       else if text contains "HR" or "vacation", add Map.of("category", "HR")
-        // TODO: Save the chunked documents to the SimpleVectorStore.
+        // TODO (Step 7): Save the chunked documents to the SimpleVectorStore.
         System.out.println("FAQ Ingestion started (implement me!)...");
     }
 }

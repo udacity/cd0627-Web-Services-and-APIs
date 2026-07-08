@@ -1,8 +1,8 @@
-# Module 6 - Spring Security - Solution
+# Module 6 - Request/Response Handling and DTOs - Solution
 
 ## Solution Walkthrough
 
-The solution secures the application by providing a custom `SecurityFilterChain`. We also use `@EnableMethodSecurity` to lock down specific methods based on user roles.
+The solution utilizes MapStruct to automatically generate robust mapping code, ensuring that internal database entities never leak out to the client.
 
 ### `OrderMapperImpl.java` — The Implementation
 
@@ -27,30 +27,30 @@ public class OrderMapperImpl implements OrderMapper {
 
         return orderResponse;
     }
+
+    @Override
+    public Order toEntity(CreateOrderRequest request) {
+        if ( request == null ) {
+            return null;
     // ...
 }
 ```
 
 ### Step-by-step Design Decisions:
 
-| Step | Operation | Purpose |
+| Step | Task | Target File |
 |------|-----------|----------------|
-| 1 | `SecurityConfig` | Create a `SecurityConfig` class with `@EnableWebSecurity`. |
-| 2 | `SecurityFilterChain` | Define a `SecurityFilterChain` bean to require authentication for `/api/**`. |
-| 3 | `@PreAuthorize("hasRole('ADMIN')")` | Add `@PreAuthorize("hasRole('ADMIN')")` to the delete endpoint. |
+| 1 | 1. Create OrderResponse Record (id, totalAmount, status) | `src/main/java/com/ecommerce/order/OrderController.java` |
+| 2 | 2. Create CreateOrderRequest Record (totalAmount, status, deliveryDate, itemIds) | `src/main/java/com/ecommerce/order/OrderController.java` |
+| 3 | 3. Add Validation to CreateOrderRequest: | `src/main/java/com/ecommerce/order/OrderController.java` |
+| 4 | 4. Create OrderMapper interface using MapStruct. | `src/main/java/com/ecommerce/order/OrderController.java` |
+| 5 | 5. Refactor the endpoints below to use the Records, `@Valid`, and the Mapper. | `src/main/java/com/ecommerce/order/OrderController.java` |
 
-
-### Expected Output
-
-```
-══════════════════════════════════════════
- Integration Successful 
-══════════════════════════════════════════
-```
 
 ### Key Concepts Demonstrated
-- **`SecurityFilterChain` for route protection**
-- **Method-level security with `@PreAuthorize`**
+- **Data Transfer Objects (DTOs)**
+- **MapStruct for object mapping**
+- **Layer isolation**
 
 ## How to Run
 ```bash

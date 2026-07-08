@@ -1,37 +1,32 @@
-# Module 30 - CQRS with Spring Events
+# Module 30 - Event Sourcing and CQRS
 
 ## Demo Walkthrough
 
-In this demo, we implement the CQRS pattern using Spring Application Events. We separate the write-model from the read-model by publishing and consuming internal asynchronous events.
+In this demo, we implement the CQRS pattern to separate the write-model from the read-model.
 
 ### `ProductReadService.java` — Core Implementation
 
 ```java
-@EventListener
+@RestController
+public class ProductReadService {
+
+    // The Ephemeral Projection
+    private final ConcurrentHashMap<String, ProductView> READ_MODEL = new ConcurrentHashMap<>();
+
+    @EventListener
     public void onProductCreated(ProductCreatedEvent event) {
         READ_MODEL.put(event.id(), new ProductView(event.id(), event.name(), event.price()));
     }
-```
 
-### Execution Workflow
-
-| Step | Operation | Purpose |
-|------|-----------|----------------|
-| 1 | `ApplicationEventPublisher` | Publish an event using `ApplicationEventPublisher` when a write occurs. |
-| 2 | `@EventListener` | Create a separate read service with an `@EventListener` method. |
-| 3 | Step 3 | Update a read-optimized data structure when the event is received. |
-
-
-### Expected Output
-
-```
-Application started successfully.
-Expected API behaviors active.
+    @GetMapping("/products")
+    public Collection<ProductView> getProducts() {
+        return READ_MODEL.values();
+    }
 ```
 
 ### Key Concepts Demonstrated
 - **Command Query Responsibility Segregation (CQRS)**
-- **Spring `@EventListener` and `ApplicationEventPublisher`**
+- **Event Sourcing**
 
 ## How to Run
 ```bash

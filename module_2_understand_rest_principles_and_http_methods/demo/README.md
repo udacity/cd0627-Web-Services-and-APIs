@@ -1,8 +1,8 @@
-# Module 2 - REST Controllers and Data Binding
+# Module 2 - REST Principles and HTTP Methods
 
 ## Demo Walkthrough
 
-This demo illustrates the fundamentals of Spring Boot REST controllers. We shift from manual servlet mapping to a declarative approach using annotations, relying on Spring's auto-configured Jackson `HttpMessageConverter` to seamlessly bind JSON payloads to Java records or POJOs.
+This demo illustrates REST resource mapping, HTTP status codes, and the difference between PATCH and POST for state changes.
 
 ### `PatchProductRequest.java` — Core Implementation
 
@@ -27,25 +27,10 @@ public class PatchProductRequest {
 }
 ```
 
-### Execution Workflow
-
-| Step | Operation | Purpose |
-|------|-----------|----------------|
-| 1 | `OrderController.java` | Open `OrderController.java`. |
-| 2 | `@RestController` | Annotate the class with `@RestController`. |
-| 3 | `@GetMapping("/{id}")` | Implement `@GetMapping("/{id}")` and bind the ID using `@PathVariable`. |
-
-
-### Expected Output
-
-```
-Application started successfully.
-Expected API behaviors active.
-```
-
 ### Key Concepts Demonstrated
-- **`@RestController` for JSON APIs**
-- **Data binding with `@PathVariable` and `@RequestBody`**
+- **REST Nouns and Verbs**
+- **Nested Resources**
+- **Idempotency**
 
 ## How to Run
 ```bash

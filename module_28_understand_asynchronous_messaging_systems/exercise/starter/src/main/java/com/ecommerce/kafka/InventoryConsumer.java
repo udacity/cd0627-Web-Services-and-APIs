@@ -7,9 +7,9 @@ import org.springframework.dao.TransientDataAccessException;
 @Component
 public class InventoryConsumer {
 
-    // TODO: Add @RetryableTopic here with 3 attempts.
-    // TODO: Configure exponential @Backoff (e.g. wait 1s, then 2s, then 4s).
-    // TODO: Exclude MalformedOrderException.class from retries entirely.
+    // TODO (Step 1): Add @RetryableTopic here with 3 attempts.
+    // TODO (Step 2): Configure exponential @Backoff (e.g. wait 1s, then 2s, then 4s).
+    // TODO (Step 3): Exclude MalformedOrderException.class from retries entirely.
     @KafkaListener(topics = "order-events", groupId = "inventory-group")
     public void consume(OrderPlacedEvent event) {
         System.out.println("InventoryConsumer received: " + event.orderId());

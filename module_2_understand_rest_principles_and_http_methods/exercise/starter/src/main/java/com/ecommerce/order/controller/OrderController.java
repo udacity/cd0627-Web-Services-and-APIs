@@ -43,7 +43,7 @@ public class OrderController {
     }
 
     // =========================================================================
-    // TODO 1 – GET /orders/{id}
+    // TODO (Step 1) 1 – GET /orders/{id}
     //
     // Add the correct @GetMapping annotation with the path variable.
     // Look up the order by id. If found, return it with 200 OK.
@@ -60,12 +60,12 @@ public class OrderController {
      * @return 200 OK with the Order, or 404 Not Found
      */
     public ResponseEntity<Order> getOrder(@PathVariable long id) {
-        // TODO: implement this method
+        // TODO (Step 2): implement this method
         throw new UnsupportedOperationException("TODO: implement getOrder");
     }
 
     // =========================================================================
-    // TODO 2 – GET /orders/{id}/items
+    // TODO (Step 3) 2 – GET /orders/{id}/items
     //
     // Fetch the items for a given order.
     // The items are a nested collection owned by the order.
@@ -86,12 +86,12 @@ public class OrderController {
      * @return 200 OK with the item list, or 404 Not Found if the order doesn't exist
      */
     public ResponseEntity<List<OrderItem>> getOrderItems(@PathVariable long id) {
-        // TODO: implement this method
+        // TODO (Step 4): implement this method
         throw new UnsupportedOperationException("TODO: implement getOrderItems");
     }
 
     // =========================================================================
-    // TODO 3 – POST /orders/{id}/cancel
+    // TODO (Step 5) 3 – POST /orders/{id}/cancel
     //
     // Cancel an order. This is NOT a simple data-field update — it represents
     // a business action that in production would trigger:
@@ -121,7 +121,7 @@ public class OrderController {
      * @return 200 OK with a {@link CancelOrderResponse}, or 404 Not Found
      */
     public ResponseEntity<CancelOrderResponse> cancelOrder(@PathVariable long id) {
-        // TODO: implement this method
+        // TODO (Step 6): implement this method
         throw new UnsupportedOperationException("TODO: implement cancelOrder");
     }
 }

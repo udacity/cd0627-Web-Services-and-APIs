@@ -1,8 +1,8 @@
-# Module 24 - Semantic Search (Vector Stores)
+# Module 24 - Vector Databases and Semantic Search
 
 ## Demo Walkthrough
 
-In this demo, we explore Semantic Search. We convert textual documents into mathematical vectors using an `EmbeddingModel` and store them in a `VectorStore` for similarity searches.
+In this demo, we explore Semantic Search. We convert textual documents into mathematical vectors using an `EmbeddingModel`.
 
 ### `SemanticDemoRunner.java` — Core Implementation
 
@@ -27,24 +27,13 @@ public class SemanticDemoRunner implements CommandLineRunner {
                 vector[0], vector[1], vector[2], vector[3], vector[4]);
         }
 
+        System.out.println("\n=== Step 2: Populating VectorStore ===");
+        List<Document> documents = List.of(
+            new Document("The cat sat on the mat"),
+            new Document("A dog barked loudly"),
+            new Document("Felines prefer to rest on rugs")
     // ...
 }
-```
-
-### Execution Workflow
-
-| Step | Operation | Purpose |
-|------|-----------|----------------|
-| 1 | `VectorStore` | Load your documents into the `VectorStore` during initialization. |
-| 2 | `SearchRequest` | In your search endpoint, construct a `SearchRequest`. |
-| 3 | `vectorStore.similaritySearch(request)` | Use `vectorStore.similaritySearch(request)` to find the top matching documents. |
-
-
-### Expected Output
-
-```
-Application started successfully.
-Expected API behaviors active.
 ```
 
 ### Key Concepts Demonstrated

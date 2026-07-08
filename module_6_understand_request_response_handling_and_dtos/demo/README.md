@@ -1,8 +1,8 @@
-# Module 6 - Spring Security
+# Module 6 - Request/Response Handling and DTOs
 
 ## Demo Walkthrough
 
-This demo focuses on securing a web application using Spring Security. We demonstrate how to configure in-memory users and enforce HTTP Basic authentication.
+This demo illustrates how to cleanly separate external API contracts from internal domain models using DTOs and auto-generated mappers.
 
 ### `ProductMapperImpl.java` — Core Implementation
 
@@ -27,29 +27,19 @@ public class ProductMapperImpl implements ProductMapper {
 
         return productResponse;
     }
+
+    @Override
+    public Product toEntity(CreateProductRequest request) {
+        if ( request == null ) {
+            return null;
     // ...
 }
 ```
 
-### Execution Workflow
-
-| Step | Operation | Purpose |
-|------|-----------|----------------|
-| 1 | `SecurityConfig` | Create a `SecurityConfig` class with `@EnableWebSecurity`. |
-| 2 | `SecurityFilterChain` | Define a `SecurityFilterChain` bean to require authentication for `/api/**`. |
-| 3 | `@PreAuthorize("hasRole('ADMIN')")` | Add `@PreAuthorize("hasRole('ADMIN')")` to the delete endpoint. |
-
-
-### Expected Output
-
-```
-Application started successfully.
-Expected API behaviors active.
-```
-
 ### Key Concepts Demonstrated
-- **`SecurityFilterChain` for route protection**
-- **Method-level security with `@PreAuthorize`**
+- **Data Transfer Objects (DTOs)**
+- **MapStruct for object mapping**
+- **Layer isolation**
 
 ## How to Run
 ```bash

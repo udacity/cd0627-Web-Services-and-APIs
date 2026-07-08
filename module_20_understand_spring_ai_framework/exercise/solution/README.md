@@ -1,13 +1,23 @@
-# Module 20 - Spring AI - ChatClient - Solution
+# Module 20 - Spring AI Framework - Solution
 
 ## Solution Walkthrough
 
-The solution seamlessly integrates generative AI. The controller abstracts away the complex REST calls to the OpenAI API, relying on `ChatClient` to handle the prompt execution and return the raw string response.
+The solution seamlessly integrates generative AI. The controller abstracts away REST calls to the OpenAI API, relying on `ChatClient`.
 
 ### `ReviewController.java` — The Implementation
 
 ```java
-@PostMapping("/api/reviews/analyze")
+@RestController
+public class ReviewController {
+
+    private static final Logger log = LoggerFactory.getLogger(ReviewController.class);
+    private final ChatClient chatClient;
+
+    public ReviewController(ChatClient.Builder builder) {
+        this.chatClient = builder.build();
+    }
+
+    @PostMapping("/api/reviews/analyze")
     public ReviewSummary analyzeReview(@RequestBody String rawReview) {
         try {
             return chatClient.prompt()
@@ -24,20 +34,12 @@ The solution seamlessly integrates generative AI. The controller abstracts away 
 
 ### Step-by-step Design Decisions:
 
-| Step | Operation | Purpose |
+| Step | Task | Target File |
 |------|-----------|----------------|
-| 1 | `ChatClient.Builder` | Inject `ChatClient.Builder` into your controller. |
-| 2 | `ChatClient` | Build the `ChatClient` with a default system prompt. |
-| 3 | `chatClient.prompt().user(message).call().content()` | Call `chatClient.prompt().user(message).call().content()` to get the AI's response. |
+| 1 | Build the ChatClient | `src/main/java/com/ecommerce/ai/ReviewController.java` |
+| 2 | Use the ChatClient fluent API to extract structured data into a ReviewSummary | `src/main/java/com/ecommerce/ai/ReviewController.java` |
+| 3 | Handle parsing exceptions by returning a fallback ReviewSummary | `src/main/java/com/ecommerce/ai/ReviewController.java` |
 
-
-### Expected Output
-
-```
-══════════════════════════════════════════
- Integration Successful 
-══════════════════════════════════════════
-```
 
 ### Key Concepts Demonstrated
 - **Spring AI `ChatClient`**

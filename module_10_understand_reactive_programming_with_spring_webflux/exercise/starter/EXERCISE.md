@@ -1,4 +1,4 @@
-# Module 10 - Reactive Spring (WebFlux) - Exercise Instructions
+# Module 10 - Reactive Programming with Spring WebFlux - Exercise Instructions
 
 ## Exercise Overview
 
@@ -7,24 +7,25 @@ The dashboard API is bottlenecking because it blocks threads while waiting for d
 ---
 
 ## Prerequisites
-- **Java 25**
+- **Java 21+**
 - **Maven 3.9+**
 
 ---
 
 ## Step-by-Step Implementation Guide
 
-### Step 1
-Change the controller return type to `Flux<Ticker>`.
+> [!NOTE]
+> **Deep Dive:** In Spring WebFlux, returning a `Flux` with `produces = MediaType.TEXT_EVENT_STREAM_VALUE` automatically establishes a Server-Sent Events (SSE) connection. This allows the server to push new data to the client asynchronously over a single persistent HTTP connection without blocking a thread.
 
-### Step 2
-Ensure the endpoint produces `text/event-stream`.
+| Step | Task | Target File |
+|------|-----------|----------------|
+| 1 | 1: Implement GET /dashboard/summary-reactive | `src/main/java/com/ecommerce/dashboard/DashboardController.java` |
+| 2 | 2: Implement GET /dashboard/ticker | `src/main/java/com/ecommerce/dashboard/DashboardController.java` |
 
-### Step 3
-Use `Flux.interval` to simulate a reactive stream of data.
 
 > [!IMPORTANT]
 > Ensure you compile frequently and check for syntax errors as you build out the implementation.
+> Follow the `// TODO (Step X)` comments in the starter code!
 
 ---
 
@@ -39,4 +40,4 @@ mvn spring-boot:run
 ## Success Criteria
 
 - [ ] The endpoint streams data indefinitely.
-- [ ] The application does not exhaust Tomcat worker threads.
+- [ ] The application operates on a non-blocking event loop.
