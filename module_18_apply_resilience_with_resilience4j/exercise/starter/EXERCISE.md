@@ -7,18 +7,17 @@ The payment downstream service is flaky and causing your entire order API to cra
 ---
 
 ## Prerequisites
-- **Java 21+**
+- **Java 25+**
 - **Maven 3.9+**
 
 ---
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task | Target File |
-|------|-----------|----------------|
-| 1 | Add `@CircuitBreaker` with fallbackMethod | `src/main/java/com/ecommerce/resilience/OrderController.java` |
-| 2 | Add `@Retry` | `src/main/java/com/ecommerce/resilience/OrderController.java` |
-| 3 | Implement fallback method returning a "PENDING - Will process asynchronously" payload | `src/main/java/com/ecommerce/resilience/OrderController.java` |
+| Step | Task |
+|------|-----------|
+| 1 | In `src/main/java/com/ecommerce/resilience/OrderController.java`, add the `@CircuitBreaker` annotation to the fragile payment call. |
+| 2 | Define a `fallbackMethod` that returns a cached or default response when the circuit is open. |
 
 
 > [!IMPORTANT]

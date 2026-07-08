@@ -17,11 +17,10 @@ The solution guarantees system resilience. The `@CircuitBreaker` annotation wrap
 
 ### Step-by-step Design Decisions:
 
-| Step | Task | Target File |
-|------|-----------|----------------|
-| 1 | Add `@CircuitBreaker` with fallbackMethod | `src/main/java/com/ecommerce/resilience/OrderController.java` |
-| 2 | Add `@Retry` | `src/main/java/com/ecommerce/resilience/OrderController.java` |
-| 3 | Implement fallback method returning a "PENDING - Will process asynchronously" payload | `src/main/java/com/ecommerce/resilience/OrderController.java` |
+| Step | Task |
+|------|-----------|
+| 1 | In `src/main/java/com/ecommerce/resilience/OrderController.java`, add the `@CircuitBreaker` annotation to the fragile payment call. |
+| 2 | Define a `fallbackMethod` that returns a cached or default response when the circuit is open. |
 
 
 ### Key Concepts Demonstrated

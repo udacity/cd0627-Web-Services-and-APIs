@@ -7,26 +7,17 @@ Your monolithic service is doing too much. You need to decouple the write operat
 ---
 
 ## Prerequisites
-- **Java 21+**
+- **Java 25+**
 - **Maven 3.9+**
 
 ---
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task | Target File |
-|------|-----------|----------------|
-| 1 | Put a new OrderView into READ_MODEL with status "PLACED" | `src/main/java/com/ecommerce/cqrs/OrderReadService.java` |
-| 2 | Update the OrderView status to "CANCELLED" | `src/main/java/com/ecommerce/cqrs/OrderReadService.java` |
-| 3 | Iterate over OrderWriteService.EVENT_STORE | `src/main/java/com/ecommerce/cqrs/OrderReadService.java` |
-| 4 | For each event, if OrderPlacedEvent put new view, if OrderCancelledEvent update status. | `src/main/java/com/ecommerce/cqrs/OrderReadService.java` |
-| 5 | Issue a CancelOrderCommand to the write service | `src/main/java/com/ecommerce/cqrs/OrderSaga.java` |
-| 6 | Instantiate an OrderPlacedEvent | `src/main/java/com/ecommerce/cqrs/OrderWriteService.java` |
-| 7 | Append to EVENT_STORE | `src/main/java/com/ecommerce/cqrs/OrderWriteService.java` |
-| 8 | Publish event | `src/main/java/com/ecommerce/cqrs/OrderWriteService.java` |
-| 9 | Instantiate an OrderCancelledEvent | `src/main/java/com/ecommerce/cqrs/OrderWriteService.java` |
-| 10 | Append to EVENT_STORE | `src/main/java/com/ecommerce/cqrs/OrderWriteService.java` |
-| 11 | Publish event | `src/main/java/com/ecommerce/cqrs/OrderWriteService.java` |
+| Step | Task |
+|------|-----------|
+| 1 | In `src/main/java/com/ecommerce/cqrs/OrderWriteService.java`, publish an event when a write occurs. |
+| 2 | In `src/main/java/com/ecommerce/cqrs/OrderReadService.java`, update a read-optimized data structure when the event is received. |
 
 
 > [!IMPORTANT]

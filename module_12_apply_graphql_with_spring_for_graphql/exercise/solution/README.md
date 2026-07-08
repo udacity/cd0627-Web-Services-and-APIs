@@ -30,10 +30,11 @@ public class CustomerRepository {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task | Target File |
-|------|-----------|----------------|
-| 1 | 1: Implement a naïve `@SchemaMapping` for "customer" on "Order". | `src/main/java/com/ecommerce/graphql/OrderController.java` |
-| 2 | 2: Once you see the N+1 problem, comment out the `@SchemaMapping` and replace it with `@BatchMapping`. | `src/main/java/com/ecommerce/graphql/OrderController.java` |
+| Step | Task |
+|------|-----------|
+| 1 | In `src/main/resources/graphql/schema.graphqls`, define your Types and Queries. |
+| 2 | In `src/main/java/com/ecommerce/graphql/OrderController.java`, annotate query methods with `@QueryMapping`. |
+| 3 | Annotate nested field resolvers with `@SchemaMapping`. |
 
 
 ### Key Concepts Demonstrated

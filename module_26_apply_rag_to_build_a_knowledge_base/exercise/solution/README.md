@@ -35,12 +35,10 @@ public class CorpusIngestor {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task | Target File |
-|------|-----------|----------------|
-| 1 | Create a bean for SimpleVectorStore | `src/main/java/com/ecommerce/rag/RagConfig.java` |
-| 2 | Configure QuestionAnswerAdvisor with a custom SearchRequest (.topK(2).similarityThreshold(0.80)) | `src/main/java/com/ecommerce/rag/SupportOracleController.java` |
-| 3 | Inject a strict system prompt regarding out-of-scope questions | `src/main/java/com/ecommerce/rag/SupportOracleController.java` |
-| 4 | Execute prompt, return answer and extract sources from context metadata | `src/main/java/com/ecommerce/rag/SupportOracleController.java` |
+| Step | Task |
+|------|-----------|
+| 1 | In `src/main/java/com/ecommerce/rag/RagConfig.java`, configure the `ChatClient` with a `QuestionAnswerAdvisor`. |
+| 2 | Pass the `VectorStore` to the advisor so it can perform semantic searches automatically. |
 
 
 ### Key Concepts Demonstrated

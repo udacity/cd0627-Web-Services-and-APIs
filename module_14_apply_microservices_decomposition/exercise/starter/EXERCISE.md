@@ -7,7 +7,7 @@ You are decomposing a monolith. You need to extract the Order and Inventory logi
 ---
 
 ## Prerequisites
-- **Java 21+**
+- **Java 25+**
 - **Maven 3.9+**
 
 ---

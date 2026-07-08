@@ -7,20 +7,18 @@ Your startup needs a REST API to manage Customers. You need to build a Spring Bo
 ---
 
 ## Prerequisites
-- **Java 21+**
+- **Java 25+**
 - **Maven 3.9+**
 
 ---
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task | Target File |
-|------|-----------|----------------|
-| 1 | 1: Implement GET /orders/{id}. Use ResponseEntity.ok(). Include customer name via customerClient. | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
-| 2 | 2: Implement POST /orders. Use ResponseEntity.created() to return 201 Created. | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
-| 3 | 3: Implement POST /orders/{id}/cancel. Return 404 if order not found (mock it by checking id > 100), otherwise return 204 No Content. | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
-| 4 | 4: Implement GET /orders/{id} for version 2 (e.g. headers="version=2"). Add an "orderSummary" field to the response. | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
-| 5 | Configure GetExchange for /internal/customers/{id} | `src/main/java/com/ecommerce/order/client/CustomerClient.java` |
+| Step | Task |
+|------|-----------|
+| 1 | In `src/main/java/com/ecommerce/order/controller/OrderController.java`, annotate the class with `@RestController` and `@RequestMapping` to handle web requests. |
+| 2 | Implement a GET mapping to retrieve a customer by ID. |
+| 3 | Implement a POST mapping to create a new customer, returning a 201 Created status. |
 
 
 > [!IMPORTANT]

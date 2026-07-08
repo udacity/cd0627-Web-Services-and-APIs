@@ -7,22 +7,17 @@ Your event-driven architecture is failing because poisoned messages are causing 
 ---
 
 ## Prerequisites
-- **Java 21+**
+- **Java 25+**
 - **Maven 3.9+**
 
 ---
 
 ## Step-by-Step Implementation Guide
 
-> [!NOTE]
-> **Deep Dive:** Spring Kafka's `@RetryableTopic` handles backoff and DLQ routing automatically without blocking the consumer thread. When an exception occurs, it intercepts the error and publishes the message to a dedicated backoff topic (e.g., `inventory-topic-retry-1000`). If all retries fail, it routes the message to the Dead Letter Topic (DLT).
-
-| Step | Task | Target File |
-|------|-----------|----------------|
-| 1 | Add `@RetryableTopic` here with 3 attempts. | `src/main/java/com/ecommerce/kafka/InventoryConsumer.java` |
-| 2 | Configure exponential `@Backoff` (e.g. wait 1s, then 2s, then 4s). | `src/main/java/com/ecommerce/kafka/InventoryConsumer.java` |
-| 3 | Exclude MalformedOrderException.class from retries entirely. | `src/main/java/com/ecommerce/kafka/InventoryConsumer.java` |
-| 4 | Create beans for EmbeddedKafkaBroker and NewTopic | `src/main/java/com/ecommerce/kafka/KafkaLocalConfig.java` |
+| Step | Task |
+|------|-----------|
+| 1 | In `src/main/java/com/ecommerce/kafka/InventoryConsumer.java`, annotate your consumer method with `@KafkaListener`. |
+| 2 | Add `@RetryableTopic` to automatically route failures to a backoff topic. |
 
 
 > [!IMPORTANT]

@@ -7,19 +7,18 @@ Clients are complaining about messy stack traces in the API responses. You need 
 ---
 
 ## Prerequisites
-- **Java 21+**
+- **Java 25+**
 - **Maven 3.9+**
 
 ---
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task | Target File |
-|------|-----------|----------------|
-| 1 | 1: Add Exception.class handler returning static support message (500) | `src/main/java/com/ecommerce/order/GlobalRestExceptionHandler.java` |
-| 2 | 2: Add OrderNotFoundException handler returning 404 | `src/main/java/com/ecommerce/order/GlobalRestExceptionHandler.java` |
-| 3 | 3: Add InvalidOrderStateException handler returning 422 (UNPROCESSABLE_ENTITY) | `src/main/java/com/ecommerce/order/GlobalRestExceptionHandler.java` |
-| 4 | 4: Add MethodArgumentNotValidException handler returning 400. Iterate through BindingResult to format custom error string. | `src/main/java/com/ecommerce/order/GlobalRestExceptionHandler.java` |
+| Step | Task |
+|------|-----------|
+| 1 | In `src/main/java/com/ecommerce/order/GlobalRestExceptionHandler.java`, add `@RestControllerAdvice` to the class to globally intercept exceptions. |
+| 2 | Write a method annotated with `@ExceptionHandler(OrderNotFoundException.class)`. |
+| 3 | Construct and return a Spring `ProblemDetail` object with a 404 status. |
 
 
 > [!IMPORTANT]

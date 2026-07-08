@@ -7,7 +7,7 @@ With multiple microservices running, clients don't know which IP addresses to ca
 ---
 
 ## Prerequisites
-- **Java 21+**
+- **Java 25+**
 - **Maven 3.9+**
 
 ---

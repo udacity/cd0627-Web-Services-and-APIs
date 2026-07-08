@@ -7,20 +7,18 @@ The dashboard API is bottlenecking because it blocks threads while waiting for d
 ---
 
 ## Prerequisites
-- **Java 21+**
+- **Java 25+**
 - **Maven 3.9+**
 
 ---
 
 ## Step-by-Step Implementation Guide
 
-> [!NOTE]
-> **Deep Dive:** In Spring WebFlux, returning a `Flux` with `produces = MediaType.TEXT_EVENT_STREAM_VALUE` automatically establishes a Server-Sent Events (SSE) connection. This allows the server to push new data to the client asynchronously over a single persistent HTTP connection without blocking a thread.
-
-| Step | Task | Target File |
-|------|-----------|----------------|
-| 1 | 1: Implement GET /dashboard/summary-reactive | `src/main/java/com/ecommerce/dashboard/DashboardController.java` |
-| 2 | 2: Implement GET /dashboard/ticker | `src/main/java/com/ecommerce/dashboard/DashboardController.java` |
+| Step | Task |
+|------|-----------|
+| 1 | In `src/main/java/com/ecommerce/dashboard/DashboardController.java`, change the controller return type to `Flux<Ticker>` to represent a stream of multiple items. |
+| 2 | Ensure the endpoint produces `text/event-stream` for Server-Sent Events. |
+| 3 | Use Project Reactor operators to build the non-blocking pipeline. |
 
 
 > [!IMPORTANT]

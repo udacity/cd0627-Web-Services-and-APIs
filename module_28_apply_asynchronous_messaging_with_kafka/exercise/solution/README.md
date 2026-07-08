@@ -29,12 +29,10 @@ public class KafkaLocalConfig {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task | Target File |
-|------|-----------|----------------|
-| 1 | Add `@RetryableTopic` here with 3 attempts. | `src/main/java/com/ecommerce/kafka/InventoryConsumer.java` |
-| 2 | Configure exponential `@Backoff` (e.g. wait 1s, then 2s, then 4s). | `src/main/java/com/ecommerce/kafka/InventoryConsumer.java` |
-| 3 | Exclude MalformedOrderException.class from retries entirely. | `src/main/java/com/ecommerce/kafka/InventoryConsumer.java` |
-| 4 | Create beans for EmbeddedKafkaBroker and NewTopic | `src/main/java/com/ecommerce/kafka/KafkaLocalConfig.java` |
+| Step | Task |
+|------|-----------|
+| 1 | In `src/main/java/com/ecommerce/kafka/InventoryConsumer.java`, annotate your consumer method with `@KafkaListener`. |
+| 2 | Add `@RetryableTopic` to automatically route failures to a backoff topic. |
 
 
 ### Key Concepts Demonstrated

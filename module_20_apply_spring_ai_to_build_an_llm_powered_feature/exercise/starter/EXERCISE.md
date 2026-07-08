@@ -7,18 +7,17 @@ Your product manager wants to add AI capabilities to the app. You need to integr
 ---
 
 ## Prerequisites
-- **Java 21+**
+- **Java 25+**
 - **Maven 3.9+**
 
 ---
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task | Target File |
-|------|-----------|----------------|
-| 1 | Build the ChatClient | `src/main/java/com/ecommerce/ai/ReviewController.java` |
-| 2 | Use the ChatClient fluent API to extract structured data into a ReviewSummary | `src/main/java/com/ecommerce/ai/ReviewController.java` |
-| 3 | Handle parsing exceptions by returning a fallback ReviewSummary | `src/main/java/com/ecommerce/ai/ReviewController.java` |
+| Step | Task |
+|------|-----------|
+| 1 | In `src/main/java/com/ecommerce/ai/ReviewController.java`, inject `ChatClient.Builder` into your controller. |
+| 2 | Call `chatClient.prompt().user(message).call().content()` to get the AI's response. |
 
 
 > [!IMPORTANT]

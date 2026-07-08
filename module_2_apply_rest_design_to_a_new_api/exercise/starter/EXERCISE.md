@@ -7,7 +7,7 @@ You are joining a team building an e-commerce platform. The Product API is live,
 ---
 
 ## Prerequisites
-- **Java 21+**
+- **Java 25+**
 - **Maven 3.9+**
 
 ---

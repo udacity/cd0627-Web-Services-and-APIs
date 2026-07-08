@@ -38,13 +38,10 @@ public class OrderMapperImpl implements OrderMapper {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task | Target File |
-|------|-----------|----------------|
-| 1 | 1. Create OrderResponse Record (id, totalAmount, status) | `src/main/java/com/ecommerce/order/OrderController.java` |
-| 2 | 2. Create CreateOrderRequest Record (totalAmount, status, deliveryDate, itemIds) | `src/main/java/com/ecommerce/order/OrderController.java` |
-| 3 | 3. Add Validation to CreateOrderRequest: | `src/main/java/com/ecommerce/order/OrderController.java` |
-| 4 | 4. Create OrderMapper interface using MapStruct. | `src/main/java/com/ecommerce/order/OrderController.java` |
-| 5 | 5. Refactor the endpoints below to use the Records, `@Valid`, and the Mapper. | `src/main/java/com/ecommerce/order/OrderController.java` |
+| Step | Task |
+|------|-----------|
+| 1 | In `src/main/java/com/ecommerce/order/OrderController.java`, refactor the endpoints to accept and return DTOs instead of raw Entities. |
+| 2 | In `src/main/java/com/ecommerce/order/OrderMapper.java`, define the MapStruct mapping rules. |
 
 
 ### Key Concepts Demonstrated
