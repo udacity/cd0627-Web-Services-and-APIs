@@ -14,10 +14,8 @@ Your event-driven architecture is failing because poisoned messages are causing 
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/kafka/InventoryConsumer.java`, annotate your consumer method with `@KafkaListener`. |
-| 2 | Add `@RetryableTopic` to automatically route failures to a backoff topic. |
+1. In `src/main/java/com/ecommerce/kafka/InventoryConsumer.java`, annotate your consumer method with `@KafkaListener`.
+2. Add `@RetryableTopic` to automatically route failures to a backoff topic.
 
 
 > [!IMPORTANT]

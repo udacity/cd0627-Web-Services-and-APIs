@@ -38,10 +38,8 @@ public class OrderMapperImpl implements OrderMapper {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/order/OrderController.java`, refactor the endpoints to accept and return DTOs instead of raw Entities. |
-| 2 | In `src/main/java/com/ecommerce/order/OrderMapper.java`, define the MapStruct mapping rules. |
+1. In `src/main/java/com/ecommerce/order/OrderController.java`, refactor the endpoints to accept and return DTOs instead of raw Entities.
+2. In `src/main/java/com/ecommerce/order/OrderMapper.java`, define the MapStruct mapping rules.
 
 
 ### Key Concepts Demonstrated

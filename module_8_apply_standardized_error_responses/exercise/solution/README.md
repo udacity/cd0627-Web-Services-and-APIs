@@ -22,11 +22,9 @@ public class OrderController {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/order/GlobalRestExceptionHandler.java`, add `@RestControllerAdvice` to the class to globally intercept exceptions. |
-| 2 | Write a method annotated with `@ExceptionHandler(OrderNotFoundException.class)`. |
-| 3 | Construct and return a Spring `ProblemDetail` object with a 404 status. |
+1. In `src/main/java/com/ecommerce/order/GlobalRestExceptionHandler.java`, add `@RestControllerAdvice` to the class to globally intercept exceptions.
+2. Write a method annotated with `@ExceptionHandler(OrderNotFoundException.class)`.
+3. Construct and return a Spring `ProblemDetail` object with a 404 status.
 
 
 ### Key Concepts Demonstrated

@@ -28,17 +28,15 @@ public class CorpusIngestor {
         List<Document> chunks = splitter.apply(documents);
 
         vectorStore.add(chunks);
-        System.out.println("Product Manual ingested into PGVector.");
+        System.out.println("Product Manual ingested into SimpleVectorStore.");
     }
 }
 ```
 
 ### Step-by-step Design Decisions:
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/rag/RagConfig.java`, configure the `ChatClient` with a `QuestionAnswerAdvisor`. |
-| 2 | Pass the `VectorStore` to the advisor so it can perform semantic searches automatically. |
+1. In `src/main/java/com/ecommerce/rag/RagConfig.java`, configure the `ChatClient` with a `QuestionAnswerAdvisor`.
+2. Pass the `VectorStore` to the advisor so it can perform semantic searches automatically.
 
 
 ### Key Concepts Demonstrated

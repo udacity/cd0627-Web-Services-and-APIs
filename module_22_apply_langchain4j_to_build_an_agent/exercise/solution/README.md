@@ -16,10 +16,8 @@ public interface TravelAssistant {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/agent/TravelAssistant.java`, annotate the interface with `@AiService` and define the persona using `@SystemMessage`. |
-| 2 | In `src/main/java/com/ecommerce/agent/Tools.java`, annotate the flight and weather methods with `@Tool` so the LLM can invoke them. |
+1. In `src/main/java/com/ecommerce/agent/TravelAssistant.java`, annotate the interface with `@AiService` and define the persona using `@SystemMessage`.
+2. In `src/main/java/com/ecommerce/agent/Tools.java`, annotate the flight and weather methods with `@Tool` so the LLM can invoke them.
 
 
 ### Key Concepts Demonstrated

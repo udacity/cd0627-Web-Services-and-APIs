@@ -14,10 +14,8 @@ Frontend developers are complaining that they don't know how to use your API. Yo
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task |
-|------|-----------|
-| 1 | Add the `springdoc-openapi-starter-webmvc-ui` dependency. |
-| 2 | In `src/main/java/com/ecommerce/docs/OrderController.java`, annotate your controller endpoints with `@Operation` and `@ApiResponses`. |
+1. Add the `springdoc-openapi-starter-webmvc-ui` dependency.
+2. In `src/main/java/com/ecommerce/docs/OrderController.java`, annotate your controller endpoints with `@Operation` and `@ApiResponses`.
 
 
 > [!IMPORTANT]

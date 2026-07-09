@@ -34,10 +34,8 @@ public class ReviewController {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/ai/ReviewController.java`, inject `ChatClient.Builder` into your controller. |
-| 2 | Call `chatClient.prompt().user(message).call().content()` to get the AI's response. |
+1. In `src/main/java/com/ecommerce/ai/ReviewController.java`, inject `ChatClient.Builder` into your controller.
+2. Call `chatClient.prompt().user(message).call().content()` to get the AI's response.
 
 
 ### Key Concepts Demonstrated

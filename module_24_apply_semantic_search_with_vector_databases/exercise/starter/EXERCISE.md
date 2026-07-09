@@ -14,10 +14,8 @@ Keyword search isn't cutting it for your FAQ system. You need to implement Seman
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/search/FaqIngestor.java`, load and parse documents into the `VectorStore`. |
-| 2 | In `src/main/java/com/ecommerce/search/FaqController.java`, use `vectorStore.similaritySearch(request)` to find the top matching documents. |
+1. In `src/main/java/com/ecommerce/search/FaqIngestor.java`, load and parse documents into the `VectorStore`.
+2. In `src/main/java/com/ecommerce/search/FaqController.java`, use `vectorStore.similaritySearch(request)` to find the top matching documents.
 
 
 > [!IMPORTANT]

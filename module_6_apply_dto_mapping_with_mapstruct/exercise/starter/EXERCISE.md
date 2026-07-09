@@ -14,10 +14,8 @@ Your APIs are currently exposing internal database entities directly to the clie
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/order/OrderController.java`, refactor the endpoints to accept and return DTOs instead of raw Entities. |
-| 2 | In `src/main/java/com/ecommerce/order/OrderMapper.java`, define the MapStruct mapping rules. |
+1. In `src/main/java/com/ecommerce/order/OrderController.java`, refactor the endpoints to accept and return DTOs instead of raw Entities.
+2. In `src/main/java/com/ecommerce/order/OrderMapper.java`, define the MapStruct mapping rules.
 
 
 > [!IMPORTANT]

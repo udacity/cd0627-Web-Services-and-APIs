@@ -14,10 +14,9 @@ The payment downstream service is flaky and causing your entire order API to cra
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/resilience/OrderController.java`, add the `@CircuitBreaker` annotation to the fragile payment call. |
-| 2 | Define a `fallbackMethod` that returns a cached or default response when the circuit is open. |
+1. In `src/main/java/com/ecommerce/resilience/OrderController.java`, add the `@CircuitBreaker` annotation to the fragile payment call.
+2. Define a `fallbackMethod` that returns a cached or default response when the circuit is open.
+3. Add the `@Bulkhead` annotation to limit concurrent calls.
 
 
 > [!IMPORTANT]

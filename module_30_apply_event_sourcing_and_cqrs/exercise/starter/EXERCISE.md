@@ -14,10 +14,8 @@ Your monolithic service is doing too much. You need to decouple the write operat
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/cqrs/OrderWriteService.java`, publish an event when a write occurs. |
-| 2 | In `src/main/java/com/ecommerce/cqrs/OrderReadService.java`, update a read-optimized data structure when the event is received. |
+1. In `src/main/java/com/ecommerce/cqrs/OrderWriteService.java`, publish an event when a write occurs.
+2. In `src/main/java/com/ecommerce/cqrs/OrderReadService.java`, update a read-optimized data structure when the event is received.
 
 
 > [!IMPORTANT]

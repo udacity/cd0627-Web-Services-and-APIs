@@ -14,14 +14,9 @@ You are joining a team building an e-commerce platform. The Product API is live,
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task | Target File |
-|------|-----------|----------------|
-| 1 | 1 – GET /orders/{id} | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
-| 2 | implement this method | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
-| 3 | 2 – GET /orders/{id}/items | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
-| 4 | implement this method | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
-| 5 | 3 – POST /orders/{id}/cancel | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
-| 6 | implement this method | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
+1. Implement the `GET /orders/{id}` method.
+2. Implement the `GET /orders/{id}/items` method.
+3. Implement the `POST /orders/{id}/cancel` method.
 
 
 > [!IMPORTANT]

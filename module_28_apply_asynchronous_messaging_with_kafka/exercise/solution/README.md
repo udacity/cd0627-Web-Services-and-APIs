@@ -29,10 +29,8 @@ public class KafkaLocalConfig {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/kafka/InventoryConsumer.java`, annotate your consumer method with `@KafkaListener`. |
-| 2 | Add `@RetryableTopic` to automatically route failures to a backoff topic. |
+1. In `src/main/java/com/ecommerce/kafka/InventoryConsumer.java`, annotate your consumer method with `@KafkaListener`.
+2. Add `@RetryableTopic` to automatically route failures to a backoff topic.
 
 
 ### Key Concepts Demonstrated

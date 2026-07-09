@@ -33,10 +33,8 @@ public class OrderWriteService {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/cqrs/OrderWriteService.java`, publish an event when a write occurs. |
-| 2 | In `src/main/java/com/ecommerce/cqrs/OrderReadService.java`, update a read-optimized data structure when the event is received. |
+1. In `src/main/java/com/ecommerce/cqrs/OrderWriteService.java`, publish an event when a write occurs.
+2. In `src/main/java/com/ecommerce/cqrs/OrderReadService.java`, update a read-optimized data structure when the event is received.
 
 
 ### Key Concepts Demonstrated

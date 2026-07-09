@@ -30,11 +30,9 @@ public class CustomerRepository {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/resources/graphql/schema.graphqls`, define your Types and Queries. |
-| 2 | In `src/main/java/com/ecommerce/graphql/OrderController.java`, annotate query methods with `@QueryMapping`. |
-| 3 | Annotate nested field resolvers with `@SchemaMapping`. |
+1. In `src/main/resources/graphql/schema.graphqls`, define your Types and Queries.
+2. In `src/main/java/com/ecommerce/graphql/OrderController.java`, annotate query methods with `@QueryMapping`.
+3. Annotate nested field resolvers with `@SchemaMapping`.
 
 
 ### Key Concepts Demonstrated

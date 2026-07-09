@@ -38,14 +38,9 @@ public class OrderRepository {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task | Target File |
-|------|-----------|----------------|
-| 1 | 1 – GET /orders/{id} | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
-| 2 | implement this method | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
-| 3 | 2 – GET /orders/{id}/items | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
-| 4 | implement this method | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
-| 5 | 3 – POST /orders/{id}/cancel | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
-| 6 | implement this method | `src/main/java/com/ecommerce/order/controller/OrderController.java` |
+1. Implement the `GET /orders/{id}` method.
+2. Implement the `GET /orders/{id}/items` method.
+3. Implement the `POST /orders/{id}/cancel` method.
 
 
 ### Key Concepts Demonstrated

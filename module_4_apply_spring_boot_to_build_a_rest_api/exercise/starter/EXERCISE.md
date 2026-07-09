@@ -14,11 +14,9 @@ Your startup needs a REST API to manage Customers. You need to build a Spring Bo
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/order/controller/OrderController.java`, annotate the class with `@RestController` and `@RequestMapping` to handle web requests. |
-| 2 | Implement a GET mapping to retrieve a customer by ID. |
-| 3 | Implement a POST mapping to create a new customer, returning a 201 Created status. |
+1. In `src/main/java/com/ecommerce/order/controller/OrderController.java`, annotate the class with `@RestController` and `@RequestMapping` to handle web requests.
+2. Implement a GET mapping to retrieve a customer by ID.
+3. Implement a POST mapping to create a new customer, returning a 201 Created status.
 
 
 > [!IMPORTANT]

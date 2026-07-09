@@ -14,11 +14,9 @@ With multiple microservices running, clients don't know which IP addresses to ca
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task |
-|------|-----------|
-| 1 | Configure the `eureka-server` to act as the service registry. |
-| 2 | Configure `api-gateway` routes using Spring Cloud Gateway. |
-| 3 | Implement a `CorrelationIdFilter` in the gateway to attach tracking headers to all requests. |
+1. Configure the `eureka-server` to act as the service registry.
+2. Configure `api-gateway` routes using Spring Cloud Gateway.
+3. Implement a `CorrelationIdFilter` in the gateway to attach tracking headers to all requests.
 
 
 > [!IMPORTANT]

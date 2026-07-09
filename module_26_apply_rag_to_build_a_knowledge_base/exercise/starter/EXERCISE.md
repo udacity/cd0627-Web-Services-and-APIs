@@ -14,10 +14,8 @@ You want the AI to answer customer support questions, but it hallucinates answer
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/rag/RagConfig.java`, configure the `ChatClient` with a `QuestionAnswerAdvisor`. |
-| 2 | Pass the `VectorStore` to the advisor so it can perform semantic searches automatically. |
+1. In `src/main/java/com/ecommerce/rag/RagConfig.java`, configure the `ChatClient` with a `QuestionAnswerAdvisor`.
+2. Pass the `VectorStore` to the advisor so it can perform semantic searches automatically.
 
 
 > [!IMPORTANT]

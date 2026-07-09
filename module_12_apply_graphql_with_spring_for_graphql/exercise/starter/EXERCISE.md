@@ -14,11 +14,9 @@ Your frontend team is frustrated by over-fetching and under-fetching REST endpoi
 
 ## Step-by-Step Implementation Guide
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/resources/graphql/schema.graphqls`, define your Types and Queries. |
-| 2 | In `src/main/java/com/ecommerce/graphql/OrderController.java`, annotate query methods with `@QueryMapping`. |
-| 3 | Annotate nested field resolvers with `@SchemaMapping`. |
+1. In `src/main/resources/graphql/schema.graphqls`, define your Types and Queries.
+2. In `src/main/java/com/ecommerce/graphql/OrderController.java`, annotate query methods with `@QueryMapping`.
+3. Annotate nested field resolvers with `@SchemaMapping`.
 
 
 > [!IMPORTANT]

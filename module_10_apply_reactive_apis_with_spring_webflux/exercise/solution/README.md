@@ -37,11 +37,9 @@ public class DashboardController {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/dashboard/DashboardController.java`, change the controller return type to `Flux<Ticker>` to represent a stream of multiple items. |
-| 2 | Ensure the endpoint produces `text/event-stream` for Server-Sent Events. |
-| 3 | Use Project Reactor operators to build the non-blocking pipeline. |
+1. In `src/main/java/com/ecommerce/dashboard/DashboardController.java`, change the controller return type to `Flux<Ticker>` to represent a stream of multiple items.
+2. Ensure the endpoint produces `text/event-stream` for Server-Sent Events.
+3. Use Project Reactor operators to build the non-blocking pipeline.
 
 
 ### Key Concepts Demonstrated

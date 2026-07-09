@@ -17,11 +17,9 @@ public class InternalCustomerController {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task |
-|------|-----------|
-| 1 | In `src/main/java/com/ecommerce/order/controller/OrderController.java`, annotate the class with `@RestController` and `@RequestMapping` to handle web requests. |
-| 2 | Implement a GET mapping to retrieve a customer by ID. |
-| 3 | Implement a POST mapping to create a new customer, returning a 201 Created status. |
+1. In `src/main/java/com/ecommerce/order/controller/OrderController.java`, annotate the class with `@RestController` and `@RequestMapping` to handle web requests.
+2. Implement a GET mapping to retrieve a customer by ID.
+3. Implement a POST mapping to create a new customer, returning a 201 Created status.
 
 
 ### Key Concepts Demonstrated

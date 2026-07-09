@@ -30,10 +30,8 @@ public class Order {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task |
-|------|-----------|
-| 1 | Add the `springdoc-openapi-starter-webmvc-ui` dependency. |
-| 2 | In `src/main/java/com/ecommerce/docs/OrderController.java`, annotate your controller endpoints with `@Operation` and `@ApiResponses`. |
+1. Add the `springdoc-openapi-starter-webmvc-ui` dependency.
+2. In `src/main/java/com/ecommerce/docs/OrderController.java`, annotate your controller endpoints with `@Operation` and `@ApiResponses`.
 
 
 ### Key Concepts Demonstrated

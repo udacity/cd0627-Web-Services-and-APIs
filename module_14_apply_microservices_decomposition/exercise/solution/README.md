@@ -31,10 +31,8 @@ public class OrderController {
 
 ### Step-by-step Design Decisions:
 
-| Step | Task |
-|------|-----------|
-| 1 | In the `order-service` project, implement an HTTP client to verify inventory via the `inventory-service`. |
-| 2 | Ensure the services can run on separate ports simultaneously. |
+1. In the `order-service` project, implement an HTTP client to verify inventory via the `inventory-service`.
+2. Ensure the services can run on separate ports simultaneously.
 
 
 ### Key Concepts Demonstrated
