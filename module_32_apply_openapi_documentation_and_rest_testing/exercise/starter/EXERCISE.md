@@ -7,7 +7,7 @@ Frontend developers are complaining that they don't know how to use your API. Yo
 ---
 
 ## Prerequisites
-- **Java 25+**
+- **Java 23+**
 - **Maven 3.9+**
 
 ---

@@ -7,7 +7,7 @@ Your product manager wants to add AI capabilities to the app. You need to integr
 ---
 
 ## Prerequisites
-- **Java 25+**
+- **Java 23+**
 - **Maven 3.9+**
 
 ---

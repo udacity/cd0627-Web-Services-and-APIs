@@ -7,7 +7,7 @@ Keyword search isn't cutting it for your FAQ system. You need to implement Seman
 ---
 
 ## Prerequisites
-- **Java 25+**
+- **Java 23+**
 - **Maven 3.9+**
 
 ---

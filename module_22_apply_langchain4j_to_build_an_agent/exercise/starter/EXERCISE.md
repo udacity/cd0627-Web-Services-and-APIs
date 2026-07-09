@@ -7,7 +7,7 @@ You need to build an intelligent Travel Assistant agent that has real-world capa
 ---
 
 ## Prerequisites
-- **Java 25+**
+- **Java 23+**
 - **Maven 3.9+**
 
 ---

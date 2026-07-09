@@ -15,8 +15,8 @@ public class OrderApiApplication {
     }
 
     @Bean
-    public CustomerClient customerClient(RestClient.Builder builder) {
-        RestClient restClient = builder.baseUrl("http://localhost:8080").build();
+    public CustomerClient customerClient() {
+        RestClient restClient = RestClient.builder().baseUrl("http://localhost:8080").build();
         RestClientAdapter adapter = RestClientAdapter.create(restClient);
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
         return factory.createClient(CustomerClient.class);

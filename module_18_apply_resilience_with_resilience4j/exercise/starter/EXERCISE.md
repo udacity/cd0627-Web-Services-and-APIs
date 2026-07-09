@@ -7,7 +7,7 @@ The payment downstream service is flaky and causing your entire order API to cra
 ---
 
 ## Prerequisites
-- **Java 25+**
+- **Java 23+**
 - **Maven 3.9+**
 
 ---

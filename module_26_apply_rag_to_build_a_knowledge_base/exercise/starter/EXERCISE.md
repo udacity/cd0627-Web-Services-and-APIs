@@ -7,7 +7,7 @@ You want the AI to answer customer support questions, but it hallucinates answer
 ---
 
 ## Prerequisites
-- **Java 25+**
+- **Java 23+**
 - **Maven 3.9+**
 
 ---

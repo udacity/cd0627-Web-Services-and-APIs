@@ -15,8 +15,8 @@ public class DemoApplication {
     }
 
     @Bean
-    public InventoryClient inventoryClient(RestClient.Builder builder) {
-        RestClient restClient = builder.baseUrl("http://localhost:8080").build();
+    public InventoryClient inventoryClient() {
+        RestClient restClient = RestClient.builder().baseUrl("http://localhost:8080").build();
         RestClientAdapter adapter = RestClientAdapter.create(restClient);
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
         return factory.createClient(InventoryClient.class);

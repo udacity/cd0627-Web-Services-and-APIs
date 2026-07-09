@@ -7,7 +7,7 @@ Your event-driven architecture is failing because poisoned messages are causing 
 ---
 
 ## Prerequisites
-- **Java 25+**
+- **Java 23+**
 - **Maven 3.9+**
 
 ---
