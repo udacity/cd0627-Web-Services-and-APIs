@@ -12,7 +12,7 @@
     <version>1.0.0</version>
     <properties>
         <java.version>25</java.version>
-        <langchain4j.version>0.31.0</langchain4j.version>
+        <langchain4j.version>0.36.2</langchain4j.version>
     </properties>
     <dependencies>
         <dependency>

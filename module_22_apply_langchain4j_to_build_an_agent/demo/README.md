@@ -23,3 +23,13 @@ public interface TravelAssistant {
 mvn clean install
 mvn spring-boot:run
 ```
+
+## Streaming Chat Endpoint (SSE)
+
+This demo also includes an example of streaming Large Language Model responses using Server-Sent Events (SSE). 
+You can interact with the `/api/chat/stream` endpoint to see responses token-by-token:
+
+```bash
+curl -N "http://localhost:8080/api/chat/stream?message=Tell%20me%20a%20short%20story"
+```
+*Note: The `-N` flag is important as it disables curl's default buffering so you can see the text stream in real-time.*

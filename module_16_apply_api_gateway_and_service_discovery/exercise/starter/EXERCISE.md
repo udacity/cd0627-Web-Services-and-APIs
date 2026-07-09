@@ -29,14 +29,31 @@ With multiple microservices running, clients don't know which IP addresses to ca
 
 ## Running the Exercise
 
+To demonstrate Service Discovery and Load Balancing, you must run multiple applications in separate terminal windows:
+
+1. **Start Eureka Server**:
+   ```bash
+   cd eureka-server
+   mvn spring-boot:run
+   ```
+2. **Start API Gateway**:
+   ```bash
+   cd api-gateway
+   mvn spring-boot:run
+   ```
+3. **Start Order Service (Instance 1 on port 8081)**:
+   ```bash
+   cd order-service
+   SERVER_PORT=8081 mvn spring-boot:run
+   ```
+4. **Start Order Service (Instance 2 on port 8082)**:
+   ```bash
+   cd order-service
+   SERVER_PORT=8082 mvn spring-boot:run
+   ```
+
+**Test Load Balancing**:
+Hit the gateway multiple times and observe the logs in the two `order-service` terminals to see the requests distributed round-robin!
 ```bash
-mvn spring-boot:run
+curl http://localhost:8080/api/orders
 ```
-
----
-
-## Success Criteria
-
-- [ ] Services register themselves with Eureka.
-- [ ] The Gateway routes `/api/orders` to the correct service.
-- [ ] Correlation IDs are injected into the headers.
