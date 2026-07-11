@@ -2,6 +2,10 @@ type Query {
     orders: [Order!]!
 }
 
+type Mutation {
+    createOrder(totalAmount: Float!, customerId: ID!): Order!
+}
+
 type Order {
     id: ID!
     totalAmount: Float!

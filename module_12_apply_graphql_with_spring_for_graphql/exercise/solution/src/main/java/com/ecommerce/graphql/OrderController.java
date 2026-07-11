@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -45,5 +47,12 @@ public class OrderController {
                         order -> order,
                         order -> customersById.get(order.customerId())
                 ));
+    }
+
+    @MutationMapping
+    public Order createOrder(@Argument Double totalAmount, @Argument Long customerId) {
+        log.info("Creating new order for customer {}", customerId);
+        Order newOrder = new Order(null, totalAmount, "PENDING", customerId);
+        return orderRepository.addOrder(newOrder);
     }
 }

@@ -14,6 +14,6 @@ public class AgentController {
 
     @GetMapping("/ask")
     public String ask(@RequestParam String message) {
-        return travelAssistant.chat(message);
+        return travelAssistant.chat("demo-user", message);
     }
 }

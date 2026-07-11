@@ -30,14 +30,14 @@ public class CustomerRepository {
 
 ### Step-by-step Design Decisions:
 
-1. In `src/main/resources/graphql/schema.graphqls`, define your Types and Queries.
-2. In `src/main/java/com/ecommerce/graphql/OrderController.java`, annotate query methods with `@QueryMapping`.
+1. In `src/main/resources/graphql/schema.graphqls`, define your Types, Queries, and Mutations.
+2. In `src/main/java/com/ecommerce/graphql/OrderController.java`, annotate query methods with `@QueryMapping` and mutation methods with `@MutationMapping`.
 3. Annotate nested field resolvers with `@SchemaMapping`.
 
 
 ### Key Concepts Demonstrated
 - **GraphQL Schemas**
-- **`@QueryMapping` and `@SchemaMapping`**
+- **`@QueryMapping`, `@MutationMapping`, and `@SchemaMapping`**
 
 ## How to Run
 ```bash

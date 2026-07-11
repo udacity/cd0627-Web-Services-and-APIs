@@ -14,8 +14,8 @@ Your frontend team is frustrated by over-fetching and under-fetching REST endpoi
 
 ## Step-by-Step Implementation Guide
 
-1. In `src/main/resources/graphql/schema.graphqls`, define your Types and Queries.
-2. In `src/main/java/com/ecommerce/graphql/OrderController.java`, annotate query methods with `@QueryMapping`.
+1. In `src/main/resources/graphql/schema.graphqls`, define your Types, Queries, and Mutations.
+2. In `src/main/java/com/ecommerce/graphql/OrderController.java`, annotate query methods with `@QueryMapping` and mutation methods with `@MutationMapping`.
 3. Annotate nested field resolvers with `@SchemaMapping`.
 
 
@@ -37,4 +37,5 @@ mvn spring-boot:run
 
 - [ ] The GraphQL endpoint resolves complex queries.
 - [ ] Clients can specify exact fields to retrieve.
+- [ ] Clients can create new orders via mutations.
 - [ ] The GraphiQL interface is accessible.

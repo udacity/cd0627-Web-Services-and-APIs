@@ -14,8 +14,9 @@ You need to build an intelligent Travel Assistant agent that has real-world capa
 
 ## Step-by-Step Implementation Guide
 
-1. In `src/main/java/com/ecommerce/agent/TravelAssistant.java`, annotate the interface with `@AiService` and define the persona using `@SystemMessage`.
-2. In `src/main/java/com/ecommerce/agent/Tools.java`, annotate the flight and weather methods with `@Tool` so the LLM can invoke them.
+1. In `src/main/java/com/ecommerce/agent/TravelAssistant.java`, annotate the interface with `@AiService` and define the persona using `@SystemMessage`. Add `@MemoryId` and `@UserMessage` annotations to the `chat` method parameters.
+2. In `src/main/java/com/ecommerce/agent/ExerciseApplication.java`, configure a `ChatMemoryProvider` bean to enable persistent conversation memory.
+3. In `src/main/java/com/ecommerce/agent/Tools.java`, annotate the flight and weather methods with `@Tool` so the LLM can invoke them.
 
 
 > [!IMPORTANT]
@@ -36,3 +37,4 @@ mvn spring-boot:run
 
 - [ ] The AI can dynamically decide to call the tools when asked about flights or weather.
 - [ ] The LangChain4j framework automatically routes the tool execution.
+- [ ] The AI remembers previous turns in the conversation.

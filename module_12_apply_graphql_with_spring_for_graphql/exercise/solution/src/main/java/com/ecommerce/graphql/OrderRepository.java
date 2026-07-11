@@ -23,4 +23,11 @@ public class OrderRepository {
     public List<Order> findAll() {
         return new ArrayList<>(orders.values());
     }
+
+    public Order addOrder(Order order) {
+        long id = orders.size() + 1;
+        Order newOrder = new Order(id, order.totalAmount(), order.status(), order.customerId());
+        orders.put(id, newOrder);
+        return newOrder;
+    }
 }
