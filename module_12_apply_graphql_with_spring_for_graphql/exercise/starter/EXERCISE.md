@@ -14,7 +14,7 @@ Your frontend team is frustrated by over-fetching and under-fetching REST endpoi
 
 ## Step-by-Step Implementation Guide
 
-1. In `src/main/resources/graphql/schema.graphqls`, define your Types, Queries, and Mutations.
+1. Review the pre-defined Types, Queries, and Mutations in `src/main/resources/graphql/schema.graphqls`.
 2. In `src/main/java/com/ecommerce/graphql/OrderController.java`, annotate query methods with `@QueryMapping` and mutation methods with `@MutationMapping`.
 3. Annotate nested field resolvers with `@SchemaMapping`.
 
