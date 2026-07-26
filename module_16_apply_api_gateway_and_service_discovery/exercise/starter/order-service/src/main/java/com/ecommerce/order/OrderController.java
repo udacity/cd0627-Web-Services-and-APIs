@@ -14,16 +14,16 @@ public class OrderController {
 
     private static final Logger log = LoggerFactory.getLogger(OrderController.class);
 
-    // TODO: Inject server.port to prove load balancing
+    // TODO (Step 5): Inject server.port to prove load balancing
 
     @GetMapping
     public Map<String, Object> getOrders() {
-        // TODO: Log incoming X-Correlation-ID header if present
+        // TODO (Step 6): Log incoming X-Correlation-ID header if present
         
         return Map.of(
             "status", "SUCCESS",
             "message", "Orders fetched"
-            // TODO: Include port in response to see round-robin via gateway
+            // TODO (Step 5): Include port in response to see round-robin via gateway
         );
     }
 }

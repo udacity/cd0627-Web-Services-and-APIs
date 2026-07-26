@@ -4,4 +4,4 @@ server:
 spring:
   application:
     name: api-gateway
-  # TODO: Configure routes to lb://order-service for /api/orders/**
+  # TODO (Step 4): Configure routes to lb://order-service for /api/orders/**

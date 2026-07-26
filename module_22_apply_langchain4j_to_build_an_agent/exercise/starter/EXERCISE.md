@@ -1,23 +1,43 @@
-# Module 22 - LangChain4j for Java - Exercise Instructions
+# Module 22 — LangChain4j Agent — Exercise Instructions
 
 ## Exercise Overview
 
-You need to build an intelligent Travel Assistant agent that has real-world capabilities. You must use LangChain4j to build an AI Service that utilizes `@Tool` methods to check flights and weather.
+You are building a conversational AI travel assistant using LangChain4j. The agent will have a defined persona, memory for multi-turn conversations, and tool-calling capabilities to look up flights and weather.
 
 ---
 
 ## Prerequisites
-- **Java 23+**
+- **Java 25+**
 - **Maven 3.9+**
+- **OpenAI API key** — Set the environment variable before running:
+  ```bash
+  export LANGCHAIN4J_OPEN_AI_CHAT_MODEL_API_KEY=<your-api-key>
+  ```
 
 ---
 
 ## Step-by-Step Implementation Guide
 
-1. In `src/main/java/com/ecommerce/agent/TravelAssistant.java`, annotate the interface with `@AiService` and define the persona using `@SystemMessage`. Add `@MemoryId` and `@UserMessage` annotations to the `chat` method parameters.
-2. In `src/main/java/com/ecommerce/agent/ExerciseApplication.java`, configure a `ChatMemoryProvider` bean to enable persistent conversation memory.
-3. In `src/main/java/com/ecommerce/agent/Tools.java`, annotate the flight and weather methods with `@Tool` so the LLM can invoke them.
+### AI Service Interface (`TravelAssistant.java`)
 
+1. Import `AiService` and `SystemMessage` from LangChain4j (Step 1).
+2. Annotate the interface with `@AiService` (Step 2).
+3. Add a `@SystemMessage` annotation defining the travel assistant persona (Step 3).
+4. Add `@MemoryId String chatId` and `@UserMessage` before the message parameter to enable per-user memory (Step 5).
+
+### Memory Configuration (`ExerciseApplication.java`)
+
+5. Add a `@Bean` method that returns a `ChatMemoryProvider` — use `MessageWindowChatMemory` with a configurable window size (Step 4).
+
+### Tools (`Tools.java`)
+
+6. Annotate the `searchFlights` method with `@Tool` and provide a description (Step 6).
+7. Annotate the `getWeather` method with `@Tool` and provide a description (Step 7).
+
+### Controller (`AgentController.java`)
+
+8. Inject the `TravelAssistant` (Step 6).
+9. Call `travelAssistant.chat("demo-user", message)` to send user messages to the agent (Step 7).
 
 > [!IMPORTANT]
 > Ensure you compile frequently and check for syntax errors as you build out the implementation.
@@ -28,13 +48,21 @@ You need to build an intelligent Travel Assistant agent that has real-world capa
 ## Running the Exercise
 
 ```bash
-mvn spring-boot:run
+LANGCHAIN4J_OPEN_AI_CHAT_MODEL_API_KEY=<your-key> mvn spring-boot:run
+```
+
+Test with:
+```bash
+curl -X POST http://localhost:8080/chat \
+  -H "Content-Type: text/plain" \
+  -d "Find me flights from NYC to Paris"
 ```
 
 ---
 
 ## Success Criteria
 
-- [ ] The AI can dynamically decide to call the tools when asked about flights or weather.
-- [ ] The LangChain4j framework automatically routes the tool execution.
-- [ ] The AI remembers previous turns in the conversation.
+- [ ] The agent responds with a travel-themed persona.
+- [ ] Multi-turn conversations maintain context (memory works).
+- [ ] The agent can call tools to look up flights and weather.
+- [ ] Tool results are incorporated into the agent's response.

@@ -34,6 +34,6 @@ public class CorpusIngestor {
         List<Document> chunks = splitter.apply(documents);
 
         vectorStore.add(chunks);
-        System.out.println("Product Manual ingested into PGVector.");
+        System.out.println("Product Manual ingested into VectorStore.");
     }
 }

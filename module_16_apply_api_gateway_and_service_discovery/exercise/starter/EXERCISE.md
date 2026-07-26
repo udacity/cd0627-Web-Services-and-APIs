@@ -1,4 +1,4 @@
-# Module 16 - API Gateway and Service Discovery - Exercise Instructions
+# Module 16 — API Gateway and Service Discovery — Exercise Instructions
 
 ## Exercise Overview
 
@@ -14,20 +14,33 @@ With multiple microservices running, clients don't know which IP addresses to ca
 
 ## Step-by-Step Implementation Guide
 
-1. Configure the `eureka-server` to act as the service registry.
-2. Configure `api-gateway` routes using Spring Cloud Gateway.
-3. Implement a `CorrelationIdFilter` in the gateway to attach tracking headers to all requests.
+### Eureka Server (`eureka-server/`)
 
+1. In `EurekaServerApplication.java`, add `@EnableEurekaServer` to enable the service registry.
+
+2. In `application.properties`, configure port **8761** and disable self-registration (since this is the server itself).
+
+### API Gateway (`api-gateway/`)
+
+3. In `ApiGatewayApplication.java`, add `@EnableDiscoveryClient` to register with Eureka.
+
+4. In `application.yml`, configure gateway routes to forward `/api/orders/**` to `lb://order-service` (load-balanced via Eureka).
+
+### Order Service (`order-service/`)
+
+5. Inject `server.port` using `@Value` to prove load balancing — include the port in responses so you can see which instance handled the request.
+
+6. Log the incoming `X-Correlation-ID` header if present — this demonstrates how headers propagate through the gateway.
 
 > [!IMPORTANT]
 > Ensure you compile frequently and check for syntax errors as you build out the implementation.
-> Follow the `// TODO (Step X)` comments in the starter code!
+> Follow the TODO comments in the starter code!
 
 ---
 
 ## Running the Exercise
 
-To demonstrate Service Discovery and Load Balancing, you must run multiple applications in separate terminal windows:
+Start services in **separate terminals** in this order:
 
 1. **Start Eureka Server**:
    ```bash
@@ -51,7 +64,17 @@ To demonstrate Service Discovery and Load Balancing, you must run multiple appli
    ```
 
 **Test Load Balancing**:
-Hit the gateway multiple times and observe the logs in the two `order-service` terminals to see the requests distributed round-robin!
+Hit the gateway multiple times and observe the logs in the two `order-service` terminals to see requests distributed round-robin:
 ```bash
 curl http://localhost:8080/api/orders
+curl http://localhost:8080/api/orders
 ```
+
+---
+
+## Success Criteria
+
+- [ ] Eureka dashboard is accessible at `http://localhost:8761`.
+- [ ] API Gateway routes `/api/orders/**` to the order-service via Eureka.
+- [ ] Load balancing distributes requests across multiple order-service instances.
+- [ ] The response includes the serving port to verify round-robin.

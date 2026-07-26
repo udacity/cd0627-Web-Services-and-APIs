@@ -1,4 +1,4 @@
-# Module 14 - Microservices Architecture Principles - Exercise Instructions
+# Module 14 — Microservices Architecture Principles — Exercise Instructions
 
 ## Exercise Overview
 
@@ -12,11 +12,29 @@ You are decomposing a monolith. You need to extract the Order and Inventory logi
 
 ---
 
+## Design Exercise
+
+Before writing code, review `DESIGN.md` and answer the design questions about domain ownership and communication style. This will help you understand the architectural decisions behind the decomposition.
+
+---
+
 ## Step-by-Step Implementation Guide
 
-1. In the `order-service` project, implement an HTTP client to verify inventory via the `inventory-service`.
-2. Ensure the services can run on separate ports simultaneously.
+### Inventory Service (`inventory-service/`)
 
+1. In `src/main/java/com/ecommerce/inventory/InventoryController.java`, add the `@RestController` annotation (Step 1 — already provided as scaffold).
+
+2. Create an `InventoryResponse` record with `productId` (String) and `inStock` (boolean) fields (Step 2).
+
+3. Implement `GET /inventory/{productId}` — return an `InventoryResponse` with `inStock: true` as a stub (Step 3).
+
+4. Replace the stub with real inventory lookup logic (Step 4 — optional stretch goal).
+
+### Configuration
+
+5. In `inventory-service/src/main/resources/application.properties`, configure the server port to **8082**.
+
+6. In `order-service/src/main/resources/application.properties`, configure the server port to **8083**.
 
 > [!IMPORTANT]
 > Ensure you compile frequently and check for syntax errors as you build out the implementation.
@@ -26,13 +44,29 @@ You are decomposing a monolith. You need to extract the Order and Inventory logi
 
 ## Running the Exercise
 
+Start each service in a **separate terminal**:
+
 ```bash
+# Terminal 1 — Inventory Service
+cd inventory-service
 mvn spring-boot:run
+```
+
+```bash
+# Terminal 2 — Order Service
+cd order-service
+mvn spring-boot:run
+```
+
+Test the Inventory Service:
+```bash
+curl http://localhost:8082/inventory/PROD-123
 ```
 
 ---
 
 ## Success Criteria
 
-- [ ] The Order service successfully calls the Inventory service.
-- [ ] Both services run independently.
+- [ ] The Inventory Service responds at `http://localhost:8082/inventory/{productId}`.
+- [ ] Both services run independently on separate ports.
+- [ ] The response includes `productId` and `inStock` fields.

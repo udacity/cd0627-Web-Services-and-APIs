@@ -2,7 +2,7 @@ package com.ecommerce.eureka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-// TODO: Enable Eureka Server
+// TODO (Step 1): Enable Eureka Server
 
 @SpringBootApplication
 public class EurekaServerApplication {

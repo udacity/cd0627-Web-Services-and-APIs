@@ -43,7 +43,7 @@ public class OrderController {
     }
 
     // =========================================================================
-    // TODO (Step 1) 1 – GET /orders/{id}
+    // TODO (Step 1): GET /orders/{id}
     //
     // Add the correct @GetMapping annotation with the path variable.
     // Look up the order by id. If found, return it with 200 OK.
@@ -65,7 +65,7 @@ public class OrderController {
     }
 
     // =========================================================================
-    // TODO (Step 3) 2 – GET /orders/{id}/items
+    // TODO (Step 3): GET /orders/{id}/items
     //
     // Fetch the items for a given order.
     // The items are a nested collection owned by the order.
@@ -91,7 +91,7 @@ public class OrderController {
     }
 
     // =========================================================================
-    // TODO (Step 5) 3 – POST /orders/{id}/cancel
+    // TODO (Step 5): POST /orders/{id}/cancel
     //
     // Cancel an order. This is NOT a simple data-field update — it represents
     // a business action that in production would trigger:
