@@ -18,9 +18,11 @@ resilience4j:
   retry:
     instances:
       payment:
-        # TODO: Configure 3 max attempts with exponential backoff
+        # TODO (Step 1): Configure 3 max attempts with exponential backoff
+        max-attempts: 1
   circuitbreaker:
     instances:
       payment:
-        # TODO: Configure sliding window size
-        # TODO: Configure ignoreExceptions for InvalidCreditCardException
+        # TODO (Step 2): Configure sliding window size, failure-rate-threshold, wait-duration
+        # TODO (Step 2): Configure ignoreExceptions for InvalidCreditCardException
+        sliding-window-size: 10

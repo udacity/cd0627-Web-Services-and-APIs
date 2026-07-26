@@ -3,6 +3,7 @@ package com.ecommerce.docs;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 // TODO (Step 12): Add @Operation and @ApiResponses on cancelOrder documenting:
 //   - 204 No Content (success)
@@ -20,7 +21,7 @@ public class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Order createOrder(@RequestBody CreateOrderRequest request) {
+    public Order createOrder(@Valid @RequestBody CreateOrderRequest request) {
         return service.createOrder(request);
     }
 
