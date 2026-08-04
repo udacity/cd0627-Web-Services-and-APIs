@@ -12,7 +12,7 @@
 
 "Welcome back. In this demo, we are going to look at standardized error handling in Spring Boot REST APIs.
 
-"Let's look at our `ProductController`. It is deliberately simple. `GET /products/{id}` returns a product string. But if the ID is greater than 100, it throws a `ProductNotFoundException`. And if the ID is exactly 500, it throws a raw `RuntimeException` to simulate a database failure.
+"Let's look at our `ProductController`. It is deliberately simple. `GET /products/{id}` returns a JSON product object. But if the ID is greater than 100, it throws a `ProductNotFoundException`. And if the ID is exactly 500, it throws a raw `RuntimeException` to simulate a database failure.
 
 "Without any error handling, what does the client see when things go wrong?"
 
@@ -22,7 +22,7 @@
 
 *(🖥️ Terminal: `curl -s http://localhost:8080/products/200 | jq`)*
 
-"Let's hit a missing product. We get Spring's default JSON error response — it has `timestamp`, `status`, `error`, and `path`. This is better than a raw stack trace, but it is a non-standard, Spring-specific format. Different frameworks produce different error shapes, which means the client has to write custom parsing logic for every API they talk to.
+"Let's hit a missing product. We get Spring's default JSON error response — it has `detail`, `status`, `instance`, and `title`. This is better than a raw stack trace, but it is a non-standard, Spring-specific format. Different frameworks produce different error shapes, which means the client has to write custom parsing logic for every API they talk to.
 
 "The industry solved this problem with RFC 7807 — a standard error format called Problem Detail."
 
@@ -52,7 +52,7 @@
 
 *(🖥️ Terminal: `curl -s http://localhost:8080/products/1 | jq`)*
 
-"And the happy path still works. `GET /products/1` returns 'Product 1' with a 200. Our error handlers only fire when exceptions are thrown."
+"And the happy path still works. `GET /products/1` returns the product JSON with `id`, `name`, and `price` — a clean 200 response. Our error handlers only fire when exceptions are thrown."
 
 ## 5:00 – 5:30 | Outro & Summary
 

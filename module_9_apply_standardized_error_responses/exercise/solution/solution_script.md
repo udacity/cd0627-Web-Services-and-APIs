@@ -58,13 +58,13 @@
 
 "Let's verify. First, `GET /orders/999` — we get a 404 ProblemDetail with 'Order 999 not found'.
 
-*(🖥️ Terminal: `curl -s -X POST http://localhost:8080/orders/1/cancel | jq`)*
+*(🖥️ Terminal: `curl -s -X POST http://localhost:8080/orders/50/cancel | jq`)*
 
-"Cancelling a shipped order gives us a 422 — 'Cannot cancel a shipped order'.
+"Cancelling order 50 — which simulates a shipped order — gives us a 422 ProblemDetail with 'Cannot cancel an already shipped order'.
 
 *(🖥️ Terminal: `curl -s -X POST http://localhost:8080/orders -H "Content-Type: application/json" -d '{"totalAmount":-5,"status":""}' | jq`)*
 
-"An invalid create request gives us a 400 with specific field errors: 'totalAmount: must be greater than 0; status: must not be blank'.
+"An invalid create request gives us a 400 ProblemDetail with the validation error detail.
 
 "All four handlers are working. Every error path returns a clean, standardized RFC 7807 response."
 
