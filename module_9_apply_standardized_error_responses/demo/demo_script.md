@@ -34,7 +34,7 @@
 
 *(Highlight lines 11-14: `handleProductNotFound` method)*
 
-"Our first handler catches `ProductNotFoundException`. We return `ProblemDetail.forStatusAndDetail()`, passing `HttpStatus.NOT_FOUND` and the exception's message. Spring serializes this as a standard RFC 7807 JSON response with `type`, `title`, `status`, and `detail` fields.
+"Our first handler catches `ProductNotFoundException`. We return `ProblemDetail.forStatusAndDetail()`, passing `HttpStatus.NOT_FOUND` and the exception's message. Spring serializes this as a standard RFC 7807 JSON response with `instance`, `title`, `status`, and `detail` fields.
 
 *(Highlight lines 16-22: `handleUnexpectedException` method)*
 
