@@ -2,7 +2,7 @@
 
 **Focus:** From Keyword Matching to Meaning-Based Search with Embeddings
 **Target Length:** 5 - 7 minutes
-**Files:** `FaqController.java`, `FaqIngestor.java`
+**Files:** `SemanticDemoRunner.java`
 
 ---
 
@@ -16,37 +16,35 @@
 
 "Semantic search solves this by converting text into mathematical vectors — called embeddings — that capture the meaning of the words. Similar meanings produce similar vectors, regardless of the exact words used."
 
-## 1:00 – 2:30 | Ingesting Documents into the Vector Store
+## 1:00 – 2:30 | Step 1: Raw Embeddings
 
-*(Switch tabs to `FaqIngestor.java`)*
+*(Switch tabs to `SemanticDemoRunner.java`, highlight the `run()` method)*
 
-"Before we can search, we need to ingest our FAQ data into the vector store. The `FaqIngestor` runs on application startup.
+"Our demo is a `CommandLineRunner` that walks through three steps. First, raw embeddings. We call `embeddingModel.embed("Hello World")`, which converts the string into a high-dimensional vector — an array of floating-point numbers.
 
-"We load the FAQ entries, split them into chunks using a text splitter, and then call `vectorStore.add(chunks)`. Behind the scenes, Spring AI sends each chunk to the embedding model — which converts the text into a vector of numbers — and stores both the text and its vector in the vector store.
+"Each number represents a dimension of meaning. The vector for 'cat' and the vector for 'kitten' will be close together in this space, even though the words are completely different. That is what makes semantic search possible."
 
-"This is a one-time ingestion step. Once the data is embedded, we can search it by meaning."
+## 2:30 – 3:30 | Step 2: Populating the Vector Store
 
-## 2:30 – 4:00 | The Search Endpoint
+*(Highlight the document creation and `vectorStore.add()` call)*
 
-*(Switch tabs to `FaqController.java`)*
+"In Step 2, we create three documents: 'The cat sat on the mat', 'A dog barked loudly', and 'Felines prefer to rest on rugs.' We add them to a `SimpleVectorStore`.
 
-"The search endpoint accepts a natural language query. When we call `vectorStore.similaritySearch()`, Spring AI embeds the query into a vector, then finds the stored vectors that are closest in meaning.
+"Behind the scenes, each document is embedded into a vector and stored alongside the original text. The vector store now has both the human-readable text and its mathematical representation."
 
-"We configure a `SearchRequest` with `topK` — how many results to return — and `similarityThreshold` — the minimum similarity score to include.
+## 3:30 – 5:00 | Step 3: Semantic Search in Action
 
-"This is fundamentally different from keyword search. The query 'forgot credentials' will match 'How to Reset Your Password' because their embedding vectors are close in the vector space, even though they share zero keywords."
+*(Highlight the `similaritySearch` call)*
 
-## 4:00 – 5:00 | Testing Semantic Search
+"Step 3 is where the magic happens. We search for 'Where do kittens sleep?' — a query that shares zero keywords with any of our documents. Traditional search would return nothing.
+
+"We call `vectorStore.similaritySearch()` with `topK(1)` to get the single best match.
 
 *(🖥️ Terminal: `mvn spring-boot:run`)*
 
-*(🖥️ Terminal: `curl -s "http://localhost:8080/api/faq?q=forgot+credentials" | jq`)*
+"Let's run it. Looking at the console output:
 
-"Let's test it. We search for 'forgot credentials'. The response includes the FAQ entry about password resets — even though the words 'forgot' and 'credentials' do not appear in the answer. Semantic search matched by meaning, not by keywords.
-
-*(🖥️ Terminal: `curl -s "http://localhost:8080/api/faq?q=shipping+cost" | jq`)*
-
-"Another search: 'shipping cost' — and we get the FAQ entry about delivery fees. The vectors for 'shipping cost' and 'delivery fee' are close in the embedding space."
+"Step 1 shows the raw embedding vector — over 1500 dimensions. Step 2 confirms the documents were added. And Step 3 — the top match for 'Where do kittens sleep?' is 'Felines prefer to rest on rugs.' No keyword overlap at all — the embeddings captured the semantic relationship between kittens/felines and sleep/rest."
 
 ## 5:00 – 5:30 | Outro & Summary
 

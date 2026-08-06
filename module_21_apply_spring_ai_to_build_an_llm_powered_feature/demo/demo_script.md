@@ -2,7 +2,7 @@
 
 **Focus:** From Raw HTTP Calls to Spring AI's ChatClient — Simple Chat, Templates, and Tool Calling
 **Target Length:** 5 - 7 minutes
-**Files:** `ChatController.java`
+**Files:** `ChatController.java`, `DateTools.java`
 
 ---
 
@@ -48,7 +48,7 @@
 
 *(Highlight lines 35-42: `toolChat()` method)*
 
-"Step 3 is tool calling — the most advanced capability. The `GET /api/chat/tool` endpoint adds `.tools("getCurrentDate")` to the prompt.
+"Step 3 is tool calling — the most advanced capability. The `GET /api/chat/tool` endpoint adds `.tools(dateTools)` to the prompt, passing in a `DateTools` component with a `@Tool`-annotated method.
 
 "Here is what happens behind the scenes: the AI receives the user's message along with a list of available tools. If the AI decides it needs to call a tool to answer the question, it responds with a tool call request instead of a text response. Spring AI intercepts this, executes the tool, sends the result back to the AI, and the AI generates its final response.
 

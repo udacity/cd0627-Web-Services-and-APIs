@@ -4,22 +4,18 @@ import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
-import org.springframework.kafka.test.EmbeddedKafkaBroker;
-import org.springframework.kafka.test.EmbeddedKafkaKraftBroker;
 
+/**
+ * Kafka configuration. The embedded broker is started in DemoApplication.main()
+ * before the Spring context, so bootstrap-servers is already set.
+ */
 @Configuration
 public class KafkaLocalConfig {
 
-    public static final String TOPIC = "orders-topic";
+    public static final String TOPIC = "product-views";
 
     @Bean
-    public EmbeddedKafkaBroker embeddedKafka() {
-        return new EmbeddedKafkaKraftBroker(1, 1, TOPIC)
-                .kafkaPorts(9092);
-    }
-
-    @Bean
-    public NewTopic ordersTopic() {
+    public NewTopic topic() {
         return TopicBuilder.name(TOPIC)
                 .partitions(1)
                 .replicas(1)

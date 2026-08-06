@@ -7,7 +7,7 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: example-service-route
-          uri: lb://example-service
+        - id: order-service-route
+          uri: lb://order-service
           predicates:
-            - Path=/api/example/**
+            - Path=/api/orders/**

@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChatController {
 
     private final ChatClient chatClient;
+    private final DateTools dateTools;
 
-    public ChatController(ChatClient chatClient) {
+    public ChatController(ChatClient chatClient, DateTools dateTools) {
         this.chatClient = chatClient;
+        this.dateTools = dateTools;
     }
 
     @GetMapping("/api/chat/simple")
@@ -36,7 +38,7 @@ public class ChatController {
     public String toolChat() {
         return chatClient.prompt()
                 .user("What is today's date?")
-                .tools("getCurrentDate")
+                .tools(dateTools)
                 .call()
                 .content();
     }

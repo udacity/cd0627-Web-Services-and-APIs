@@ -34,7 +34,7 @@
 
 "First, `.defaultSystem()` sets a guardrail: 'If the provided context does not contain the answer, reply exactly with I do not have enough information.' This prevents hallucination — the LLM will not make up answers.
 
-"Second, `.defaultAdvisors()` attaches a `QuestionAnswerAdvisor` configured with `topK(2)` and `similarityThreshold(0.80)`. Only the 2 most relevant chunks with at least 80% similarity are injected into the prompt.
+"Second, `.defaultAdvisors()` attaches a `QuestionAnswerAdvisor` configured with `topK(2)` and `similarityThreshold(0.50)`. Only the 2 most relevant chunks with at least 50% similarity are injected into the prompt. We use a lower threshold to ensure relevant context is not excluded by overly strict filtering.
 
 "In the `ask()` method, we call the chat client and extract both the answer and the source documents. The response is a `RagResponse` record with the `answer` and a `sources` list — so the user can verify where the information came from."
 

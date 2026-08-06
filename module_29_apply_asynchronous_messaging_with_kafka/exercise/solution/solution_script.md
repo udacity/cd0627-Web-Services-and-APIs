@@ -2,7 +2,7 @@
 
 **Focus:** Retry, Dead-Letter Topics, and Error Classification
 **Target Length:** 5 - 7 minutes
-**Files:** `InventoryConsumer.java`, `KafkaLocalConfig.java`, `OrderService.java`
+**Files:** `InventoryConsumer.java`, `ExerciseApplication.java`, `KafkaLocalConfig.java`, `OrderService.java`
 
 ---
 
@@ -28,11 +28,13 @@
 
 ## 2:30 – 3:30 | Step 4: Kafka Configuration
 
+*(Switch tabs to `ExerciseApplication.java`)*
+
+"Step 4 sets up the embedded Kafka broker. In `ExerciseApplication.main()`, we create an `EmbeddedKafkaKraftBroker` and start it before the Spring context boots. The broker assigns a dynamic port, and we set `spring.kafka.bootstrap-servers` as a system property so auto-configuration picks it up.
+
 *(Switch tabs to `KafkaLocalConfig.java`)*
 
-"Step 4 sets up the embedded Kafka broker. `EmbeddedKafkaKraftBroker` starts an in-process Kafka on port 9092. `NewTopic` creates the `orders-topic` with 1 partition and 1 replica.
-
-"For development, this eliminates the need for a separate Kafka installation. The broker starts with the application and shuts down when it stops."
+"`KafkaLocalConfig` creates a `NewTopic` bean for `order-events` with 1 partition and 1 replica. For development, the embedded broker eliminates the need for a separate Kafka installation."
 
 ## 3:30 – 5:00 | The Producer and Multiple Consumer Groups
 

@@ -2,7 +2,7 @@
 
 **Focus:** From Synchronous HTTP to Event-Driven Architecture with Kafka
 **Target Length:** 5 - 7 minutes
-**Files:** `Producer.java`, `Consumer.java`, `KafkaLocalConfig.java`
+**Files:** `DemoApplication.java`, `Producer.java`, `Consumer.java`, `KafkaLocalConfig.java`
 
 ---
 
@@ -18,11 +18,13 @@
 
 ## 1:00 – 2:30 | The Embedded Kafka Broker
 
+*(Switch tabs to `DemoApplication.java`)*
+
+"First, the infrastructure. We use an embedded Kafka broker for development — no external Kafka installation needed. In `DemoApplication.main()`, we create an `EmbeddedKafkaKraftBroker` and start it before the Spring context boots. This is critical — the broker assigns a dynamic port, and we set it as a system property so Spring Kafka auto-configuration picks it up.
+
 *(Switch tabs to `KafkaLocalConfig.java`)*
 
-"First, the infrastructure. We use an embedded Kafka broker for development — no external Kafka installation needed. The `EmbeddedKafkaKraftBroker` starts an in-process Kafka on port 9092.
-
-"We also create a `NewTopic` bean using `TopicBuilder`. This ensures the topic exists when the application starts. In production, topics would be managed separately, but for development this is convenient."
+"In `KafkaLocalConfig`, we create a `NewTopic` bean using `TopicBuilder`. This ensures the topic exists when the application starts. In production, topics would be managed separately, but for development this is convenient."
 
 ## 2:30 – 3:30 | The Producer
 

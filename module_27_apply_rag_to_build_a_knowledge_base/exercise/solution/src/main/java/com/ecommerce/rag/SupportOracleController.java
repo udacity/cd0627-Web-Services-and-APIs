@@ -22,7 +22,7 @@ public class SupportOracleController {
         this.chatClient = builder
             .defaultSystem("If the provided context does not contain the answer, reply EXACTLY with 'I do not have enough information'.")
             .defaultAdvisors(QuestionAnswerAdvisor.builder(vectorStore)
-                .searchRequest(SearchRequest.builder().topK(2).similarityThreshold(0.80).build())
+                .searchRequest(SearchRequest.builder().topK(2).similarityThreshold(0.50).build())
                 .build())
             .build();
     }

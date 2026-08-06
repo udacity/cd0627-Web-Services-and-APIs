@@ -1,27 +1,18 @@
-package com.ecommerce.ai;
+package com.ecommerce.search;
 
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestClient;
 
-import java.time.LocalDate;
-
+/**
+ * Configures a buffered RestClient to ensure compatibility with OpenAI-compatible
+ * proxies (like Vocareum) that don't support HTTP chunked transfer encoding.
+ */
 @Configuration
-public class AiConfig {
+public class RestClientConfig {
 
-    @Bean
-    public ChatClient chatClient(ChatClient.Builder builder) {
-        return builder.build();
-    }
-
-    /**
-     * Configures a buffered RestClient to ensure compatibility with OpenAI-compatible
-     * proxies (like Vocareum) that don't support HTTP chunked transfer encoding.
-     */
     @Bean
     public RestClient.Builder restClientBuilder() {
         return RestClient.builder()

@@ -28,21 +28,21 @@
 
 *(Switch tabs to `FaqController.java`)*
 
-"The controller exposes `GET /api/faq` with a query parameter `q`. When a request comes in, we call `vectorStore.similaritySearch()`.
+"The controller exposes `GET /search` with a required `query` parameter and an optional `category` parameter. When a request comes in, we call `vectorStore.similaritySearch()`.
 
-"The `SearchRequest` is configured with `topK(3)` — return the 3 most relevant results — and `similarityThreshold(0.75)` — only include results with at least 75% similarity.
+"The `SearchRequest` is configured with `topK(3)` — return the 3 most relevant results. If a `category` parameter is provided, we add a `filterExpression` to narrow results to that category.
 
-"Behind the scenes, the query text is embedded into a vector, and the vector store finds the stored vectors closest to it using cosine similarity. The results are returned as `Document` objects containing the original text and metadata."
+"Behind the scenes, the query text is embedded into a vector, and the vector store finds the stored vectors closest to it using cosine similarity. The results are returned as `Document` objects, and we extract just the text content."
 
 ## 4:00 – 5:00 | Running & Verification
 
 *(🖥️ Terminal: `mvn spring-boot:run`)*
 
-*(🖥️ Terminal: `curl -s "http://localhost:8080/api/faq?q=forgot+credentials" | jq`)*
+*(🖥️ Terminal: `curl -s "http://localhost:8080/search?query=forgot+credentials" | jq`)*
 
 "Let's test it. We search for 'forgot credentials'. The response includes FAQ entries about password resets — matched by meaning, not exact keywords.
 
-*(🖥️ Terminal: `curl -s "http://localhost:8080/api/faq?q=delivery+time" | jq`)*
+*(🖥️ Terminal: `curl -s "http://localhost:8080/search?query=delivery+time" | jq`)*
 
 "Searching for 'delivery time' returns FAQ entries about shipping — even if the original text uses 'estimated arrival' instead of 'delivery time'. The embeddings capture the semantic relationship."
 
