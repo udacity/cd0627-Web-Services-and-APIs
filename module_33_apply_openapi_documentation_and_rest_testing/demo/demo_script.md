@@ -28,9 +28,9 @@
 
 *(🖥️ Terminal: `mvn spring-boot:run`)*
 
-*(🖥️ Browser: `http://localhost:8080/swagger-ui.html`)*
+*(🖥️ Terminal: `curl -s http://localhost:8080/v3/api-docs | jq '.paths'`)*
 
-"Let's run the app and open Swagger UI. Every endpoint is listed with request/response schemas. The cancel endpoint shows all three possible responses. Consumers can even try the API directly from the browser by clicking 'Try it out.'"
+"Let's run the app and fetch the OpenAPI spec. Every endpoint is documented with request/response schemas. The cancel endpoint shows all three possible responses — 204, 404, and 422. This JSON spec is what powers tools like Swagger UI and client code generators."
 
 ## 2:30 – 4:00 | Integration Testing with MockMvc
 

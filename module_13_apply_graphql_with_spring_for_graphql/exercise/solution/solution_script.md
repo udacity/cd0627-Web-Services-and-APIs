@@ -38,11 +38,9 @@
 
 *(🖥️ Terminal: `mvn spring-boot:run`)*
 
-*(🖥️ Browser: `http://localhost:8080/graphiql`)*
+*(🖥️ Terminal: `curl -s -X POST http://localhost:8080/graphql -H "Content-Type: application/json" -d '{"query":"{ orders { id totalAmount status customer { name email } } }"}' | jq`)*
 
-*(In GraphiQL, run: `{ orders { id totalAmount status customer { name email } } }`)*
-
-"Let's test it in GraphiQL. We query all orders with their nested customer data. Every order has its customer name and email resolved in a single batch call. The N+1 problem is completely eliminated."
+"Let's test it. We query all orders with their nested customer data. Every order has its customer name and email resolved in a single batch call. The N+1 problem is completely eliminated."
 
 ## 3:30 – 4:30 | Step 3: The createOrder Mutation
 
@@ -50,7 +48,7 @@
 
 "Step 3 is the mutation. `createOrder` is annotated with `@MutationMapping`. It accepts `totalAmount` and `customerId` as `@Argument` parameters, creates a new `Order` with a 'PENDING' status, saves it to the repository, and returns it.
 
-*(In GraphiQL, run: `mutation { createOrder(totalAmount: 250.00, customerId: 2) { id totalAmount status customer { name } } }`)*
+*(🖥️ Terminal: `curl -s -X POST http://localhost:8080/graphql -H "Content-Type: application/json" -d '{"query":"mutation { createOrder(totalAmount: 250.00, customerId: 2) { id totalAmount status customer { name } } }"}' | jq`)*
 
 "Let's test it. We create a new order for customer 2 with a total of 250 dollars. GraphQL returns the created order with the ID, status 'PENDING', and the customer's name — all in a single response. If we re-run the orders query, the new order appears."
 

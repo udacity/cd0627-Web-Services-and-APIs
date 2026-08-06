@@ -54,7 +54,7 @@
 
 *(🖥️ Terminal: `curl -s http://localhost:8080/blocking/todo | jq`)*
 
-"Looking at the server logs, the thread is now `tomcat-handler-1` — a servlet thread. While this thread was blocked waiting for the downstream API, it could not handle any other requests.
+"Looking at the server logs, the thread is now `tomcat-handler-4` — a servlet thread. While this thread was blocked waiting for the downstream API, it could not handle any other requests.
 
 "Both approaches produce the same result. But under high concurrency — thousands of simultaneous requests — the reactive version scales dramatically better because it does not consume a thread per request."
 

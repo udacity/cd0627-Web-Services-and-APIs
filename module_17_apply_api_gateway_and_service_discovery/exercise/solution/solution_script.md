@@ -56,9 +56,9 @@
 
 "Let's start everything up. Eureka on 8761, gateway on 8080, and two order-service instances on ports 8081 and 8082.
 
-*(🖥️ Browser: `http://localhost:8761`)*
+*(🖥️ Terminal: `curl -s -H "Accept: application/json" http://localhost:8761/eureka/apps | jq '.applications.application[] | {name: .name, instances: [.instance[] | .hostName + ":" + (.port."$" // .port | tostring)]}'`)*
 
-"The Eureka dashboard shows two instances of 'ORDER-SERVICE' registered.
+"Querying the Eureka REST API, we can see both order-service instances registered.
 
 *(🖥️ Terminal: `curl -s http://localhost:8080/api/orders | jq`)*
 

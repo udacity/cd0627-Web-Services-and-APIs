@@ -28,9 +28,9 @@
 
 *(🖥️ Terminal: `mvn spring-boot:run`)*
 
-*(🖥️ Browser: `http://localhost:8080/graphiql`)*
+*(🖥️ Terminal: `curl -s -X POST http://localhost:8080/graphql -H "Content-Type: application/json" -d '{"query":"{ products { name } }"}' | jq`)*
 
-"Let's run the app and open GraphiQL — the built-in GraphQL IDE. If we query just `{ products { name } }`, we get only the names. If we add `price`, we get names and prices. The client controls exactly what data comes back."
+"Let's run the app and query for just product names. Notice we only get `name` — nothing else. If we add `price` to the query, we get names and prices. The client controls exactly what data comes back."
 
 ## 2:30 – 4:00 | Step 2: The Nested Resolver and the N+1 Problem
 
@@ -40,17 +40,15 @@
 
 "Notice the log statement. If we query 10 products and ask for their suppliers, this method fires 10 times. That is 10 separate database calls — this is the N+1 problem. We loaded 1 list of products, then made N additional calls for the suppliers.
 
-*(In GraphiQL, run the query: `{ products { name supplier { name } } }`)*
+*(🖥️ Terminal: `curl -s -X POST http://localhost:8080/graphql -H "Content-Type: application/json" -d '{"query":"{ products { name supplier { name } } }"}' | jq`)*
 
 *(Highlight the server logs showing 10 log lines)*
 
 "Looking at the logs, we can see 'Fetching supplier for product ID' printed 10 times. In a real application with thousands of products, this would be devastating to performance.
 
-"In the exercise, you will solve this exact problem using `@BatchMapping`, which collapses all those individual calls into a single batch query."
-
 ## 4:00 – 5:00 | Step 3: Mutations in Action
 
-*(In GraphiQL, run the mutation: `mutation { createProduct(name: "New Widget", price: 49.99) { id name price } }`)*
+*(🖥️ Terminal: `curl -s -X POST http://localhost:8080/graphql -H "Content-Type: application/json" -d '{"query":"mutation { createProduct(name: \"New Widget\", price: 49.99) { id name price } }"}' | jq`)*
 
 "Let's test the mutation. We create a new product named 'New Widget' at 49.99. GraphQL returns exactly the fields we asked for: `id`, `name`, and `price`. If we re-run the `products` query, we see our new product at the end of the list."
 

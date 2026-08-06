@@ -14,19 +14,9 @@
 
 "Let's look at our `ProductController`. It is deliberately simple. `GET /products/{id}` returns a JSON product object. But if the ID is greater than 100, it throws a `ProductNotFoundException`. And if the ID is exactly 500, it throws a raw `RuntimeException` to simulate a database failure.
 
-"Without any error handling, what does the client see when things go wrong?"
+"Without custom error handling, Spring returns a default error JSON — but it is a Spring-specific format. Different frameworks produce different error shapes, and clients have to write custom parsing for each one. RFC 7807 solves this with a standard format called Problem Detail. Let's see how to implement it."
 
-## 1:00 – 2:00 | The Default Error Response
-
-*(🖥️ Terminal: `mvn spring-boot:run`)*
-
-*(🖥️ Terminal: `curl -s http://localhost:8080/products/200 | jq`)*
-
-"Let's hit a missing product. We get Spring's default JSON error response — it has `detail`, `status`, `instance`, and `title`. This is better than a raw stack trace, but it is a non-standard, Spring-specific format. Different frameworks produce different error shapes, which means the client has to write custom parsing logic for every API they talk to.
-
-"The industry solved this problem with RFC 7807 — a standard error format called Problem Detail."
-
-## 2:00 – 3:30 | ProblemDetail and @RestControllerAdvice
+## 1:00 – 2:30 | ProblemDetail and @RestControllerAdvice
 
 *(Switch tabs to `GlobalRestExceptionHandler.java`)*
 
@@ -40,11 +30,13 @@
 
 "Our second handler is the catch-all for any `Exception` that does not have a specific handler. We return a 500 Internal Server Error with a generic support message. This is critical — we never want to leak raw stack traces or internal error details to the client."
 
-## 3:30 – 5:00 | Seeing It In Action
+## 2:30 – 4:30 | Seeing It In Action
+
+*(🖥️ Terminal: `mvn spring-boot:run`)*
 
 *(🖥️ Terminal: `curl -s http://localhost:8080/products/200 | jq`)*
 
-"Let's test the specific handler first. `GET /products/200` now returns a clean RFC 7807 ProblemDetail. We see `status: 404`, `detail: "Product 200 not found"`, and a `title` of 'Not Found'. This is a standardized, machine-readable format that any HTTP client can parse consistently.
+"Let's test the specific handler first. `GET /products/200` returns a clean RFC 7807 ProblemDetail. We see `status: 404`, `detail: "Product 200 not found"`, and a `title` of 'Not Found'. This is a standardized, machine-readable format that any HTTP client can parse consistently.
 
 *(🖥️ Terminal: `curl -s http://localhost:8080/products/500 | jq`)*
 

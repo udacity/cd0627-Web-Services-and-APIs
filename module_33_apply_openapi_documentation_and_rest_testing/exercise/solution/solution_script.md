@@ -54,9 +54,9 @@
 
 "Let's run all the tests. Both pass — the integration test validates the happy path, and the validation test confirms that invalid input is rejected correctly.
 
-*(🖥️ Browser: `http://localhost:8080/swagger-ui.html`)*
+*(🖥️ Terminal: `curl -s http://localhost:8080/v3/api-docs | jq '.paths'`)*
 
-"And the Swagger UI provides complete, interactive documentation for every endpoint."
+"And the OpenAPI spec provides complete, machine-readable documentation for every endpoint."
 
 ## 5:30 – 6:00 | Outro
 

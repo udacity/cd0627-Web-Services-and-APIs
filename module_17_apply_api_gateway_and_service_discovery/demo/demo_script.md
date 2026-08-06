@@ -61,9 +61,9 @@
 
 "And Order Service instance 2 on port 8082.
 
-*(🖥️ Browser: `http://localhost:8761`)*
+*(🖥️ Terminal: `curl -s -H "Accept: application/json" http://localhost:8761/eureka/apps | jq '.applications.application[] | {name: .name, instances: [.instance[] | .hostName + ":" + (.port."$" // .port | tostring)]}'`)*
 
-"Looking at the Eureka dashboard, we can see both order-service instances registered.
+"Querying the Eureka REST API, we can see both order-service instances registered — one on 8081 and one on 8082.
 
 *(🖥️ Terminal: `curl -s http://localhost:8080/api/orders`)*
 
