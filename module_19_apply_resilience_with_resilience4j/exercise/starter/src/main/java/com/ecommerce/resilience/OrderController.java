@@ -18,8 +18,8 @@ public class OrderController {
     }
 
     // Compose Retry, CircuitBreaker, and Bulkhead. Retry wraps the method first.
-    @CircuitBreaker(name = "payment", fallbackMethod = "paymentFallback")
-    @Retry(name = "payment")
+    @CircuitBreaker(name = "payment")
+    @Retry(name = "payment", fallbackMethod = "paymentFallback")
     @io.github.resilience4j.bulkhead.annotation.Bulkhead(name = "payment")
     @GetMapping("/api/checkout")
     public Map<String, Object> checkout(@RequestParam(defaultValue = "VALID") String type) {

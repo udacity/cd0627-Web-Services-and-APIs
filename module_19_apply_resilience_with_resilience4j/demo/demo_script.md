@@ -24,9 +24,9 @@
 
 "The Resilience4j annotations wrap the method call in a defensive shell. Let's look at the configuration to understand what each pattern does."
 
-*(Switch tabs to `application.yml`)*
+*(Switch tabs to `application.properties`)*
 
-"In the YAML configuration, we have the retry config — 3 max attempts with exponential backoff. This means if the first call fails, Resilience4j waits and tries again, up to 3 times. The backoff multiplier increases the wait time between retries.
+"In the configuration file, we have the retry config — 3 max attempts with exponential backoff. This means if the first call fails, Resilience4j waits and tries again, up to 3 times. The backoff multiplier increases the wait time between retries.
 
 "Below that is the circuit breaker. It uses a sliding window of 5 calls. If 50% or more of those calls fail, the circuit trips to 'OPEN' state and stops making calls entirely for 10 seconds. After that, it enters 'HALF-OPEN' and tests with one request to see if the service has recovered."
 
@@ -34,11 +34,11 @@
 
 *(🖥️ Terminal: `mvn spring-boot:run`)*
 
-*(🖥️ Terminal: `curl -s http://localhost:8080/api/inventory?fail=false | jq`)*
+*(🖥️ Terminal: `curl -s "http://localhost:8080/api/inventory?fail=false" | jq`)*
 
 "Let's see it in action. With `fail=false`, the call succeeds normally.
 
-*(Run multiple times with `fail=true`: `curl -s http://localhost:8080/api/inventory?fail=true`)*
+*(Run multiple times with `fail=true`: `curl -s "http://localhost:8080/api/inventory?fail=true"`)*
 
 "Now let's simulate failures. With `fail=true`, the first call fails, retries kick in — you can see the retry attempts in the logs — and after 3 attempts, the fallback triggers.
 

@@ -1,6 +1,7 @@
 package com.ecommerce.resilience;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,11 @@ public class InventoryClient {
 
     private static final Logger log = LoggerFactory.getLogger(InventoryClient.class);
 
-    @CircuitBreaker(name = "inventory", fallbackMethod = "inventoryFallback")
+    // Order: Retry wraps CircuitBreaker (default).
+    // Fallback is on @Retry (the outer decorator) so retries happen first,
+    // then after all attempts are exhausted, the fallback triggers.
+    @Retry(name = "inventory", fallbackMethod = "inventoryFallback")
+    @CircuitBreaker(name = "inventory")
     public Map<String, Object> checkInventory(boolean simulateFailure) {
         log.info("Attempting to check inventory. simulateFailure={}", simulateFailure);
         
@@ -20,12 +25,12 @@ public class InventoryClient {
             throw new RuntimeException("Database connection reset");
         }
         
-        return Map.of("inStock", true);
+        return Map.of("status", "SUCCESS", "inStock", true);
     }
 
-    // Fallback method must have exact same return type and append Throwable parameter
+    // Fallback method — called after retries are exhausted or circuit is open
     public Map<String, Object> inventoryFallback(boolean simulateFailure, Throwable t) {
         log.warn("Fallback triggered due to: {}", t.getMessage());
-        return Map.of("inStock", false);
+        return Map.of("status", "FALLBACK", "inStock", false, "message", "Service temporarily unavailable. Please try again later.");
     }
 }

@@ -34,13 +34,13 @@
 
 "Here is how it works. We extract all the `customerId` values from the order list. We call `customerRepository.findAllByIds()` — a single query that fetches all customers at once. Then we build a map from each order to its customer.
 
-"The logs tell the story. If we query 5 orders, we see a single log line: 'BatchMapping triggered for 5 orders.' Not 5 individual calls — just one batch."
-
 *(🖥️ Terminal: `mvn spring-boot:run`)*
 
 *(🖥️ Terminal: `curl -s -X POST http://localhost:8080/graphql -H "Content-Type: application/json" -d '{"query":"{ orders { id totalAmount status customer { name email } } }"}' | jq`)*
 
 "Let's test it. We query all orders with their nested customer data. Every order has its customer name and email resolved in a single batch call. The N+1 problem is completely eliminated."
+
+"The logs tell the story. If we query 5 orders, we see a single log line: 'BatchMapping triggered for 5 orders.' Not 5 individual calls — just one batch."
 
 ## 3:30 – 4:30 | Step 3: The createOrder Mutation
 

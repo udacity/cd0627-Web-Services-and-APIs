@@ -12,7 +12,7 @@
 
 "Welcome back. In this demo, we are going to look at API Gateway and Service Discovery.
 
-"In the last module, we had two microservices communicating over HTTP using hardcoded URLs — `http://localhost:8082`. But what happens when you deploy to production and have 5 instances of the inventory service across different servers? You cannot hardcode every address.
+"It is straightforward to have two microservices communicating over HTTP using hardcoded URLs — `http://localhost:8082`. But what happens when you deploy to production and have 5 instances of the inventory service across different servers? You cannot hardcode every address.
 
 "The solution is two components: a Service Registry where services register themselves, and an API Gateway that routes client requests to the correct service using the registry. Let's see how Spring Cloud implements this."
 
