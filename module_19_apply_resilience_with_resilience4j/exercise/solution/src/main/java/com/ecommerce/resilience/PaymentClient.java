@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class PaymentClient {
@@ -14,14 +15,15 @@ public class PaymentClient {
     public Map<String, Object> processPayment(String type) {
         log.info("Attempting to process payment of type: {}", type);
 
-        if ("TIMEOUT".equals(type)) {
-            throw new RuntimeException("Payment Gateway Timeout");
-        }
-        
         if ("INVALID_CARD".equals(type)) {
             throw new InvalidCreditCardException("Card expired or invalid");
         }
 
-        return Map.of("status", "SUCCESS", "transactionId", "TXN-12345");
+        // Simulate random payment gateway timeouts (~60% failure rate)
+        if ("TIMEOUT".equals(type) || ThreadLocalRandom.current().nextInt(10) < 6) {
+            throw new RuntimeException("Payment Gateway Timeout");
+        }
+
+        return Map.of("status", "SUCCESS", "transactionId", "TXN-" + System.currentTimeMillis());
     }
 }

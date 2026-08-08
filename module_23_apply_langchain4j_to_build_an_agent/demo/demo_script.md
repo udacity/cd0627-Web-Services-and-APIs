@@ -6,6 +6,17 @@
 
 ---
 
+## Prerequisites
+
+Before running, export your OpenAI API key and the Vocareum base URL (LangChain4j requires the `/v1` suffix):
+
+```bash
+export OPENAI_API_KEY=<your-openai-api-key>
+export LANGCHAIN4J_OPENAI_BASE_URL=https://openai.vocareum.com/v1
+```
+
+---
+
 ## 0:00 – 1:00 | Introduction & Scenario
 
 *(Screen showing `TravelAssistant.java` open in the IDE)*

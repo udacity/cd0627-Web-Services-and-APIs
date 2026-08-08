@@ -6,6 +6,18 @@
 
 ---
 
+## Prerequisites
+
+Before running this demo, export your OpenAI API key in the terminal session where you will run the application:
+
+```bash
+export OPENAI_API_KEY=<your-openai-api-key>
+```
+
+The application reads this key from the environment variable `OPENAI_API_KEY` (configured in `application.properties` as `spring.ai.openai.api-key=${OPENAI_API_KEY}`). If using the Vocareum proxy, the base URL defaults to `https://openai.vocareum.com` automatically.
+
+---
+
 ## 0:00 – 1:00 | Introduction & Scenario
 
 *(Screen showing `ChatController.java` open in the IDE)*

@@ -22,7 +22,7 @@
 
 "Step 1 is the retry configuration. Under `resilience4j.retry.instances.payment`, we set `max-attempts: 3`. This means Resilience4j will try the call up to 3 times before giving up.
 
-"We also configure exponential backoff with `wait-duration: 500ms` and `multiplier: 2`. The first retry waits 500 milliseconds, the second waits 1 second, and the third waits 2 seconds. This gives the downstream service time to recover between attempts."
+"We also configure exponential backoff with `wait-duration: 1s` and `multiplier: 2`. The first retry waits 1 second, the second waits 2 seconds. This gives the downstream service time to recover between attempts."
 
 ## 2:30 – 3:30 | Step 2: Circuit Breaker Configuration
 
@@ -54,7 +54,7 @@
 
 *(Run multiple times: `curl -s http://localhost:8080/api/checkout | jq`)*
 
-"Now let's keep calling. The payment service fails randomly. When it fails, we see in the logs: 'Retry attempt 1', 'Retry attempt 2', and on the third failure, the fallback triggers — 'PENDING, will process asynchronously.'
+"Now let's keep calling. The payment service fails randomly. When it fails, we see multiple 'Attempting to process payment' log lines — those are the retries — followed by 'Fallback triggered.' After 3 attempts, the fallback returns 'PENDING, will process asynchronously.'
 
 "After enough failures accumulate in the sliding window, the circuit breaker trips open. Now every call immediately hits the fallback — no retries, no downstream calls at all. The failing service is completely protected.
 

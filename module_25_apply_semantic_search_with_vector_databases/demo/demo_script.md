@@ -6,6 +6,16 @@
 
 ---
 
+## Prerequisites
+
+Before running, export your OpenAI API key:
+
+```bash
+export OPENAI_API_KEY=<your-openai-api-key>
+```
+
+---
+
 ## 0:00 – 1:00 | Introduction & The Problem
 
 *(Screen showing the project open in the IDE)*
