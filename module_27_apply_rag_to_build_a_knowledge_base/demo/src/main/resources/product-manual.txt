@@ -1,0 +1,22 @@
+Widget Pro — Product Documentation
+
+Overview:
+The Widget Pro is our flagship smart home device. It features voice control, energy monitoring, and seamless integration with existing home automation systems.
+
+Key Features:
+- Semantic Search: The main advantage of semantic search is that it finds results by meaning rather than exact keyword matching. Users can describe what they need in natural language, and the system returns relevant results even if the exact words do not appear in the content.
+- Voice Control: Widget Pro supports hands-free operation through natural language voice commands. Simply say "Hey Widget" followed by your command.
+- Energy Dashboard: Real-time energy consumption monitoring with daily, weekly, and monthly reports. The dashboard highlights usage patterns and suggests ways to reduce costs.
+
+Warranty Policy:
+All Widget Pro devices come with a 2-year limited warranty covering manufacturing defects. The warranty does not cover damage from misuse, water exposure, or unauthorized modifications. To file a warranty claim, contact support@widgetpro.com with your purchase receipt and serial number.
+
+Return Policy:
+Widget Pro can be returned within 30 days of purchase for a full refund. The device must be in its original packaging and in working condition. Refunds are processed within 5-7 business days.
+
+Technical Specifications:
+- Dimensions: 4.5 x 4.5 x 2.0 inches
+- Weight: 8.2 oz
+- Connectivity: Wi-Fi 6, Bluetooth 5.0, Zigbee 3.0
+- Power: USB-C, 5V/2A
+- Operating Temperature: 32°F to 104°F

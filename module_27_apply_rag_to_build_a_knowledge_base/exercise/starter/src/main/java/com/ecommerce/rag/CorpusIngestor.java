@@ -1,16 +1,11 @@
 package com.ecommerce.rag;
 
-import org.springframework.ai.document.Document;
-import org.springframework.ai.reader.TextReader;
-import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class CorpusIngestor {
@@ -26,14 +21,10 @@ public class CorpusIngestor {
 
     @EventListener(ApplicationReadyEvent.class)
     public void ingestOnStartup() {
-        TextReader textReader = new TextReader(manualResource);
-        textReader.getCustomMetadata().put("source", "product-manual.txt");
-        List<Document> documents = textReader.get();
-
-        TokenTextSplitter splitter = new TokenTextSplitter();
-        List<Document> chunks = splitter.apply(documents);
-
-        vectorStore.add(chunks);
-        System.out.println("Product Manual ingested into VectorStore.");
+        // TODO (Step 1): Read the manual resource content as a String.
+        // TODO (Step 2): Split the content by blank lines into logical sections.
+        // TODO (Step 3): Create a Document for each section with metadata Map.of("source", "product-manual.txt").
+        // TODO (Step 4): Add all documents to the VectorStore.
+        System.out.println("Product Manual ingestion started (implement me!)...");
     }
 }

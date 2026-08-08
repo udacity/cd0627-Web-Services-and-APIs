@@ -40,17 +40,21 @@ export OPENAI_API_KEY=<your-openai-api-key>
 
 ## 2:30 – 4:00 | Seeing RAG in Action
 
-*(Highlight the `run()` method — the prompt and call)*
+*(Highlight the `run()` method)*
 
-"In the `run()` method, we ask: 'What is the main advantage of semantic search?' The `ChatClient` first triggers the `QuestionAnswerAdvisor`. The advisor searches the vector store for the most relevant passages. Those passages are injected into the prompt. Then the LLM generates a response grounded in the retrieved context.
+"In the `run()` method, we first ingest our knowledge base — a product manual — into the vector store. We split it by blank lines into logical sections and add each as a `Document`. This is Step 1.
+
+"Then in Step 2, we ask: 'What is the main advantage of semantic search?' The `QuestionAnswerAdvisor` searches the vector store, finds the relevant section from our product manual, and injects it into the prompt. The LLM generates a grounded answer.
+
+"In Step 3, we ask a completely different question: 'What is the warranty policy for the Widget Pro?' Same pipeline, different context retrieved. The answer comes from the warranty section of our manual.
 
 *(🖥️ Terminal: `mvn spring-boot:run`)*
 
-"Let's run it. Looking at the console output, the response is precise and factual — it is based on the specific content in our knowledge base, not on general LLM training data."
+"Let's run it. Looking at the console output — the semantic search answer references our specific product documentation, not generic LLM knowledge. And the warranty answer cites the exact policy from our manual: 2-year limited warranty, contact support@widgetpro.com."
 
 ## 4:00 – 5:00 | Why RAG Matters
 
-"Without RAG, the LLM would give a generic answer about semantic search from its training data. With RAG, the answer is specific to our documentation.
+"Without RAG, the LLM would either hallucinate a warranty policy or say it does not know. With RAG, the answer is grounded in our actual documentation.
 
 "This is the pattern used by every enterprise AI assistant — customer support bots, internal knowledge bases, product documentation search. The LLM provides the language capability, and your data provides the facts."
 

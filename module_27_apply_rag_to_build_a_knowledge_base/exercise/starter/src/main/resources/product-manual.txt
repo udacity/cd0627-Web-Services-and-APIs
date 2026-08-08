@@ -1,4 +1,19 @@
 Product Manual: SuperWidget 3000
-1. Setup: Plug the widget into a 120V outlet. Do not use 240V.
-2. Calibration: Press the green button for 3 seconds to auto-calibrate.
-3. Troubleshooting: If the red light blinks, the battery is low.
+
+Setup:
+Plug the SuperWidget 3000 into a standard 120V outlet. Do not use 240V outlets as this will damage the device. The blue LED will light up when the device is receiving power.
+
+Calibration:
+Press and hold the green button for 3 seconds to start auto-calibration. The device will beep twice when calibration is complete. Recalibrate after moving the device to a new location.
+
+Factory Reset:
+To reset the SuperWidget 3000 to factory defaults, press and hold the red and green buttons simultaneously for 5 seconds. All custom settings, Wi-Fi credentials, and saved profiles will be erased. You will need to recalibrate after a factory reset.
+
+Troubleshooting:
+If the red light blinks rapidly, the battery is low — connect to a power outlet immediately. If the device is unresponsive, perform a factory reset. If the blue light flashes three times, there is a Wi-Fi connectivity issue — check your router settings.
+
+Warranty:
+The SuperWidget 3000 comes with a 1-year manufacturer warranty covering defects in materials and workmanship. The warranty does not cover damage from improper voltage, water exposure, or unauthorized disassembly. Contact support@superwidget.com for warranty claims.
+
+Return Policy:
+Returns are accepted within 30 days of purchase with original packaging. Refunds are processed within 5 business days. Contact returns@superwidget.com to initiate a return.

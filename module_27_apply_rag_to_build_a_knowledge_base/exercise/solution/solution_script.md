@@ -30,11 +30,9 @@ export OPENAI_API_KEY=<your-openai-api-key>
 
 "Step 1 is ingesting the product manual. The `CorpusIngestor` uses `@EventListener(ApplicationReadyEvent.class)` to run on startup.
 
-"We load the manual using `TextReader`, which reads a text file from the classpath. We add metadata — `source: product-manual.txt` — so we can trace answers back to their source.
+"We read the manual as a string and split it by blank lines — each section becomes its own `Document` with metadata tagging the source as `product-manual.txt`. This gives us granular chunks that the vector store can match individually.
 
-"Then we split the document into chunks using `TokenTextSplitter`. This is critical — LLMs have context limits, so we need to break the manual into digestible pieces. Each chunk is added to the vector store with its embedding.
-
-"After this runs, the entire product manual is searchable by meaning."
+"Each document is embedded into a vector and added to the store. After this runs, the entire product manual is searchable by meaning."
 
 ## 2:30 – 4:30 | Step 2: The Support Oracle Controller
 
@@ -62,6 +60,6 @@ export OPENAI_API_KEY=<your-openai-api-key>
 
 ## 5:30 – 6:00 | Outro
 
-"To summarize: We built a complete RAG pipeline — ingestion with `TextReader` and `TokenTextSplitter`, grounded Q&A with `QuestionAnswerAdvisor`, and hallucination prevention with a system prompt guardrail. The `sources` field provides transparency, letting users verify where the answer came from.
+"To summarize: We built a complete RAG pipeline — ingestion by splitting the manual into sections, grounded Q&A with `QuestionAnswerAdvisor`, and hallucination prevention with a system prompt guardrail. The `sources` field provides transparency, letting users verify where the answer came from.
 
 "Great job if you got this working. I'll see you in the next module."
