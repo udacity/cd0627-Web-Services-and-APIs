@@ -24,7 +24,7 @@ public class FaqController {
             @RequestParam String query,
             @RequestParam(required = false) String category) {
         
-        SearchRequest.Builder request = SearchRequest.builder().query(query).topK(3);
+        SearchRequest.Builder request = SearchRequest.builder().query(query).topK(2);
         
         if (category != null && !category.isBlank()) {
             request = request.filterExpression("category == '" + category + "'");

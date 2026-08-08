@@ -30,9 +30,9 @@ export OPENAI_API_KEY=<your-openai-api-key>
 
 *(Switch tabs to `FaqIngestor.java`)*
 
-"The `FaqIngestor` runs on application startup using `@EventListener(ApplicationReadyEvent.class)`. It loads FAQ entries from a text resource file, splits them into chunks using a `TokenTextSplitter`, and adds them to the vector store.
+"The `FaqIngestor` runs on application startup using `@EventListener(ApplicationReadyEvent.class)`. It reads the FAQ resource file, splits it by blank lines — each FAQ is a question-answer pair — and creates a `Document` for each entry.
 
-"Each chunk goes through the embedding model, which converts the text into a high-dimensional vector. The vector store — `SimpleVectorStore` in our case — holds both the original text and its embedding. This is our searchable knowledge base."
+"For each document, we detect the category from the text content: entries about passwords or laptops get tagged 'IT', vacation or payroll entries get tagged 'HR'. Then all documents are added to the vector store, where each one is embedded into a vector for similarity search."
 
 ## 2:30 – 4:00 | The Search Controller
 
@@ -40,7 +40,7 @@ export OPENAI_API_KEY=<your-openai-api-key>
 
 "The controller exposes `GET /search` with a required `query` parameter and an optional `category` parameter. When a request comes in, we call `vectorStore.similaritySearch()`.
 
-"The `SearchRequest` is configured with `topK(3)` — return the 3 most relevant results. If a `category` parameter is provided, we add a `filterExpression` to narrow results to that category.
+"The `SearchRequest` is configured with `topK(2)` — return the 2 most relevant results. If a `category` parameter is provided, we add a `filterExpression` to narrow results to that category.
 
 "Behind the scenes, the query text is embedded into a vector, and the vector store finds the stored vectors closest to it using cosine similarity. The results are returned as `Document` objects, and we extract just the text content."
 
@@ -50,11 +50,11 @@ export OPENAI_API_KEY=<your-openai-api-key>
 
 *(🖥️ Terminal: `curl -s "http://localhost:8080/search?query=forgot+credentials" | jq`)*
 
-"Let's test it. We search for 'forgot credentials'. The response includes FAQ entries about password resets — matched by meaning, not exact keywords.
+"Let's test it. We search for 'forgot credentials'. The top result is the FAQ about resetting your password — matched by meaning, not exact keywords. The query says 'forgot credentials' but the FAQ says 'reset my password'. Embeddings capture that semantic relationship.
 
-*(🖥️ Terminal: `curl -s "http://localhost:8080/search?query=delivery+time" | jq`)*
+*(🖥️ Terminal: `curl -s "http://localhost:8080/search?query=time+off+request" | jq`)*
 
-"Searching for 'delivery time' returns FAQ entries about shipping — even if the original text uses 'estimated arrival' instead of 'delivery time'. The embeddings capture the semantic relationship."
+"Searching for 'time off request' returns the vacation policy FAQ — even though the original text says 'paid time off' and 'approved by your manager' instead of 'time off request'. The embeddings understand they mean the same thing."
 
 ## 5:00 – 5:30 | Outro
 
