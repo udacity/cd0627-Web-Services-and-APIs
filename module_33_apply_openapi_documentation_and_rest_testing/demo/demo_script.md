@@ -10,7 +10,7 @@
 
 *(Screen showing `OrderController.java` open in the IDE)*
 
-"Welcome back. In this demo — the final module — we are going to look at OpenAPI Documentation and REST API Testing.
+"Welcome back. In this demo, we are going to look at OpenAPI Documentation and REST API Testing.
 
 "Without documentation, consumers of your API have to guess how to use it — what endpoints exist, what parameters they take, and what error codes they return. And without automated tests, you have no way to verify that your API actually works as documented.
 
@@ -58,4 +58,4 @@
 
 "To summarize: OpenAPI annotations generate interactive documentation with Swagger UI. `@SpringBootTest` with `MockMvc` provides full integration tests. And `@WebMvcTest` provides fast, isolated controller tests. Together, these ensure your API is documented, tested, and reliable.
 
-"This marks the end of the course modules. Great work on completing all the exercises. Thanks for watching!"
+"Thanks for watching! I'll see you in the next one"

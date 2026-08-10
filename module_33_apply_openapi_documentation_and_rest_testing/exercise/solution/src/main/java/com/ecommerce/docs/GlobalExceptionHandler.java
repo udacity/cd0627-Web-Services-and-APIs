@@ -17,4 +17,12 @@ public class GlobalExceptionHandler {
         problem.setTitle("Bad Request");
         return problem;
     }
+
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ProblemDetail handleOrderNotFound(OrderNotFoundException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+        problem.setType(URI.create("https://api.ecommerce.com/errors/not-found"));
+        problem.setTitle("Not Found");
+        return problem;
+    }
 }

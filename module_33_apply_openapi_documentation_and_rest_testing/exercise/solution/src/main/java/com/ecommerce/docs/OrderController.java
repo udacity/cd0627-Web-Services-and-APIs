@@ -26,19 +26,18 @@ public class OrderController {
         return service.createOrder(request);
     }
 
+    @Operation(summary = "Retrieve an order by ID")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Order found",
+            content = @Content(schema = @Schema(implementation = Order.class))),
+        @ApiResponse(responseCode = "404", description = "Order not found",
+            content = @Content(schema = @Schema(implementation = ProblemDetail.class)))
+    })
     @GetMapping("/{id}")
     public Order getOrder(@PathVariable String id) {
         return service.getOrder(id);
     }
 
-    @Operation(summary = "Cancel an order by ID")
-    @ApiResponses({
-        @ApiResponse(responseCode = "204", description = "Order successfully cancelled"),
-        @ApiResponse(responseCode = "404", description = "Order not found",
-            content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
-        @ApiResponse(responseCode = "422", description = "Invalid state transition — cannot cancel a shipped order",
-            content = @Content(schema = @Schema(implementation = ProblemDetail.class)))
-    })
     @PostMapping("/{id}/cancel")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void cancelOrder(@PathVariable String id) {

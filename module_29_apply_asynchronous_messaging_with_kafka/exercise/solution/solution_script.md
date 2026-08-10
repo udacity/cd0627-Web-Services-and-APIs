@@ -20,7 +20,7 @@
 
 "The `InventoryConsumer` uses `@KafkaListener(topics = "order-events", groupId = "inventory-group")` to subscribe to events.
 
-"Step 1 adds `@RetryableTopic` with `attempts = "3"` — retry up to 3 times. Step 2 would add `@Backoff` for exponential backoff if configured.
+"Step 1 adds `@RetryableTopic` with `attempts = "3"` — retry up to 3 times. Step 2 adds `backoff = @Backoff(delay = 1000, multiplier = 2)` for exponential backoff — the first retry waits 1 second, the second waits 2 seconds.
 
 "Step 3 is the most important: `exclude = MalformedOrderException.class`. This tells Spring that `MalformedOrderException` is a business error — not a transient failure — so it should never be retried. It goes straight to the dead-letter topic.
 

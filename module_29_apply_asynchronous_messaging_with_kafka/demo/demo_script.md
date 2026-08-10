@@ -50,6 +50,6 @@
 
 ## 5:00 – 5:30 | Outro & Summary
 
-"To summarize: Kafka decouples producers and consumers, enabling asynchronous communication. `KafkaTemplate` sends messages, `@KafkaListener` receives them, and `@RetryableTopic` handles failures with retry and dead-letter routing. In the exercise, you will build a complete event pipeline with retry, backoff, and error classification.
+"To summarize: Kafka decouples producers and consumers, enabling asynchronous communication. `KafkaTemplate` sends messages, `@KafkaListener` receives them, and `@RetryableTopic` handles failures with retry and dead-letter routing.
 
 "Thanks for watching, and I'll see you in the next module."

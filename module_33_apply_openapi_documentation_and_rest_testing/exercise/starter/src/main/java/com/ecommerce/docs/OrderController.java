@@ -1,14 +1,12 @@
 package com.ecommerce.docs;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
-// TODO (Step 12): Add @Operation and @ApiResponses on cancelOrder documenting:
-//   - 204 No Content (success)
-//   - 404 Not Found (order missing)
-//   - 422 Unprocessable Entity (invalid state transition)
+// TODO (Step 9): Add @Operation and @ApiResponses on getOrder documenting:
+//   - 200 OK (order found, schema = Order.class)
+//   - 404 Not Found (order missing, schema = ProblemDetail.class)
 @RestController
 @RequestMapping("/orders")
 public class OrderController {

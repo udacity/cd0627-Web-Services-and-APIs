@@ -22,19 +22,25 @@ class OrderIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
-    void createAndRetrieveOrder() throws Exception {
+    void createCancelAndVerifyOrder() throws Exception {
+        // Step 1: Create an order
         MvcResult result = mockMvc.perform(post("/orders")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"itemIds\":[\"123\", \"456\"]}"))
+                .content("{\"itemIds\":[\"A1\", \"B2\"]}"))
                 .andExpect(status().isCreated())
                 .andReturn();
 
         String responseBody = result.getResponse().getContentAsString();
         String id = JsonPath.read(responseBody, "$.id");
 
+        // Step 2: Cancel the order
+        mockMvc.perform(post("/orders/" + id + "/cancel"))
+                .andExpect(status().isNoContent());
+
+        // Step 3: Retrieve and verify the order is CANCELLED
         mockMvc.perform(get("/orders/" + id))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id))
-                .andExpect(jsonPath("$.status").value("CREATED"));
+                .andExpect(jsonPath("$.status").value("CANCELLED"));
     }
 }
