@@ -2,12 +2,12 @@
 
 ## Exercise Overview
 
-Frontend developers are complaining that they don't know how to use your API. You need to auto-generate interactive Swagger UI documentation and write integration and validation tests.
+Frontend developers are complaining that they don't know how to use your API. You need to auto-generate interactive Swagger UI documentation and write integration and slice tests.
 
 ---
 
 ## Prerequisites
-- **Java 23+**
+- **Java 25+**
 - **Maven 3.9+**
 
 ---
@@ -17,23 +17,21 @@ Frontend developers are complaining that they don't know how to use your API. Yo
 ### Integration Test (`OrderIntegrationTest.java`)
 
 1. Set up the integration test class with `@SpringBootTest` and `@AutoConfigureMockMvc` (Step 1).
-2. Plan the test flow: POST to create an order, then GET to retrieve and assert persistence (Step 2).
+2. Plan the test flow: POST to create an order, cancel it, then GET to verify the status changed (Step 2).
 3. Implement the POST: submit a `CreateOrderRequest` with valid `itemIds` and capture the returned `id` (Step 3).
-4. Implement the GET: request `/orders/{id}` and assert **status 200** with correct body fields (Step 4).
+4. Implement the cancel: POST to `/orders/{id}/cancel` and assert **status 204 No Content** (Step 4).
+5. Implement the GET: request `/orders/{id}` and assert **status 200** with `status` field equal to `"CANCELLED"` (Step 5).
 
-### Validation Test (`OrderValidationTest.java`)
+### Not Found Test (`OrderNotFoundTest.java`)
 
-5. Write a `@WebMvcTest` for invalid payload scenarios (Step 5).
-6. Plan assertions for **HTTP 400** and RFC 7807 problem detail fields (Step 6).
-7. Submit `POST /orders` with `{"itemIds":[]}` (Step 7).
-8. Assert status is **400 Bad Request** (Step 8).
-9. Assert `jsonPath("$.type")` exists (Step 9).
-10. Assert `jsonPath("$.title").value("Bad Request")` (Step 10).
-11. Assert `jsonPath("$.detail")` contains "empty" (Step 11).
+6. Write a `@WebMvcTest` for the not-found scenario (Step 6).
+7. Use `Mockito.when()` to make `orderService.getOrder("FAKE-999")` throw `OrderNotFoundException` (Step 7).
+8. Perform `GET /orders/FAKE-999` and assert status is **404 Not Found** (Step 8).
+9. Assert `jsonPath("$.type")` exists, `jsonPath("$.title").value("Not Found")`, and `jsonPath("$.detail")` exists.
 
 ### OpenAPI Documentation (`OrderController.java`)
 
-12. Add `@Operation` and `@ApiResponses` annotations on the `cancelOrder` endpoint to document the possible response codes (Step 12).
+10. Add `@Operation` and `@ApiResponses` annotations on the `getOrder` endpoint to document the possible response codes: **200 OK** (schema = `Order.class`) and **404 Not Found** (schema = `ProblemDetail.class`) (Step 9).
 
 > [!NOTE]
 > The `springdoc-openapi-starter-webmvc-ui` dependency is already in the `pom.xml`.
@@ -64,7 +62,7 @@ mvn test
 
 ## Success Criteria
 
-- [ ] The integration test creates an order via POST and retrieves it via GET.
-- [ ] The validation test confirms empty `itemIds` returns **400** with RFC 7807 `ProblemDetail`.
+- [ ] The integration test creates an order, cancels it, and verifies the status is `CANCELLED`.
+- [ ] The not-found test confirms a non-existent order returns **404** with RFC 7807 `ProblemDetail`.
 - [ ] The Swagger UI loads at `/swagger-ui.html` with custom descriptions.
-- [ ] `@Operation` and `@ApiResponses` are visible in the Swagger UI for `cancelOrder`.
+- [ ] `@Operation` and `@ApiResponses` are visible in the Swagger UI for `getOrder`.

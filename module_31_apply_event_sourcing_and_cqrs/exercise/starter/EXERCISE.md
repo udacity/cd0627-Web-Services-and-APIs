@@ -49,13 +49,17 @@ mvn spring-boot:run
 Test the full CQRS cycle:
 ```bash
 # Place an order
-curl -X POST http://localhost:8080/orders
+curl -X POST http://localhost:8080/orders \
+  -H "Content-Type: application/json" \
+  -d '{"orderId":"ORD-001","item":"Widget","quantity":2}'
 
 # Query the read model
 curl http://localhost:8080/orders
 
 # Cancel an order
-curl -X POST http://localhost:8080/orders/ORD-001/cancel
+curl -X POST http://localhost:8080/orders/ORD-001/cancel \
+  -H "Content-Type: application/json" \
+  -d '{"orderId":"ORD-001","reason":"Changed my mind"}'
 
 # Verify the read model reflects the cancellation
 curl http://localhost:8080/orders

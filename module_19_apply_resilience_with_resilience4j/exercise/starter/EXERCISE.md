@@ -22,7 +22,7 @@ The payment downstream service is flaky and causing your entire order API to cra
 
 ### Controller (`OrderController.java`)
 
-3. Implement the **fallback method** `checkoutFallback` (Step 3) — return a "PENDING — Will process asynchronously" payload when the circuit is open or retries are exhausted.
+3. Implement the **fallback method** `paymentFallback` (Step 3) — return a "PENDING — Will process asynchronously" payload when the circuit is open or retries are exhausted.
 
 > [!NOTE]
 > The `@CircuitBreaker` and `@Retry` annotations are already present on the `checkout` method. Your task is to configure their behavior in YAML and implement the fallback.

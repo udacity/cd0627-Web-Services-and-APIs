@@ -24,14 +24,14 @@ Keyword search isn't cutting it for your FAQ system. You need to implement Seman
 
 1. In `src/main/java/com/ecommerce/search/FaqController.java`:
    - Create a `SearchRequest` with the given query (Step 1).
-   - Set `topK` to 3 (Step 2).
+   - Set `topK` to 2 (Step 2).
    - If the `category` parameter is provided, add a filter expression: `"category == '" + category + "'"` (Step 3).
 
 2. In `src/main/java/com/ecommerce/search/FaqIngestor.java`:
-   - Use `TextReader` to read the FAQ resource (Step 4).
-   - Pass the document through a `TokenTextSplitter` to create chunks (Step 5).
-   - For each chunk, inject metadata based on text content (Step 6).
-   - Save the chunked documents to the `SimpleVectorStore` (Step 7).
+   - Read the FAQ resource content as a String (Step 4).
+   - Split the content by blank lines — each FAQ entry is a question-answer pair (Step 5).
+   - For each entry, create a `Document` with metadata based on text content (Step 6).
+   - Add all documents to the `VectorStore` (Step 7).
 
 > [!IMPORTANT]
 > Ensure you compile frequently and check for syntax errors as you build out the implementation.
@@ -56,4 +56,4 @@ curl "http://localhost:8080/search?query=forgot+my+credentials"
 
 - [ ] Searching for "forgot credentials" finds the FAQ about "password reset" (semantic match, not keyword match).
 - [ ] Documents are automatically ingested into the vector store on startup.
-- [ ] The `topK` parameter limits results to 3.
+- [ ] The `topK` parameter limits results to 2.

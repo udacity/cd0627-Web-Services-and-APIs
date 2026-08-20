@@ -42,9 +42,8 @@ Test with:
 # Trigger 404
 curl http://localhost:8080/orders/999
 
-# Trigger 422 (cancel an already-cancelled order)
-curl -X POST http://localhost:8080/orders/1/cancel
-curl -X POST http://localhost:8080/orders/1/cancel
+# Trigger 422 (order in invalid state)
+curl -X POST http://localhost:8080/orders/50/cancel
 ```
 
 ---

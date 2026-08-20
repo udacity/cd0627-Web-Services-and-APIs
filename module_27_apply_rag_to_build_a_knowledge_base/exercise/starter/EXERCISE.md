@@ -2,7 +2,7 @@
 
 ## Exercise Overview
 
-You want the AI to answer customer support questions, but it hallucinates answers. You must implement the RAG pattern to ground the AI in your specific documents by configuring the `ChatClient` with a `QuestionAnswerAdvisor`.
+You want the AI to answer customer support questions, but it hallucinates answers. You must implement the RAG pattern to ground the AI in your specific documents by ingesting a product manual into a vector store and configuring the `ChatClient` with a `QuestionAnswerAdvisor`.
 
 ---
 
@@ -22,14 +22,18 @@ You want the AI to answer customer support questions, but it hallucinates answer
 
 ## Step-by-Step Implementation Guide
 
-1. In `src/main/java/com/ecommerce/rag/SupportOracleController.java`, configure the `ChatClient` with a `QuestionAnswerAdvisor`:
-   - Create a `QuestionAnswerAdvisor` using a custom `SearchRequest` with `.topK(2)` and `.similarityThreshold(0.80)` (Step 2).
-   - Inject a **strict system prompt** that instructs the AI to reply with "I do not have enough information" when the context doesn't contain the answer (Step 3).
+### Document Ingestion (`CorpusIngestor.java`)
 
-2. In the `ask` method, execute the prompt and return a `RagResponse` containing the answer and source metadata (Step 4).
+1. Read the manual resource content as a String (Step 1).
+2. Split the content by blank lines into logical sections (Step 2).
+3. Create a `Document` for each section with metadata `Map.of("source", "product-manual.txt")` (Step 3).
+4. Add all documents to the `VectorStore` (Step 4).
 
-> [!NOTE]
-> The `VectorStore` bean and document ingestion (`CorpusIngestor`) are already pre-configured. Your focus is on configuring the `ChatClient` pipeline.
+### ChatClient Pipeline (`SupportOracleController.java`)
+
+5. Configure a `QuestionAnswerAdvisor` using a custom `SearchRequest` with `.topK(2)` and `.similarityThreshold(0.50)` (Step 5).
+6. Inject a **strict system prompt** that instructs the AI to reply with "I do not have enough information" when the context doesn't contain the answer (Step 6).
+7. In the `ask` method, execute the prompt and return a `RagResponse` containing the answer and source metadata (Step 7).
 
 > [!IMPORTANT]
 > Ensure you compile frequently and check for syntax errors as you build out the implementation.

@@ -31,13 +31,13 @@ You are building a conversational AI travel assistant using LangChain4j. The age
 
 ### Tools (`Tools.java`)
 
-6. Annotate the `searchFlights` method with `@Tool` and provide a description (Step 6).
+6. Annotate the `checkFlight` method with `@Tool` and provide a description (Step 6).
 7. Annotate the `getWeather` method with `@Tool` and provide a description (Step 7).
 
 ### Controller (`AgentController.java`)
 
-8. Inject the `TravelAssistant` (Step 6).
-9. Call `travelAssistant.chat("demo-user", message)` to send user messages to the agent (Step 7).
+8. Inject the `TravelAssistant` (Step 8).
+9. Call `travelAssistant.chat("demo-user", message)` to send user messages to the agent (Step 9).
 
 > [!IMPORTANT]
 > Ensure you compile frequently and check for syntax errors as you build out the implementation.
@@ -53,9 +53,7 @@ LANGCHAIN4J_OPEN_AI_CHAT_MODEL_API_KEY=<your-key> mvn spring-boot:run
 
 Test with:
 ```bash
-curl -X POST http://localhost:8080/chat \
-  -H "Content-Type: text/plain" \
-  -d "Find me flights from NYC to Paris"
+curl "http://localhost:8080/ask?message=Find+me+flights+from+NYC+to+Paris"
 ```
 
 ---
