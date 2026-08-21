@@ -16,14 +16,17 @@ Your audit team needs a full history of every state change, not just the current
 
 ### Read Service (`OrderReadService.java`)
 
-1. In `handleOrderPlaced`, put a new `OrderView` into `READ_MODEL` with status **"PLACED"** (Step 1).
-2. In `handleOrderCancelled`, update the `OrderView` status to **"CANCELLED"** (Step 2).
+1. In `onOrderPlaced`, put a new `OrderView` into `READ_MODEL` with status **"PLACED"** (Step 1).
+2. In `onOrderCancelled`, update the `OrderView` status to **"CANCELLED"** (Step 2).
 3. In `rebuildReadModel`, iterate over `OrderWriteService.EVENT_STORE` (Step 3).
 4. For each event, if `OrderPlacedEvent` → put new view; if `OrderCancelledEvent` → update status (Step 4).
 
 ### Saga (`OrderSaga.java`)
 
-5. In `onOrderPlaced`, issue a `CancelOrderCommand` to the write service — this simulates a compensating action in a saga (Step 5).
+5. In `onPaymentFailed`, issue a `CancelOrderCommand` to the write service — this simulates a compensating action that reverses a placed order when payment fails (Step 5).
+
+> [!NOTE]
+> `PaymentFailedEvent` is a structural example of the saga pattern. In production, a payment service would publish this event. The code compiles and demonstrates the compensating-action wiring.
 
 ### Write Service (`OrderWriteService.java`)
 

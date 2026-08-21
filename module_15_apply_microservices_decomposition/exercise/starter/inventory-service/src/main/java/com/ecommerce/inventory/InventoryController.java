@@ -4,18 +4,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-// TODO (Step 1): Add @RestController annotation (already provided)
-// TODO (Step 2): Create InventoryResponse record with productId (String) and inStock (boolean)
-// TODO (Step 3): Implement GET /inventory/{productId} endpoint
 @RestController
 public class InventoryController {
 
-    public record InventoryResponse(String productId, boolean inStock) {}
+    // TODO (Step 2): Create an InventoryResponse record with productId (String) and inStock (boolean)
 
-    @GetMapping("/inventory/{productId}")
-    public InventoryResponse checkInventory(@PathVariable String productId) {
-        // TODO (Step 4): Replace this stub with real inventory lookup logic
-        boolean inStock = !productId.equals("OUT_OF_STOCK_ID");
-        return new InventoryResponse(productId, inStock);
-    }
+    // TODO (Step 3): Implement GET /inventory/{productId} endpoint
+    //   Return an InventoryResponse with inStock: true as a stub.
+    //   Expected: GET /inventory/PROD-123  →  {"productId":"PROD-123","inStock":true}
+
+    // TODO (Step 4): Replace the stub with real inventory lookup logic (optional stretch goal)
 }

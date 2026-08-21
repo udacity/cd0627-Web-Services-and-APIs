@@ -22,7 +22,7 @@ Your product manager wants AI-powered product review analysis. You will integrat
 
 ## Step-by-Step Implementation Guide
 
-1. In `src/main/java/com/ecommerce/ai/ReviewController.java`, **build the `ChatClient`** from the injected `ChatClient.Builder` in the constructor (Step 1).
+1. In `src/main/java/com/ecommerce/ai/ReviewController.java`, note the `ChatClient` is already built from the injected `ChatClient.Builder` (Step 1 — provided).
 2. In the `analyzeReview` method, use the **ChatClient fluent API** to send a prompt and extract structured output into a `ReviewSummary` record using `.call().entity(ReviewSummary.class)` (Step 2). This leverages Spring AI's built-in `BeanOutputConverter` to parse the LLM's JSON response into a typed Java object.
 3. Wrap the call in a `try-catch` and return a **fallback `ReviewSummary`** if parsing fails (Step 3).
 

@@ -14,7 +14,7 @@ You are designing a RESTful API for an e-commerce order system. You need to impl
 
 ## Step-by-Step Implementation Guide
 
-1. In `src/main/java/com/ecommerce/order/controller/OrderController.java`, review the existing `@GetMapping` and `@PostMapping` annotations on the scaffolded methods (Step 1).
+1. In `src/main/java/com/ecommerce/order/controller/OrderController.java`, add the correct **`@GetMapping("/{id}")`** annotation to the `getOrder` method (Step 1).
 
 2. Implement the **`GET /orders/{id}`** method body (Step 2). Look up the order from the in-memory store and return it with `ResponseEntity.ok()`. Return 404 if not found.
 

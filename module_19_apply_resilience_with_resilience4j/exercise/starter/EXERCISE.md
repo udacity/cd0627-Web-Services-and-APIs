@@ -16,7 +16,7 @@ The payment downstream service is flaky and causing your entire order API to cra
 
 ### YAML Configuration (`application.yml`)
 
-1. Under `resilience4j.retry.instances.payment:`, configure **3 max attempts** with exponential backoff (Step 1).
+1. Under `resilience4j.retry.instances.payment:`, configure **3 max attempts** with exponential backoff (Step 1). Also configure `ignoreExceptions` to exclude `InvalidCreditCardException` from retries.
 
 2. Under `resilience4j.circuitbreaker.instances.payment:`, configure the **sliding window size**, **failure-rate-threshold**, and **wait-duration-in-open-state** (Step 2). Also configure `ignoreExceptions` to exclude `InvalidCreditCardException` from tripping the circuit.
 

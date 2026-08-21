@@ -19,6 +19,7 @@ resilience4j:
     instances:
       payment:
         # TODO (Step 1): Configure 3 max attempts with exponential backoff
+        # TODO (Step 1): Configure ignoreExceptions for InvalidCreditCardException
         max-attempts: 1
   circuitbreaker:
     instances:

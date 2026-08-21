@@ -13,9 +13,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-// TODO (Step 1): Annotate with @SpringBootTest and @AutoConfigureMockMvc
-// TODO (Step 2): Write a test that creates an order, cancels it, then retrieves it
-//                and asserts the status is "CANCELLED"
+// Step 1 (provided): @SpringBootTest and @AutoConfigureMockMvc are already applied
+// Step 2: Write a test that creates an order, cancels it, then retrieves it
+//         and asserts the status is "CANCELLED"
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")

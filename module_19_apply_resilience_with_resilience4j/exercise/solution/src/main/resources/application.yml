@@ -22,6 +22,8 @@ resilience4j:
         wait-duration: 1s
         enable-exponential-backoff: true
         exponential-backoff-multiplier: 2
+        ignore-exceptions:
+          - com.ecommerce.resilience.InvalidCreditCardException
   circuitbreaker:
     instances:
       payment:

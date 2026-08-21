@@ -22,7 +22,7 @@ Before writing code, review `DESIGN.md` and answer the design questions about do
 
 ### Inventory Service (`inventory-service/`)
 
-1. In `src/main/java/com/ecommerce/inventory/InventoryController.java`, add the `@RestController` annotation (Step 1 — already provided as scaffold).
+1. In `src/main/java/com/ecommerce/inventory/InventoryController.java`, note the `@RestController` annotation is already present (Step 1).
 
 2. Create an `InventoryResponse` record with `productId` (String) and `inStock` (boolean) fields (Step 2).
 

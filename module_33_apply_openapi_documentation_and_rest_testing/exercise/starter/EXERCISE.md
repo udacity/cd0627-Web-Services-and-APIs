@@ -7,7 +7,7 @@ Frontend developers are complaining that they don't know how to use your API. Yo
 ---
 
 ## Prerequisites
-- **Java 25+**
+- **Java 23+**
 - **Maven 3.9+**
 
 ---
@@ -16,7 +16,7 @@ Frontend developers are complaining that they don't know how to use your API. Yo
 
 ### Integration Test (`OrderIntegrationTest.java`)
 
-1. Set up the integration test class with `@SpringBootTest` and `@AutoConfigureMockMvc` (Step 1).
+1. Note that `@SpringBootTest` and `@AutoConfigureMockMvc` are already applied to the test class (Step 1 — provided).
 2. Plan the test flow: POST to create an order, cancel it, then GET to verify the status changed (Step 2).
 3. Implement the POST: submit a `CreateOrderRequest` with valid `itemIds` and capture the returned `id` (Step 3).
 4. Implement the cancel: POST to `/orders/{id}/cancel` and assert **status 204 No Content** (Step 4).
@@ -24,7 +24,7 @@ Frontend developers are complaining that they don't know how to use your API. Yo
 
 ### Not Found Test (`OrderNotFoundTest.java`)
 
-6. Write a `@WebMvcTest` for the not-found scenario (Step 6).
+6. Note that `@WebMvcTest(OrderController.class)` is already applied to the test class (Step 6 — provided).
 7. Use `Mockito.when()` to make `orderService.getOrder("FAKE-999")` throw `OrderNotFoundException` (Step 7).
 8. Perform `GET /orders/FAKE-999` and assert status is **404 Not Found** (Step 8).
 9. Assert `jsonPath("$.type")` exists, `jsonPath("$.title").value("Not Found")`, and `jsonPath("$.detail")` exists.

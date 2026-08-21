@@ -11,7 +11,7 @@ public class ReviewController {
     private final ChatClient chatClient;
 
     public ReviewController(ChatClient.Builder builder) {
-        // TODO (Step 1): Build the ChatClient
+        // Step 1 (provided): ChatClient is already built from the injected builder
         this.chatClient = builder.build();
     }
 

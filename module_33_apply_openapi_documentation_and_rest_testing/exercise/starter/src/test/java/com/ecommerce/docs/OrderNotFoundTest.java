@@ -9,7 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-// TODO (Step 6): Annotate with @WebMvcTest(OrderController.class)
+// Step 6 (provided): @WebMvcTest(OrderController.class) is already applied
 // TODO (Step 7): Use Mockito.when() to make orderService.getOrder("FAKE-999")
 //                throw an OrderNotFoundException
 @WebMvcTest(OrderController.class)
